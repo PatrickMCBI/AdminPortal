@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="left-panel">
+        <div class="company-logo">
+
+        </div>
+        <div class="left-menu-wrapper">
+            <ul class="main-ul">
+                <li class="menu-item jsDashBoard">
+                    <div class="menu-item-wrapper">
+                        <i class="left-icon">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="home" class="svg-inline--fa fa-home fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="17px"><path fill="#FFF" d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"></path></svg>
+                        </i>
+                        <h4>Dashboard</h4>
+                    </div>
+                </li>
+                <li class="menu-item has-submenu">
+                    <div class="menu-item-wrapper">
+                        <i class="left-icon">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="wpforms" class="svg-inline--fa fa-wpforms" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="17px"><path fill="#FFF" d="M448 75.2v361.7c0 24.3-19 43.2-43.2 43.2H43.2C19.3 480 0 461.4 0 436.8V75.2C0 51.1 18.8 32 43.2 32h361.7c24 0 43.1 18.8 43.1 43.2zm-37.3 361.6V75.2c0-3-2.6-5.8-5.8-5.8h-9.3L285.3 144 224 94.1 162.8 144 52.5 69.3h-9.3c-3.2 0-5.8 2.8-5.8 5.8v361.7c0 3 2.6 5.8 5.8 5.8h361.7c3.2 .1 5.8-2.7 5.8-5.8zM150.2 186v37H76.7v-37h73.5zm0 74.4v37.3H76.7v-37.3h73.5zm11.1-147.3l54-43.7H96.8l64.5 43.7zm210 72.9v37h-196v-37h196zm0 74.4v37.3h-196v-37.3h196zm-84.6-147.3l64.5-43.7H232.8l53.9 43.7zM371.3 335v37.3h-99.4V335h99.4z"></path></svg>
+                        </i>
+                        <h4>Employee Travel</h4>
+                        <i>
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path fill="#FFF" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
+                        </i>
+                    </div>
+                    <ul class="sub-ul-1">
+                        <li class="submenu-item jsClickNewTravel">
+                            <h5 style="pointer-events: none">New Travel</h5>
+                        </li>
+                        <li class="submenu-item jsClickRecordsTravel">
+                            <h5 style="pointer-events: none">Travel Records</h5>
+                        </li>
+
+                    </ul>
+                </li>
+                @*<li class="menu-item has-submenu">
+                    <div class="menu-item-wrapper">
+                        <i class="left-icon">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="cabinet-filing" class="svg-inline--fa fa-cabinet-filing fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="17px"><path fill="#fff" d="M464 0H48C21.49 0 0 21.49 0 48v416c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V48c0-26.51-21.49-48-48-48zm16 464c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V272h448v192zm0-224H32V48c0-8.82 7.18-16 16-16h416c8.82 0 16 7.18 16 16v192zM336 96H176c-8.84 0-16 7.16-16 16v40c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-24h128v24c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-40c0-8.84-7.16-16-16-16zM168 416h16c4.42 0 8-3.58 8-8v-24h128v24c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-40c0-8.84-7.16-16-16-16H176c-8.84 0-16 7.16-16 16v40c0 4.42 3.58 8 8 8z"></path></svg>
+                        </i>
+                        <h4>Records</h4>
+                        <i>
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path fill="#FFF" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
+                        </i>
+                    </div>
+                    <ul class="sub-ul-1">
+                        <li class="submenu-item jsclickMenuMaterialsRecord">
+                            <h5 style="pointer-events: none">Materials Records</h5>
+                        </li>
+                    </ul>*@
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="center-panel">
+        @RenderBody()
+    </div>
+    <div class="right-panel">
+
+    </div>
+</div>

@@ -1,0 +1,110 @@
+﻿body {
+}
+
+.login-panel {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+}
+
+.login-container {
+    width: 20%;
+    padding: 30px;
+    border: 1px solid rgb(5,5,5,.3);
+    border-radius: 15px;
+}
+
+    .login-container h2 {
+        margin-bottom: 5px;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .login-container .form-group {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px 0;
+    }
+
+    .login-container a {
+        text-decoration: none;
+        color: #000000
+    }
+
+    .login-container input {
+        /*height: 35px;*/
+        /*border-radius: 3px;*/
+        border: 1px solid rgb(5,5,5,.3);
+        width: 100%;
+        padding: 15px;
+    }
+
+        .login-container input:focus {
+            outline: none;
+        }
+
+    .login-container button {
+        border: none;
+        background: #333;
+        width: 100%;
+        color: #FFF;
+        padding: 15px 0;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all .5s ease;
+        /*height: 36px;*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 30px;
+    }
+
+        .login-container button:hover {
+            background: #282424;
+        }
+
+.login-btn:disabled {
+    pointer-events: none;
+    opacity: .7;
+}
+
+.login-container .form-footer {
+    position: relative;
+    padding-top: 30px;
+    margin-bottom: 15px;
+}
+
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: 4px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: #FFF;
+    border-bottom-color: #FFF;
+    animation: spinner 1s ease infinite;
+}
+
+.login-text-wrap {
+    position: relative;
+}
+
+    .login-text-wrap i {
+        position: absolute;
+        left: 77px;
+        top: -12px;
+        transform: rotate( 317deg);
+    }

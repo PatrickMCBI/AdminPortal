@@ -1,0 +1,64 @@
+﻿
+<!DOCTYPE html>
+<html>
+@{ var UserNameID = Session["UserNameID"] ?? 0;}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - AdMS</title>
+    <link href="~/Content/common.css" rel="stylesheet" />
+    <link href="~/Content/layout.css" rel="stylesheet" />
+    <link href="~/Content/login.css" rel="stylesheet" />
+    <link href="~/Content/travel.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="app-title">
+                <p class="main-title-p">
+                    <span class="d-main-title-mcbi">AdMS</span> -
+                    <span class="d-main-title-p">Main Portal</span>
+                </p>
+
+            </div>
+            <div class="right-details">
+                @if (Session["UserNameID"] != null)
+                {
+                    <div class="user-titlewrapper">
+                        <div class="user-titlename">
+                            <span>@Session["UserFirstName"] @Session["UserLastName"]</span>
+                        </div>
+                        <div class="user-initial">
+                            <span>@Session["UserFirstName"].ToString().Substring(0, 1) @Session["UserLastName"].ToString().Substring(0, 1)</span>
+                        </div>
+                    </div>
+                    <div class="logout-container">
+
+                        <a href="javascript:void(0)" class="logout-btn jsLogoutBtn"><i style="padding-right: 10px;"><svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="lock" class="svg-inline--fa fa-lock fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="15px"><path fill="#fff" d="M400 192h-32v-46.6C368 65.8 304 .2 224.4 0 144.8-.2 80 64.5 80 144v48H48c-26.5 0-48 21.5-48 48v224c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V240c0-26.5-21.5-48-48-48zm-272-48c0-52.9 43.1-96 96-96s96 43.1 96 96v48H128v-48zm272 320H48V240h352v224z"></path></svg></i>Logout</a>
+                    </div>
+                }
+            </div>
+            <small class="title-small-topright">&#64;AdMS - Main Portal @DateTime.Now.Year</small>
+        </header>
+
+        <main>
+            @RenderBody()
+        </main>
+    </div>
+
+    <script>
+
+        var AppGlobal = {
+            baseUrl: "@Url.Content("~/")",
+            UserNameID: "@UserNameID"
+        }
+    </script>
+    <script src="~/Scripts/script_common.js"></script>
+    <script src="~/Scripts/login.js"></script>
+    <script src="~/Scripts/script_dashboard.js"></script>
+    <script src="~/Scripts/script_travel.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
