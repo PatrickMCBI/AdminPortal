@@ -42,10 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ErrorStatus.cs" />
+    <Compile Include="Interfaces\Customs\IGetTravelRequestNewReferenceData.cs" />
     <Compile Include="Interfaces\Customs\IUserLoginData.cs" />
     <Compile Include="Interfaces\Generics\IGetDatabaseData.cs" />
     <Compile Include="Interfaces\Generics\IPostDatabaseData.cs" />
     <Compile Include="Model\EmployeeTravel\EmployeeTravelReturnNewRefDataModel.cs" />
+    <Compile Include="Model\References\TravelAccomodationTypeRefDataModel.cs" />
+    <Compile Include="Model\References\TravelEmployeeNameRefDataModel.cs" />
+    <Compile Include="Model\References\TravelRequestProjectNameRefDataModel.cs" />
+    <Compile Include="Model\References\TravelRequestProjectNumberRefDataModel.cs" />
+    <Compile Include="Model\References\TravelTransportModeRefDataModel.cs" />
     <Compile Include="Model\UserLogin\UserLoginParamDataModel.cs" />
     <Compile Include="Model\UserLogin\UserLoginReturnDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
