@@ -122,6 +122,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TravelController.cs" />
+    <Compile Include="Controllers\TravelRecordController.cs" />
     <Compile Include="Controllers\UserLoginController.cs" />
     <Compile Include="Filters\UserLoginFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -137,6 +138,7 @@
     <Content Include="Content\layout.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\travel.css" />
+    <Content Include="Content\travel_record.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -171,6 +173,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
     <Content Include="Views\Travel\_TravelNew.cshtml" />
+    <Content Include="Views\TravelRecord\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">

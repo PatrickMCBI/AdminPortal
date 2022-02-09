@@ -281,3 +281,19 @@
     cursor: pointer;
 }
 /*#endregion*/
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.sort-column {
+    position: relative;
+    cursor: pointer;
+}
+.sortIcon {
+    position: absolute;
+    top: 30%;
+    right: 5px;
+}

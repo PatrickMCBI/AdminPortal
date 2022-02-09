@@ -7,15 +7,14 @@
 
 .transfer-header-title {
     font-weight: 700;
-    padding-top: 10px;
-    padding-bottom: 15px;
+    padding : 5px 0;
     font-size: 1.3rem;
 }
 
 .transfer-header-inpt {
     display: grid;
     grid-template-columns: 150px 1fr;
-    margin-bottom: 20px
+    margin-bottom: 10px
 }
 
 .transfer-formgroup {
@@ -98,13 +97,15 @@
 }
 
 .material-header-sub {
-    padding-top: 15px;
+    padding-top: 5px;
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    border-bottom: 2px groove #333;
+    grid-template-rows: auto 1fr 1fr;
+   
     background-color: #555;
 }
-
+.header-border {
+    border-bottom: 2px groove #333;
+}
 .material-header .close-form {
     display: flex;
     justify-content: end;
@@ -238,7 +239,7 @@
     display: grid;
     grid-template-columns: 150px 35% 385px auto;
     grid-column-gap: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
     .project-container label.end-label {
@@ -531,7 +532,7 @@ input:disabled {
 /*#endrrgion*/
 .travel-item-con {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
     gap: 10px;
 }
 .travel-detail-con {
@@ -541,13 +542,12 @@ input:disabled {
 }
 .travel-purpose-con {
     display: grid;
-    grid-template-columns: 1fr 100px;
+    grid-template-rows: auto 1fr;
     align-content: center;
-    padding-left: 15px;
 }
 .travel-purpose-con input {
     height: 30px;
-    width: 40%;
+    width: 100%;
 }
 .travel-itirerary-con {
     display: grid;
@@ -555,14 +555,14 @@ input:disabled {
 }
 .travel-itirerary-header {
     display: grid;
-    grid-template-columns: 60px 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 60px 1fr 1fr 1fr 1fr 100px;
     border: 1px solid #333;
     padding: 8px;
     text-align: center
 }
 .travel-itirerary-details {
     display: grid;
-    grid-template-columns: 60px 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 60px 1fr 1fr 1fr 1fr 100px;
     border-bottom: 1px solid #333;
     padding: 5px 0;
     gap: 10px;
@@ -571,3 +571,46 @@ input:disabled {
     height: 30px;
     width: 100%;
 }
+.travel-purpose-header {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr 1fr 100px;
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+}
+.travel-purpose-details {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr 1fr 100px;
+    border-bottom: 1px solid #333;
+    padding: 5px 0;
+    gap: 10px;
+}
+.travel-hotel-details {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr 1fr 1fr 100px;
+    border-bottom: 1px solid #333;
+    padding: 5px 0;
+    gap: 10px;
+}
+.travel-hotel-details input {
+    height: 30px;
+    width: 100%;
+}
+.travel-hotel-header {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr 1fr 1fr 100px;
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+}
+.purpose-container {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-column-gap: 15px;
+    margin-bottom: 10px;
+}
+    .purpose-container > .start-label {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }

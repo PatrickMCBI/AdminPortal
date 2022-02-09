@@ -1,0 +1,122 @@
+﻿
+<div class="container">
+    <div class="travel-record-container">
+        <div class="tr-record-header">
+            <div class="tr-record-title">
+                <h2>Travel Records</h2>
+            </div>
+            <form action="#" autocomplete="off">
+                <div class="tr-record-filter">
+                    <div class="trRecord-projectOrigin-filter">
+                        <label>Project Origin:</label>
+                        <div class="input-icon-wrap">
+                            <input type="text" name="ProjectOrigin" />
+                            <i class="customDropdownIcon">
+                                <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
+                            </i>
+                        </div>
+                    </div>
+                    <div class="trRecord-projectDestination-filter">
+                        <label>Project Destination:</label>
+                        <div class="input-icon-wrap">
+                            <input type="text" name="ProjectDestination" />
+                            <i class="customDropdownIcon">
+                                <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
+                            </i>
+                        </div>
+                    </div>
+                    <div class="trRecord-dateRange-filter">
+                        <div class="trRecord-dateFrom-filter">
+                            <label>From:</label>
+                            <input type="date" name="TRDateFrom" value="" />
+                        </div>
+                        <div class="trRecord-dateTo-filter">
+                            <label>To:</label>
+                            <input type="date" name="TRDateTo" value="" />
+                        </div>
+                    </div>
+                    <div class="trRecord-searchRef-filter">
+                        <label>Search Reference No.</label>
+                        <div class="input-icon-wrap">
+                            <input type="text" name="TRReferenceNo" />
+                            <div style="background: #FFF"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tr-record-body">
+            <div class="tr-recordTheader">
+                <div class="sort-column jsSortByColumn" data-sortType="sortUp">
+                    No
+                    <i class="sortUpIcon sortIcon">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-up" class="svg-inline--fa fa-sort-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M41.05 288.05h238c21.4 0 32.1 25.9 17 41l-119 119a23.9 23.9 0 0 1-33.8.1l-.1-.1-119.1-119c-15.05-15.05-4.4-41 17-41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M24.05 183.05l119.1-119A23.9 23.9 0 0 1 177 64a.94.94 0 0 1 .1.1l119 119c15.1 15.1 4.4 41-17 41h-238c-21.45-.05-32.1-25.95-17.05-41.05z"></path></g></svg>
+                    </i>
+                    <i class="sortDownIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-down" class="svg-inline--fa fa-sort-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M279.07 224.05h-238c-21.4 0-32.1-25.9-17-41l119-119a23.9 23.9 0 0 1 33.8-.1l.1.1 119.1 119c15.07 15.05 4.4 41-17 41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M296.07 329.05L177 448.05a23.9 23.9 0 0 1-33.8.1l-.1-.1-119-119c-15.1-15.1-4.4-41 17-41h238c21.37 0 32.04 25.95 16.97 41z"></path></g></svg>
+                    </i>
+                </div>
+                <div class="sort-column jsSortByColumn">
+                    Date Created
+                    <i class="sortUpIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-up" class="svg-inline--fa fa-sort-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M41.05 288.05h238c21.4 0 32.1 25.9 17 41l-119 119a23.9 23.9 0 0 1-33.8.1l-.1-.1-119.1-119c-15.05-15.05-4.4-41 17-41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M24.05 183.05l119.1-119A23.9 23.9 0 0 1 177 64a.94.94 0 0 1 .1.1l119 119c15.1 15.1 4.4 41-17 41h-238c-21.45-.05-32.1-25.95-17.05-41.05z"></path></g></svg>
+                    </i>
+                    <i class="sortDownIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-down" class="svg-inline--fa fa-sort-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M279.07 224.05h-238c-21.4 0-32.1-25.9-17-41l119-119a23.9 23.9 0 0 1 33.8-.1l.1.1 119.1 119c15.07 15.05 4.4 41-17 41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M296.07 329.05L177 448.05a23.9 23.9 0 0 1-33.8.1l-.1-.1-119-119c-15.1-15.1-4.4-41 17-41h238c21.37 0 32.04 25.95 16.97 41z"></path></g></svg>
+                    </i>
+                </div>
+                <div class="sort-column jsSortByColumn">
+                    Reference No
+                    <i class="sortUpIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-up" class="svg-inline--fa fa-sort-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M41.05 288.05h238c21.4 0 32.1 25.9 17 41l-119 119a23.9 23.9 0 0 1-33.8.1l-.1-.1-119.1-119c-15.05-15.05-4.4-41 17-41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M24.05 183.05l119.1-119A23.9 23.9 0 0 1 177 64a.94.94 0 0 1 .1.1l119 119c15.1 15.1 4.4 41-17 41h-238c-21.45-.05-32.1-25.95-17.05-41.05z"></path></g></svg>
+                    </i>
+                    <i class="sortDownIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-down" class="svg-inline--fa fa-sort-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M279.07 224.05h-238c-21.4 0-32.1-25.9-17-41l119-119a23.9 23.9 0 0 1 33.8-.1l.1.1 119.1 119c15.07 15.05 4.4 41-17 41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M296.07 329.05L177 448.05a23.9 23.9 0 0 1-33.8.1l-.1-.1-119-119c-15.1-15.1-4.4-41 17-41h238c21.37 0 32.04 25.95 16.97 41z"></path></g></svg>
+                    </i>
+                </div>
+                <div class="sort-column jsSortByColumn">
+                    Project Origin
+                    <i class="sortUpIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-up" class="svg-inline--fa fa-sort-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M41.05 288.05h238c21.4 0 32.1 25.9 17 41l-119 119a23.9 23.9 0 0 1-33.8.1l-.1-.1-119.1-119c-15.05-15.05-4.4-41 17-41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M24.05 183.05l119.1-119A23.9 23.9 0 0 1 177 64a.94.94 0 0 1 .1.1l119 119c15.1 15.1 4.4 41-17 41h-238c-21.45-.05-32.1-25.95-17.05-41.05z"></path></g></svg>
+                    </i>
+                    <i class="sortDownIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-down" class="svg-inline--fa fa-sort-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M279.07 224.05h-238c-21.4 0-32.1-25.9-17-41l119-119a23.9 23.9 0 0 1 33.8-.1l.1.1 119.1 119c15.07 15.05 4.4 41-17 41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M296.07 329.05L177 448.05a23.9 23.9 0 0 1-33.8.1l-.1-.1-119-119c-15.1-15.1-4.4-41 17-41h238c21.37 0 32.04 25.95 16.97 41z"></path></g></svg>
+                    </i>
+                </div>
+                <div class="sort-column jsSortByColumn">
+                    Project Destination
+                    <i class="sortUpIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-up" class="svg-inline--fa fa-sort-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M41.05 288.05h238c21.4 0 32.1 25.9 17 41l-119 119a23.9 23.9 0 0 1-33.8.1l-.1-.1-119.1-119c-15.05-15.05-4.4-41 17-41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M24.05 183.05l119.1-119A23.9 23.9 0 0 1 177 64a.94.94 0 0 1 .1.1l119 119c15.1 15.1 4.4 41-17 41h-238c-21.45-.05-32.1-25.95-17.05-41.05z"></path></g></svg>
+                    </i>
+                    <i class="sortDownIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-down" class="svg-inline--fa fa-sort-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M279.07 224.05h-238c-21.4 0-32.1-25.9-17-41l119-119a23.9 23.9 0 0 1 33.8-.1l.1.1 119.1 119c15.07 15.05 4.4 41-17 41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M296.07 329.05L177 448.05a23.9 23.9 0 0 1-33.8.1l-.1-.1-119-119c-15.1-15.1-4.4-41 17-41h238c21.37 0 32.04 25.95 16.97 41z"></path></g></svg>
+                    </i>
+                </div>
+                <div class="sort-column jsSortByColumn">
+                    Travel Date
+                    <i class="sortUpIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-up" class="svg-inline--fa fa-sort-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M41.05 288.05h238c21.4 0 32.1 25.9 17 41l-119 119a23.9 23.9 0 0 1-33.8.1l-.1-.1-119.1-119c-15.05-15.05-4.4-41 17-41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M24.05 183.05l119.1-119A23.9 23.9 0 0 1 177 64a.94.94 0 0 1 .1.1l119 119c15.1 15.1 4.4 41-17 41h-238c-21.45-.05-32.1-25.95-17.05-41.05z"></path></g></svg>
+                    </i>
+                    <i class="sortDownIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-down" class="svg-inline--fa fa-sort-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M279.07 224.05h-238c-21.4 0-32.1-25.9-17-41l119-119a23.9 23.9 0 0 1 33.8-.1l.1.1 119.1 119c15.07 15.05 4.4 41-17 41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M296.07 329.05L177 448.05a23.9 23.9 0 0 1-33.8.1l-.1-.1-119-119c-15.1-15.1-4.4-41 17-41h238c21.37 0 32.04 25.95 16.97 41z"></path></g></svg>
+                    </i>
+                </div>
+                <div class="sort-column jsSortByColumn">
+                    Approval Status
+                    <i class="sortUpIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-up" class="svg-inline--fa fa-sort-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M41.05 288.05h238c21.4 0 32.1 25.9 17 41l-119 119a23.9 23.9 0 0 1-33.8.1l-.1-.1-119.1-119c-15.05-15.05-4.4-41 17-41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M24.05 183.05l119.1-119A23.9 23.9 0 0 1 177 64a.94.94 0 0 1 .1.1l119 119c15.1 15.1 4.4 41-17 41h-238c-21.45-.05-32.1-25.95-17.05-41.05z"></path></g></svg>
+                    </i>
+                    <i class="sortDownIcon sortIcon" style="display: none">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-down" class="svg-inline--fa fa-sort-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="18px"><g class="fa-group"><path class="fa-secondary" fill="#FFF" d="M279.07 224.05h-238c-21.4 0-32.1-25.9-17-41l119-119a23.9 23.9 0 0 1 33.8-.1l.1.1 119.1 119c15.07 15.05 4.4 41-17 41z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M296.07 329.05L177 448.05a23.9 23.9 0 0 1-33.8.1l-.1-.1-119-119c-15.1-15.1-4.4-41 17-41h238c21.37 0 32.04 25.95 16.97 41z"></path></g></svg>
+                    </i>
+                </div>
+            </div>
+            <div class="tr-recordTbody">
+
+            </div>
+        </div>
+        <div class="tr-record-footer">
+
+        </div>
+    </div>
+</div>

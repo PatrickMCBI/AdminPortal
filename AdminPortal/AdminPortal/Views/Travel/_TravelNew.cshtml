@@ -29,31 +29,151 @@
                 <div class="subtitle-header">
                     <h3 class="items-title-h3">Travel Information</h3>
                 </div>
-                
+
                 <button class="transferHeaderBtn jsSaveMaterialMasterBtn" id="new">Save</button>
                 <i class="items-arrow-i">
                     <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="16px"><path fill="currentColor" d="M151.5 347.8L3.5 201c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 282.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0z"></path></svg>
                 </i>
             </div>
-            <div class="jsMaterialHeader">
-                <div class="transfer-header">
-                    <div class="transfer-formgroup">
-                        <div class="transfer-header-title">
-                            <label>Project Of Concerns</label>
+            <div class="jsMaterialHeader header-border">
+                <div class="material-header-sub">
+
+                    <div class="transfer-header-title">
+                        <label>Project Origin</label>
+                    </div>
+                    <div class="project-container">
+                        <label class="start-label">Project Number:</label>
+                        <div class="form-groups input-icon-wrap">
+                            <input type="text" name="pojectNumber" class="customDropdownInput jsProjectNumber" autocomplete="off" data-propertyname="ProjectNUmber" data-propertyid="ProjectID" data-sourcetype="bst" required="">
+                            <i class="customDropdownIcon">
+                                <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
+                            </i>
+                            <ul class="customDropdownUL" style="display: none"></ul>
                         </div>
-                        <div>
-                            <div class="transfer-header-inpt">
-                                <label>Project Number: </label>
-                                <div class=" input-icon-wrap">
-                                    <input type="text" name="pojectNumberOrigin" class="customDropdownInput jsProjectNumberOrigin" autocomplete="off" data-propertyName="ProjectName" data-propertyID="ProjectID" data-sourceType="bst" required />
-                                    <i class="customDropdownIcon">
-                                        <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
-                                    </i>
-                                    <ul class="customDropdownUL" style="display: none"></ul>
-                                </div>
+                        <label class="end-label">Request No:</label>
+                        <input type="text" name="requestNumber" class="jsRequestNo" disabled="">
+                    </div>
+                    <div class="project-container">
+                        <label class="start-label">Project Name:</label>
+                        <div class="form-groups input-icon-wrap">
+
+                            <input type="text" name="projectName" autocomplete="off" class=" jsProjectName" data-propertyname="ProjectName" data-propertyid="ProjectID" data-sourcetype="bst" required="">
+                            <i class="customDropdownIcon">
+                                <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
+                            </i>
+                            <ul class="customDropdownUL" style="display: none"></ul>
+                        </div>
+                        <label class="end-label">Request Date:</label>
+                        <input type="date" name="name" class="jsPojectDate">
+                    </div>
+                </div>
+                <div class="material-header-sub">
+
+                    <div class="transfer-header-title">
+                        <label>Project Destination</label>
+                    </div>
+                    <div class="project-container">
+                        <label class="start-label">Project Number:</label>
+                        <div class="form-groups input-icon-wrap">
+                            <input type="text" name="pojectNumber" class="customDropdownInput jsProjectNumber" autocomplete="off" data-propertyname="ProjectNUmber" data-propertyid="ProjectID" data-sourcetype="bst" required="">
+                            <i class="customDropdownIcon">
+                                <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
+                            </i>
+                            <ul class="customDropdownUL" style="display: none"></ul>
+                        </div>
+                        <label class="end-label">Travel Date:</label>
+                        <input type="date" name="dateOftravel" class="jsDateOfTravel">
+                    </div>
+                    <div class="project-container">
+                        <label class="start-label">Project Name:</label>
+                        <div class="form-groups input-icon-wrap">
+
+                            <input type="text" name="projectName" autocomplete="off" class=" jsProjectName" data-propertyname="ProjectName" data-propertyid="ProjectID" data-sourcetype="bst" required="">
+                            <i class="customDropdownIcon">
+                                <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
+                            </i>
+                            <ul class="customDropdownUL" style="display: none"></ul>
+                        </div>
+                        <label class="end-label">Baggage Weight:</label>
+                        <input type="text" name="baggage" class="jsBaggageTravel" placeholder="(kgs)">
+                    </div>
+                </div>
+                <div class="project-container">
+                    <label class="start-label">Purpose of Travel:</label>
+                    <div class="form-groups input-icon-wrap">
+                        <input type="text" name="puposeOfTravel" class="puposeOfTravel" />
+                    </div>
+                </div>
+             </div>
+        </div>
+        <div class="travel-item-con">
+
+            <div class="travel-detail-con">
+                <div class="materials-header-con">
+                    <h3 class="items-title-h3">List of Traveler</h3>
+                    <button class="jsAddTravelers add-items-btn"> Add</button>
+                    <i class="items-arrow-i">
+                        <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="16px"><path fill="currentColor" d="M151.5 347.8L3.5 201c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 282.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0z"></path></svg>
+                    </i>
+                </div>
+                <div class="travel-purpose-con">
+                    <div class="travel-purpose-header">
+                        <div>No</div>
+                        <div>Name of Travellers</div>
+                        <div>Position</div>
+                        <div>Employee Number</div>
+                    </div>
+                    <div>
+                        <div class="travel-purpose-details">
+                            <div class="flex-center">
+                                <label>1</label>
                             </div>
-                            <div class="transfer-header-inpt">
-                                <label>Project Name: </label>
+                            <div><input type="text" name="name" value="" /></div>
+                            <div><input type="text" name="name" value="" /></div>
+                            <div><input type="text" name="name" value="" /></div>
+                            <div class="option-btn jsUnsaved">
+                                <button class="save-material-details success-btn jsSaveDetail" id="saveDetails">
+                                    <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" class="svg-inline--fa fa-check fa-w-16 saveIcon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="13px"><path fill="#FFF" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg>
+                                </button>
+                                <button class="remove-material-details remove-btn jsRemoveDetail" id="removeDetails">
+                                    <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13px"><path fill="#FFF" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="travel-detail-con">
+                <div class="materials-header-con">
+                    <h3 class="items-title-h3">Itinerary Details</h3>
+                    <button class="jsAddItenerary add-items-btn"> Add</button>
+                    <i class="items-arrow-i">
+                        <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="16px"><path fill="currentColor" d="M151.5 347.8L3.5 201c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 282.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0z"></path></svg>
+                    </i>
+                </div>
+                <div class="travel-itirerary-con">
+                    <div class="travel-itirerary-header">
+                        <div>No</div>
+                        <div>From</div>
+                        <div>To</div>
+                        <div>Mode Of Transport</div>
+                        <div>Fare</div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div class="travel-itirerary-details">
+                            <div class="flex-center">
+                                <label>1</label>
+                            </div>
+                            <div>
+                                <input type="text" name="name" />
+                            </div>
+                            <div>
+                                <input type="text" name="name" />
+                            </div>
+                            <div>
                                 <div class=" input-icon-wrap">
                                     <input type="text" name="pojectNameOrigin" class="customDropdownInput jsPojectNameOrigin" autocomplete="off" data-propertyName="ProjectName" data-propertyID="ProjectID" data-sourceType="bst" required />
                                     <i class="customDropdownIcon">
@@ -62,134 +182,73 @@
                                     <ul class="customDropdownUL" style="display: none"></ul>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="transfer-formgroup">
-                        <div class="transfer-header-title">
-                            <label style="visibility:hidden"> - </label>
-                        </div>
-                        <div>
-                            <div class="transfer-header-inpt">
-                                <label>Travel Ref. No. : </label>
-                                <div class="">
-                                    <input type="text" name="pojectNumberDestination" class="customDropdownInput jsProjectNumberDestination" disabled />
-                                    
-                                </div>
+                            <div>
+                                <input type="text" name="name" />
                             </div>
-                            <div class="transfer-header-inpt">
-                                <label>Date Requested: </label>
-                                <div class=" ">
-                                    <input type="date" name="pojectNameDestination" class="customDropdownInput jsProjectNameDestination" required />
-                                   
-                                </div>
+                            <div class="option-btn jsUnsaved">
+                                <button class="save-material-details success-btn jsSaveDetail" id="saveDetails">
+                                    <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" class="svg-inline--fa fa-check fa-w-16 saveIcon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="13px"><path fill="#FFF" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg>
+                                </button>
+                                <button class="remove-material-details remove-btn jsRemoveDetail" id="removeDetails">
+                                    <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13px"><path fill="#FFF" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
+                                </button>
                             </div>
                         </div>
-
                     </div>
 
-                </div>
-
-            </div>
-        </div>
-        <div class="travel-item-con">
-            <div class="travel-detail-con">
-                <div class="materials-header-con">
-                    <h3 class="items-title-h3">LIST OF TRAVELER</h3>
-                    <button class="jsAddItemBtn add-items-btn"> Add</button>
-                    <i class="items-arrow-i">
-                        <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="16px"><path fill="currentColor" d="M151.5 347.8L3.5 201c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 282.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0z"></path></svg>
-                    </i>
-                </div>
-                <div class="travel-purpose-con">
-                    <div><input type="text" name="name" value="" /></div>
-                    <div class="option-btn jsUnsaved">
-                        <button class="save-material-details success-btn jsSaveDetail" id="saveDetails">
-                            <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" class="svg-inline--fa fa-check fa-w-16 saveIcon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="13px"><path fill="#FFF" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg>
-                        </button>
-                        <button class="remove-material-details remove-btn jsRemoveDetail" id="removeDetails">
-                            <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13px"><path fill="#FFF" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
-                        </button>
-                    </div>
                 </div>
             </div>
             <div class="travel-detail-con">
                 <div class="materials-header-con">
-                    <h3 class="items-title-h3">ITIRERARY DETAILS</h3>
-                    <button class="jsAddItemBtn add-items-btn"> Add</button>
+                    <h3 class="items-title-h3">Accomodation Details</h3>
+                    <button class="jsAddAccomodation add-items-btn"> Add</button>
                     <i class="items-arrow-i">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="16px"><path fill="currentColor" d="M151.5 347.8L3.5 201c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 282.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0z"></path></svg>
                     </i>
                 </div>
-                <div class="travel-itirerary-con">
-                    <div class="travel-itirerary-header">
-                        <div>NO</div>
-                        <div>FROM</div>
-                        <div>TO</div>
-                        <div>MODE OF TRANSPORT</div>
-                        <div>FARE</div>
-                        <div>#</div>
-                    </div>
-                    <div class="travel-itirerary-details">
-                        <div>
+                <div class="travel-hotel-header">
+                    <div>No</div>
+                    <div>Accomodation Type</div>
+                    <div>No. of Days</div>
+                    <div>Cost</div>
+                    <div>Total</div>
+                </div>
+                <div class="travel-hotel-details-con">
+                    <div class="travel-hotel-details">
+                        <div class="flex-center">
                             <label>1</label>
                         </div>
-                        <div>
-                            <input type="text" name="name" />
+                        <div class=" input-icon-wrap">
+                            <input type="text" name="pojectNameOrigin" class="customDropdownInput jsPojectNameOrigin" autocomplete="off" data-propertyName="ProjectName" data-propertyID="ProjectID" data-sourceType="bst" required />
+                            <i class="customDropdownIcon">
+                                <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
+                            </i>
+                            <ul class="customDropdownUL" style="display:none;">
+                                <li>Hotel</li>
+                                <li>Lodge</li>
+                                <li>INN</li>
+                            </ul>
                         </div>
-                        <div>
-                            <input type="text" name="name" />
-                        </div>
-                        <div>
-                            <div class=" input-icon-wrap">
-                                <input type="text" name="pojectNameOrigin" class="customDropdownInput jsPojectNameOrigin" autocomplete="off" data-propertyName="ProjectName" data-propertyID="ProjectID" data-sourceType="bst" required />
-                                <i class="customDropdownIcon">
-                                    <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
-                                </i>
-                                <ul class="customDropdownUL" style="display: none"></ul>
-                            </div>
-                        </div>
-                        <div>
-                            <input type="text" name="name" />
+                        <input type="text" name="name" />
+                        <input type="text" name="name" />
+                        <input type="text" name="name" />
+                        <div class="option-btn jsUnsaved">
+                            <button class="save-material-details success-btn jsSaveDetail" id="saveDetails">
+                                <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" class="svg-inline--fa fa-check fa-w-16 saveIcon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="13px"><path fill="#FFF" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg>
+                            </button>
+                            <button class="remove-material-details remove-btn jsRemoveDetail" id="removeDetails">
+                                <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13px"><path fill="#FFF" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
+                            </button>
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="travel-detail-con">
-                <div class="materials-header-con">
-                    <h3 class="items-title-h3">ACCOMODATION DETAILS</h3>
-                    <button class="jsAddItemBtn add-items-btn"> Add</button>
-                    <i class="items-arrow-i">
-                        <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="16px"><path fill="currentColor" d="M151.5 347.8L3.5 201c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 282.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0z"></path></svg>
-                    </i>
-                </div>
-            </div>
-            <div class="travel-detail-con">
-                <div class="materials-header-con">
-                    <h3 class="items-title-h3">BILL OF ALLOWANCE</h3>
-                    <button class="jsAddItemBtn add-items-btn"> Add</button>
-                    <i class="items-arrow-i">
-                        <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="16px"><path fill="currentColor" d="M151.5 347.8L3.5 201c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 282.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0z"></path></svg>
-                    </i>
-                </div>
-            </div>
-            <div class="travel-detail-con">
-                <div class="materials-header-con">
-                    <h3 class="items-title-h3">PURPOSE OF TRAVEL</h3>
-                    <button class="jsAddItemBtn add-items-btn"> Add</button>
-                    <i class="items-arrow-i">
-                        <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="16px"><path fill="currentColor" d="M151.5 347.8L3.5 201c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 282.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0z"></path></svg>
-                    </i>
-                </div>
-                <div class="travel-purpose-con">
-                    <div><input type="text" name="name" value="" /></div>
-                    <div class="option-btn jsUnsaved">
-                        <button class="save-material-details success-btn jsSaveDetail" id="saveDetails">
-                            <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" class="svg-inline--fa fa-check fa-w-16 saveIcon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="13px"><path fill="#FFF" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg>
-                        </button>
-                        <button class="remove-material-details remove-btn jsRemoveDetail" id="removeDetails">
-                            <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13px"><path fill="#FFF" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
-                        </button>
-                    </div>
+                <div class="materials-header-con" style="grid-template-columns: 1fr 250px 30px;">
+                    <h3 class="items-title-h3">Grand Total</h3>
+                    <div style="display: flex;align-items: center;"><b> P 1,000</b></div>
+                    <div></div>
                 </div>
             </div>
             
