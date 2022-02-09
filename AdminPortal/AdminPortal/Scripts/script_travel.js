@@ -177,6 +177,33 @@
 
         travelGlobalFunc.centerPanel.appendChild(travelContainer);
 
+        LoadReferenceData(travelContainer);
+    }
+    async function LoadReferenceData(travelContainer) {
+        const data = await fetchDataGet(AppGlobal.baseUrl + 'Travel/GetTravelNewRefData');
+        console.log(data);
+        AssignEventListener(travelContainer);
+    }
+    function AssignEventListener(travelContainer) {
+
+        travelContainer.querySelector('.jsAddTravelers').addEventListener('click', travelGlobalFunc.AddTravelersView);
+        travelContainer.querySelector('.jsAddItenerary').addEventListener('click', travelGlobalFunc.AddIteneraryView);
+        travelContainer.querySelector('.jsAddAccomodation').addEventListener('click', travelGlobalFunc.AddAccomodationView);
+
+        //DropdownList();
+        //DropdownList();
+        //DropdownList();
+        //DropdownList();
+
+
+        travelContainer.querySelector('.jsSendToAccounting').addEventListener('click', function () { });
+
+        travelContainer.querySelector('.jsAddTravelers').click();
+        travelContainer.querySelector('.jsAddItenerary').click();
+        travelContainer.querySelector('.jsAddAccomodation').click();
+
+
+
     }
 })();
 
