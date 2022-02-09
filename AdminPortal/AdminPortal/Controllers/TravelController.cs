@@ -14,5 +14,9 @@ namespace AdminPortal.Controllers
         {
             return PartialView("~/Views/Travel/_TravelNew.cshtml");
         }
+        //public JsonResult GetTravelNewRefData()
+        //{
+
+        //}
     }
 }

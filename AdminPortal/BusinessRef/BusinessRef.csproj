@@ -45,6 +45,7 @@
     <Compile Include="Interfaces\Customs\IUserLoginData.cs" />
     <Compile Include="Interfaces\Generics\IGetDatabaseData.cs" />
     <Compile Include="Interfaces\Generics\IPostDatabaseData.cs" />
+    <Compile Include="Model\EmployeeTravel\EmployeeTravelReturnNewRefDataModel.cs" />
     <Compile Include="Model\UserLogin\UserLoginParamDataModel.cs" />
     <Compile Include="Model\UserLogin\UserLoginReturnDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
