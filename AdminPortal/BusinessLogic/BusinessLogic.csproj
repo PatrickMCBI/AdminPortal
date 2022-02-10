@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmployeeTravel\EmployeeTravelNewRefDataLogic.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestIndividualRecordDataLogic.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestRecordRefDataLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserLogin\UserLoginDataLogic.cs" />
   </ItemGroup>
