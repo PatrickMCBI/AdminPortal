@@ -67,7 +67,7 @@ input[name=TRDateTo] {
 }
 .tr-recordTbodyItems div {
     text-align: center;
-    font-size: 15px;
+    font-size: 14px;
     padding: 10px 5px;
 }
 .no-record-found {
