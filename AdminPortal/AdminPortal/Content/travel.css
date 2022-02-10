@@ -77,6 +77,10 @@
     border-right: 2px groove #d3d3d3;
     border-left: 2px groove #d3d3d3;
 }
+.transferHeaderBtn:hover {
+    cursor: pointer;
+    background-color: #878787;
+}
 
 /*#region  start CSS for Materials New*/
 .material-header-wrapper {
@@ -357,7 +361,7 @@
 }
 
 .display-none {
-    display: none
+    display: none !important;
 }
 
 .mrNoRecordsTableDetailsTr {
@@ -487,10 +491,6 @@
         column-gap: 5px;
     }
 /*#endregion end CSS for Materials Records */
-
-.display-none {
-    display: none;
-}
 
 input:disabled {
     background-color: #fff;

@@ -25,12 +25,12 @@
                 </div>
 
             </div>
-            <div class="transfer-info-header jsMaterialHeaderBtn">
+            <div class="transfer-info-header jstravelHeader">
                 <div class="subtitle-header">
                     <h3 class="items-title-h3">Travel Information</h3>
                 </div>
 
-                <button class="transferHeaderBtn jsSaveMaterialMasterBtn" id="new">Save</button>
+                <button class="transferHeaderBtn jstravelHeaderBtn" id="new">Save</button>
                 <i class="items-arrow-i">
                     <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="16px"><path fill="currentColor" d="M151.5 347.8L3.5 201c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 282.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0z"></path></svg>
                 </i>
@@ -44,27 +44,27 @@
                     <div class="project-container">
                         <label class="start-label">Project Number:</label>
                         <div class="form-groups input-icon-wrap">
-                            <input type="text" name="pojectNumber" class="customDropdownInput jsProjectNumber" autocomplete="off" data-propertyname="ProjectNUmber" data-propertyid="ProjectID" data-sourcetype="bst" required="">
+                            <input type="text" name="pojectNumber" class="customDropdownInput jsProjectNumberOrigin" autocomplete="off" data-propertyname="ProjectNumber" data-propertyid="ProjectID" data-sourcetype="bst" required="">
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
                             <ul class="customDropdownUL" style="display: none"></ul>
                         </div>
                         <label class="end-label">Request No:</label>
-                        <input type="text" name="requestNumber" class="jsRequestNo" disabled="">
+                        <input type="text" name="requestNumber" class="jsRequestNo" id="jsRequestNo" disabled="">
                     </div>
                     <div class="project-container">
                         <label class="start-label">Project Name:</label>
                         <div class="form-groups input-icon-wrap">
 
-                            <input type="text" name="projectName" autocomplete="off" class=" jsProjectName" data-propertyname="ProjectName" data-propertyid="ProjectID" data-sourcetype="bst" required="">
+                            <input type="text" name="projectName" autocomplete="off" class=" jsProjectNameOrign" data-propertyname="ProjectName" data-propertyid="ProjectID" data-sourcetype="bst" >
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
                             <ul class="customDropdownUL" style="display: none"></ul>
                         </div>
                         <label class="end-label">Request Date:</label>
-                        <input type="date" name="name" class="jsPojectDate">
+                        <input type="date" name="name" class="jsPojectDate" required/>
                     </div>
                 </div>
                 <div class="material-header-sub">
@@ -75,27 +75,27 @@
                     <div class="project-container">
                         <label class="start-label">Project Number:</label>
                         <div class="form-groups input-icon-wrap">
-                            <input type="text" name="pojectNumber" class="customDropdownInput jsProjectNumber" autocomplete="off" data-propertyname="ProjectNUmber" data-propertyid="ProjectID" data-sourcetype="bst" required="">
+                            <input type="text" name="pojectNumber" class="customDropdownInput jsProjectNumberDestination" autocomplete="off" data-propertyname="ProjectNumber" data-propertyid="ProjectID" data-sourcetype="bst" required="">
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
                             <ul class="customDropdownUL" style="display: none"></ul>
                         </div>
                         <label class="end-label">Travel Date:</label>
-                        <input type="date" name="dateOftravel" class="jsDateOfTravel">
+                        <input type="date" name="dateOftravel" class="jsDateOfTravel"required/>
                     </div>
                     <div class="project-container" style="grid-template-columns: 150px 35% 140px auto;">
                         <label class="start-label">Project Name:</label>
                         <div class="form-groups input-icon-wrap">
 
-                            <input type="text" name="projectName" autocomplete="off" class=" jsProjectName" data-propertyname="ProjectName" data-propertyid="ProjectID" data-sourcetype="bst" required="">
+                            <input type="text" name="projectName" autocomplete="off" class=" jsProjectNameDestination" data-propertyname="ProjectName" data-propertyid="ProjectID" data-sourcetype="bst" >
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
                             <ul class="customDropdownUL" style="display: none"></ul>
                         </div>
                         <label class="end-label">Purpose of Travel:</label>
-                        <input type="text" name="puposeOfTravel" class="puposeOfTravel" />
+                        <input type="text" name="puposeOfTravel" class="jsPuposeOfTravel" required/>
                     </div>
                 </div>
 
@@ -186,7 +186,7 @@
                     <i>
                         <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="paper-plane" class="svg-inline--fa fa-paper-plane fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="16px"><path fill="#222" d="M464 4.3L16 262.7C-7 276-4.7 309.9 19.8 320L160 378v102c0 30.2 37.8 43.3 56.7 20.3l60.7-73.8 126.4 52.2c19.1 7.9 40.7-4.2 43.8-24.7l64-417.1C515.7 10.2 487-9 464 4.3zM192 480v-88.8l54.5 22.5L192 480zm224-30.9l-206.2-85.2 199.5-235.8c4.8-5.6-2.9-13.2-8.5-8.4L145.5 337.3 32 290.5 480 32l-64 417.1z"></path></svg>
                     </i>
-                    Send To Accounting
+                    Send To Eng.
                 </button>
             </div>
 
