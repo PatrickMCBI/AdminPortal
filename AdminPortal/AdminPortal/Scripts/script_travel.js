@@ -71,6 +71,8 @@
                 }
             }
         });
+
+        return parseDoc;
     },
     AddIteneraryView: function (e) {
         const travelContainer = e.currentTarget.closest('.material-wrapper');
@@ -261,9 +263,77 @@
         grandTotal = parseFloat(fareTotal + accomodationTotal);
         console.log(grandTotal);
         travelContainer.querySelector('.jsGrandTotal b').textContent = 'P ' + NumberWithCommas(grandTotal);
+    },
+
+    enableFormHeader: function (travelContainer) {
+        travelContainer.querySelectorAll('input').forEach((item) => {
+            if (item.id != 'jsRequestNo') {
+                item.removeAttribute('disabled', 'disabled');
+            }
+
+        });
+
+        travelContainer.querySelectorAll('.customDropdownIcon').forEach((item) => {
+            item.classList.remove('display-none');
+        });
+
+        travelContainer.querySelector('.jstravelHeaderBtn').setAttribute('id', 'new');
+        travelContainer.querySelector('.jstravelHeaderBtn').textContent = 'Save';
+    },
+
+    disableFormHeader: function (travelContainer) {
+        travelContainer.querySelectorAll('input').forEach((item) => {
+            item.setAttribute('disabled', 'disabled');
+        });
+
+        travelContainer.querySelectorAll('.customDropdownIcon').forEach((item) => {
+            item.classList.add('display-none');
+        });
+
+        travelContainer.querySelector('.jstravelHeaderBtn').setAttribute('id', 'edit');
+        travelContainer.querySelector('.jstravelHeaderBtn').textContent = 'Edit';
+    },
+
+    populateIndividualRecord: function (doc, data) {
+        console.log(data);
+
+        //display the TravelRequestHeader
+        (function displayTravelRequestHeader() {
+            let wrapper = doc.querySelector('.material-header-wrapper');
+            let headerData = data.HeaderList;
+
+            wrapper.querySelector('input.jsProjectNumberOrigin').value = headerData.ProjectNumberOrigin;
+            wrapper.querySelector('input.jsProjectNameOrign').value = headerData.ProjectNameOrigin;
+            wrapper.querySelector('input.jsRequestNo').value = headerData.ReferenceNo;
+            wrapper.querySelector('input.jsPojectDate').value = ToJavascriptDate(headerData.FormDate);
+            wrapper.querySelector('input.jsProjectNumberDestination').value = headerData.ProjectNumberDestination;
+            wrapper.querySelector('input.jsDateOfTravel').value = ToJavascriptDate(headerData.TravelDate);
+            wrapper.querySelector('input.jsProjectNameDestination').value = headerData.ProjectNameDestination;
+            wrapper.querySelector('input.jsPuposeOfTravel').value = headerData.TravelPurpose;
+            wrapper.querySelector('.jstravelHeader').setAttribute('documentref-id', headerData.DocumentRefID);
+
+
+            //disable travel request header inputs
+            travelGlobalFunc.disableFormHeader(wrapper);
+        })();
+
+
+        //display list of traveler
+        (function displayListOfTraveler() {
+
+            let addTravelerBtn = doc.querySelector('.jsAddTravelers');
+
+            let travelerList = data.EmployeeDetailList;
+
+            travelerList.forEach((item) => {
+
+            });
+
+        })();
     }
-    
 };
+
+
 (function TravelNew() {
     let menuBtn;
     menuBtn = document.querySelector('.jsClickNewTravel');
@@ -549,11 +619,20 @@
 
         let individualData = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/TravelRequestIndividualRecord/?documentRefID=' + documentRefID);
 
-        console.log(individualData);
+        //add data into bst
+        travelGlobalFunc.ProjectNumberBST = LoadDataToBST(individualData.ProjectNumberList, 'ProjectID');
+        travelGlobalFunc.ProjectNameBST = LoadDataToBST(individualData.ProjectNameList, 'ProjectID');
+        travelGlobalFunc.EmployeeNameBST = LoadDataToBST(individualData.EmployeeList, 'ID');
 
+        //add data into linked list
+        travelGlobalFunc.AccomodationTypeLL = LoadDataToLinkedList(individualData.AccomodationTypeList);
+        travelGlobalFunc.ModeOfTransportLL = LoadDataToLinkedList(individualData.TransportModeList);
+
+        //append view in center panel
         travelGlobalFunc.centerPanel.appendChild(parser);
 
-
+        //populate individual data
+        travelGlobalFunc.populateIndividualRecord(parser, individualData);
 
         //create more functions here
 

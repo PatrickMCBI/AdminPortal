@@ -140,6 +140,7 @@ namespace DataAccess.EmployeeTravel
                                 refDataModel.HeaderList.LocationStatusDate = reader["LocationStatusDate"] as DateTime? ?? default;
                                 refDataModel.HeaderList.PreparedByName = reader["PreparedByName"].ToString();
                                 refDataModel.HeaderList.ApprovedByName = reader["ApprovedByName"].ToString();
+                                refDataModel.HeaderList.TravelPurpose = reader["TravelPurpose"].ToString();
 
                                 reader.NextResult();
                                 refDataModel.EmployeeDetailList = new List<TravelRequestIndividualRecordEmployeeDetailDataModel>();

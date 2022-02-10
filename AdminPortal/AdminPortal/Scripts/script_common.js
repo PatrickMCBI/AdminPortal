@@ -493,6 +493,16 @@ function LoadDataToBST(listData, targetProperty) {
     return BST
 }
 
+function LoadDataToLinkedList(data) {
+    let ll = new LinkedList();
+
+    data.forEach(item => {
+        ll.push(item);
+    });
+
+    return ll;
+}
+
 //-------------Alert Type and Messages---------------------//
 const alertMessages = {
     saveSuccessfull: 'Save Successfull!',
