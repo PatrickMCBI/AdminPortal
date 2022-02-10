@@ -71,6 +71,7 @@
                 }
             }
         });
+        DropdownList(travelContainer.querySelector('.jsTravelerName'), travelGlobalFunc.EmployeeNameBST, function (obj) { });
     },
     AddIteneraryView: function (e) {
         const travelContainer = e.currentTarget.closest('.material-wrapper');
@@ -149,6 +150,7 @@
                 }
             }
         });
+        DropdownList(travelContainer.querySelector('.jsModeOfTransport'), travelGlobalFunc.ModeOfTransportLL, function (obj) { });
     },
     AddAccomodationView: function (e) {
         const travelContainer = e.currentTarget.closest('.material-wrapper');
@@ -240,6 +242,7 @@
             }
 
         });
+        DropdownList(travelContainer.querySelector('.jsAccomodationName'), travelGlobalFunc.AccomodationTypeLL, function (obj) { });
     },
     GrandTotalForTravel: function (travelContainer) {
         let grandTotal = 0;
@@ -427,9 +430,9 @@
                         travelContainer.querySelector('.jsAddItenerary').click();
                         travelContainer.querySelector('.jsAddAccomodation').click();
 
-                        DropdownList(travelContainer.querySelector('.jsTravelerName'), travelGlobalFunc.EmployeeNameBST, function (obj) { });
-                        DropdownList(travelContainer.querySelector('.jsModeOfTransport'), travelGlobalFunc.ModeOfTransportLL, function (obj) { });
-                        DropdownList(travelContainer.querySelector('.jsAccomodationName'), travelGlobalFunc.AccomodationTypeLL, function (obj) { });
+                     
+                        
+                       
 
                     }
                 }
