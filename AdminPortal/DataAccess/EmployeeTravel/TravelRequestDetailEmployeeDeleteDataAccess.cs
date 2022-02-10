@@ -5,18 +5,19 @@ using System.Data.SqlClient;
 
 using BusinessRef.Interfaces.Generics;
 using BusinessRef.Model.EmployeeTravel;
-using model = BusinessRef.Model.References.StatusCodeNumberReturnRefDataModel;
+
+using model = BusinessRef.Model.EmployeeTravel.TravelRequestDetailReturnEmployeeDeleteDataModel;
 
 namespace DataAccess.EmployeeTravel
 {
-    public class TravelRequestDetailUpdateEmployeeNameDataAccess : IPostDatabaseData<model>
+    public class TravelRequestDetailEmployeeDeleteDataAccess : IPostDatabaseData<model>
     {
-        private readonly TravelRequestDetailParamEmployeeNameUpdateDataModel _detailParamUpdateDataModel;
-
-        public TravelRequestDetailUpdateEmployeeNameDataAccess(TravelRequestDetailParamEmployeeNameUpdateDataModel detailParamUpdateDataModel)
+        private readonly TravelRequestDetailParamEmployeeDeleteDataModel _dataModel;
+        public TravelRequestDetailEmployeeDeleteDataAccess(TravelRequestDetailParamEmployeeDeleteDataModel dataModel)
         {
-            _detailParamUpdateDataModel = detailParamUpdateDataModel;
+            _dataModel = dataModel;
         }
+
         public model PostDatabaseData()
         {
             string connString = ConfigurationManager.ConnectionStrings["ERP_DBCS"].ConnectionString;
@@ -29,14 +30,11 @@ namespace DataAccess.EmployeeTravel
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = con;
-                    cmd.CommandText = "[adms.travel].[spTravelRequestEmployeeDetailUpdateData]";
+                    cmd.CommandText = "[adms.travel].[spTravelRequestEmployeeDetailDeleteData]";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@EmployeeDetailID", SqlDbType = SqlDbType.Int, Value = _detailParamUpdateDataModel.EmployeeDetailID });
-                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@DocumentRefID", SqlDbType = SqlDbType.Int, Value = _detailParamUpdateDataModel.DocumentRefID });
-                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@EmployeeID", SqlDbType = SqlDbType.Int, Value = _detailParamUpdateDataModel.EmployeeID });
-                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@BaggageWeight", SqlDbType = SqlDbType.Float, Value = _detailParamUpdateDataModel.BaggageWeight });
-                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@UserNameID", SqlDbType = SqlDbType.Int, Value = _detailParamUpdateDataModel.UserNameID });
+                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@EmployeeDetailID", SqlDbType = SqlDbType.Int, Value = _dataModel.EmployeeDetailID });
+                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@UserNameID", SqlDbType = SqlDbType.Int, Value = _dataModel.UserNameID });
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -59,15 +57,12 @@ namespace DataAccess.EmployeeTravel
                                 reader.Read();
                                 masterDataReturn.StatusCodeNumber = Convert.ToInt32(reader["StatusCodeNumber"]);
 
-
                             }
 
                         }
                     }
 
                 }
-
-
             }
 
             return masterDataReturn;

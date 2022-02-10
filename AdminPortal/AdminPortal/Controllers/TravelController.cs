@@ -95,5 +95,35 @@ namespace AdminPortal.Controllers
 
             return Json(detailNewData.GetDmlTravelRequestSendToEngData(), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult TravelRequestDetailEmployeeDelete(TravelRequestDetailParamEmployeeDeleteDataModel model)
+        {
+            model.UserNameID = Session["UserNameID"] as int? ?? default;
+
+            ITravelRequestDetailEmployeeDeleteData data = new TravelRequestDetailEmployeeDeleteDataLogic(model);
+
+            return Json(data.TravelRequestDetailEmployeeDeleteData(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult TravelRequestDetailItineraryDelete(TravelRequestDetailParamItineraryDeleteDataModel model)
+        {
+            model.UserNameID = Session["UserNameID"] as int? ?? default;
+
+            ITravelRequestDetailItineraryDeleteData data = new TravelRequestDetailItineraryDeleteDataLogic(model);
+
+            return Json(data.TravelRequestDetailItineraryDeleteData(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult TravelRequestDetailAccomodationDelete(TravelRequestDetailParamAccomodationDeleteDataModel model)
+        {
+            model.UserNameID = Session["UserNameID"] as int? ?? default;
+
+            ITravelRequestDetailAccomodationDeleteData data = new TravelRequestDetailAccomodationDeleteDataLogic(model);
+
+            return Json(data.TravelRequestDetailAccomodationDeleteData());
+        }
     }
 }

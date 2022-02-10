@@ -167,7 +167,8 @@ namespace DataAccess.EmployeeTravel
                                         From = reader["From"].ToString(),
                                         To = reader["To"].ToString(),
                                         TransportModeID = reader["TransportModeID"] as int? ?? default,
-                                        TransportMode = reader["TransportMode"].ToString()
+                                        TransportMode = reader["TransportMode"].ToString(),
+                                        Fare = float.Parse(reader["Fare"].ToString())
                                     });
                                 }
 

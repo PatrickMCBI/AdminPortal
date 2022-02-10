@@ -35,10 +35,10 @@ namespace DataAccess.EmployeeTravel
 
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@IteneraryDetailID", SqlDbType = SqlDbType.Int, Value = _detailParamUpdateDataModel.IteneraryDetailID });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@DocumentRefID", SqlDbType = SqlDbType.Int, Value = _detailParamUpdateDataModel.DocumentRefID });
-                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@From", SqlDbType = SqlDbType.Int, Value = _detailParamUpdateDataModel.From });
-                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@To", SqlDbType = SqlDbType.Date, Value = _detailParamUpdateDataModel.To });
+                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@From", SqlDbType = SqlDbType.VarChar, Value = _detailParamUpdateDataModel.From, Size = 500 });
+                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@To", SqlDbType = SqlDbType.VarChar, Value = _detailParamUpdateDataModel.To, Size = 500 });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@TransportModeID", SqlDbType = SqlDbType.Int, Value = _detailParamUpdateDataModel.TransportModeID });
-                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@Fare", SqlDbType = SqlDbType.Int, Value = _detailParamUpdateDataModel.Fare });
+                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@Fare", SqlDbType = SqlDbType.Float, Value = _detailParamUpdateDataModel.Fare });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@UserNameID", SqlDbType = SqlDbType.Int, Value = _detailParamUpdateDataModel.UserNameID });
 
                     using (SqlDataReader reader = cmd.ExecuteReader())

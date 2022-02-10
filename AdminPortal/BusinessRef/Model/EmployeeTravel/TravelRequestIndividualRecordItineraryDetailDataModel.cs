@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace BusinessRef.Model.EmployeeTravel
 {
     public class TravelRequestIndividualRecordItineraryDetailDataModel
@@ -13,5 +8,6 @@ namespace BusinessRef.Model.EmployeeTravel
         public string To { get; set; }
         public int TransportModeID { get; set; }
         public string TransportMode { get; set; }
+        public float Fare { get; set; }
     }
 }

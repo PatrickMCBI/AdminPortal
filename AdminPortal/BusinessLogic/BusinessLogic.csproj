@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmployeeTravel\TravelRequestDetailAccomodationDeleteDataLogic.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestDetailEmployeeDeleteDataLogic.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestDetailItineraryDeleteDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestDetailNewAccomodationDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestDetailNewEmployeeNameDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestDetailNewItineraryDataLogic.cs" />
