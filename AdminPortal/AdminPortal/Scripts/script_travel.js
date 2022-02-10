@@ -192,6 +192,7 @@
             let total = 0;
             total = parseFloat(e.target.value || 0) * parseFloat(container.querySelector('.jsCost').value || 0);
             container.querySelector('.jsAccomodationTotal').value = NumberWithCommas(total);
+            container.querySelector('.jsAccomodationTotal').setAttribute('data-value', total);
 
             travelGlobalFunc.GrandTotalForTravel(travelContainer);
 
@@ -202,6 +203,7 @@
             let total = 0;
             total = parseFloat(e.target.value || 0) * parseFloat(container.querySelector('.jsNoOfDays').value || 0);
             container.querySelector('.jsAccomodationTotal').value = NumberWithCommas(total);
+            container.querySelector('.jsAccomodationTotal').setAttribute('data-value', total);
 
             travelGlobalFunc.GrandTotalForTravel(travelContainer);
         });
@@ -248,18 +250,16 @@
         fare.forEach((item) => {
 
             fareTotal += parseFloat(item.value) || 0;
-            console.log(grandTotal);
+          
         });
 
         let accTotal = travelContainer.querySelectorAll('.jsAccomodationTotal');
         accTotal.forEach((item) => {
-
-            accomodationTotal += parseFloat(item.value) || 0;
-            console.log(grandTotal);
+            accomodationTotal += parseFloat(item.getAttribute('data-value')) || 0;
+     
         });
-
         grandTotal = parseFloat(fareTotal + accomodationTotal);
-        console.log(grandTotal);
+     
         travelContainer.querySelector('.jsGrandTotal b').textContent = 'P ' + NumberWithCommas(grandTotal);
     }
     
@@ -285,7 +285,7 @@
     }
     async function LoadReferenceData(travelContainer) {
         const data = await fetchDataGet(AppGlobal.baseUrl + 'Travel/GetTravelNewRefData');
-        console.log(data);
+ 
         if (data.StatusCodeNumber == 1) {
 
             travelGlobalFunc.ProjectNumberBST = LoadDataToBST(data.ProjectNumber, 'ProjectID');
@@ -356,39 +356,39 @@
 
        
         if (attrib_id == 'new') {
-            //if (ValidateForm(travelContainer)) {
-            //    let projectIDOrigin = travelContainer.querySelector('.jsProjectNumberOrigin').getAttribute('data-id');
-            //    let projectIDDestination = travelContainer.querySelector('.jsProjectNumberDestination').getAttribute('data-id');
-            //    let requestDate = travelContainer.querySelector('.jsPojectDate').value;
-            //    let travelDate = travelContainer.querySelector('.jsDateOfTravel').value;
-            //    let purpose = travelContainer.querySelector('.jsPuposeOfTravel').value;
-            //    let documentRefID = travelContainer.querySelector('.jstravelHeader').getAttribute('documentref-id');
-            //    let formdata = new FormData();
+            if (ValidateForm(travelContainer)) {
+                let projectIDOrigin = travelContainer.querySelector('.jsProjectNumberOrigin').getAttribute('data-id');
+                let projectIDDestination = travelContainer.querySelector('.jsProjectNumberDestination').getAttribute('data-id');
+                let requestDate = travelContainer.querySelector('.jsPojectDate').value;
+                let travelDate = travelContainer.querySelector('.jsDateOfTravel').value;
+                let purpose = travelContainer.querySelector('.jsPuposeOfTravel').value;
+                let documentRefID = travelContainer.querySelector('.jstravelHeader').getAttribute('documentref-id');
+                let formdata = new FormData();
 
-            //    formdata.append('ProjectIDOrigin', projectIDOrigin);
-            //    formdata.append('ProjectIDDestination', projectIDDestination);
-            //    formdata.append('FormDate', requestDate);
-            //    formdata.append('TravelDate', travelDate);
-            //    formdata.append('TravelPurpose', purpose);
-            //    formdata.append('DocumentRefID', documentRefID);
+                formdata.append('ProjectIDOrigin', projectIDOrigin);
+                formdata.append('ProjectIDDestination', projectIDDestination);
+                formdata.append('FormDate', requestDate);
+                formdata.append('TravelDate', travelDate);
+                formdata.append('TravelPurpose', purpose);
+                formdata.append('DocumentRefID', documentRefID);
 
-            //    if (documentRefID) {
+                if (documentRefID) {
 
-            //        let data = await fetchDataPost(AppGlobal.baseUrl + 'Travel/UpdateNewEmployeeTravelMaster', formdata);
-            //        if (data.StatusCodeNumber == 1) {
+                    let data = await fetchDataPost(AppGlobal.baseUrl + 'Travel/UpdateNewEmployeeTravelMaster', formdata);
+                    if (data.StatusCodeNumber == 1) {
 
-            //            IsConfirmedAlertOk(alertType.successAlert, alertMessages.updateSuccessfull);
-            //            DisabledFormHeader(travelContainer);
-            //        }
+                        IsConfirmedAlertOk(alertType.successAlert, alertMessages.updateSuccessfull);
+                        DisabledFormHeader(travelContainer);
+                    }
 
-            //    } else {
-            //        let data = await fetchDataPost(AppGlobal.baseUrl + 'Travel/SaveNewEmployeeTravelMaster', formdata);
+                } else {
+                    let data = await fetchDataPost(AppGlobal.baseUrl + 'Travel/SaveNewEmployeeTravelMaster', formdata);
 
-            //        if (data.StatusCodeNumber == 1) {
-            //            IsConfirmedAlertOk(alertType.successAlert, alertMessages.saveSuccessfull);
-            //            DisabledFormHeader(travelContainer);
-            //            travelContainer.querySelector('.jsRequestNo').value = data.ReferenceNo
-            //            travelContainer.querySelector('.jstravelHeader').setAttribute('documentref-id', data.DocumentRefID);
+                    if (data.StatusCodeNumber == 1) {
+                        IsConfirmedAlertOk(alertType.successAlert, alertMessages.saveSuccessfull);
+                        DisabledFormHeader(travelContainer);
+                        travelContainer.querySelector('.jsRequestNo').value = data.ReferenceNo
+                        travelContainer.querySelector('.jstravelHeader').setAttribute('documentref-id', data.DocumentRefID);
 
                         travelContainer.querySelector('.jsAddTravelers').addEventListener('click', travelGlobalFunc.AddTravelersView);
                         travelContainer.querySelector('.jsAddItenerary').addEventListener('click', travelGlobalFunc.AddIteneraryView);
@@ -402,11 +402,11 @@
                         DropdownList(travelContainer.querySelector('.jsModeOfTransport'), travelGlobalFunc.ModeOfTransportLL, function (obj) { });
                         DropdownList(travelContainer.querySelector('.jsAccomodationName'), travelGlobalFunc.AccomodationTypeLL, function (obj) { });
 
-            //        }
-            //    }
+                    }
+                }
 
                 
-            //} else { IsConfirmedAlertOk(alertType.warningAlert, 'Fill up all forms'); }
+            } else { IsConfirmedAlertOk(alertType.warningAlert, 'Fill up all forms'); }
             
         } else if (attrib_id == 'edit') {
             EnabledFormHeader(travelContainer);

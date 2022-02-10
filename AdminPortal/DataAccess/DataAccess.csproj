@@ -51,7 +51,6 @@
     <Compile Include="EmployeeTravel\TravelRequestHeaderUpdateDataAccess.cs" />
     <Compile Include="EmployeeTravel\TravelRequestNewRefDataAccess.cs" />
     <Compile Include="EmployeeTravel\TravelRequestHeaderNewDataAccess.cs" />
-    <Compile Include="EmployeeTravel\EmployeeTravelNewRefDataAccess.cs" />
     <Compile Include="EmployeeTravel\TravelRequestIndividualRecordDataAccess.cs" />
     <Compile Include="EmployeeTravel\TravelRequestRecordRefDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

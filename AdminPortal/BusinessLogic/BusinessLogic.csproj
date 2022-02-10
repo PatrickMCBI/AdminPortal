@@ -50,7 +50,6 @@
     <Compile Include="EmployeeTravel\TravelRequestHeaderUpdateDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestNewRefDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestHeaderNewDataLogic.cs" />
-    <Compile Include="EmployeeTravel\EmployeeTravelNewRefDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestIndividualRecordDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestRecordRefDataLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
