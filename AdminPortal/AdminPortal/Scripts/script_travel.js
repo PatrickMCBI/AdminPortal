@@ -447,6 +447,8 @@
 
     let btn = document.querySelector('.jsClickRecordsTravel');
 
+    let filterData, data;
+
     if (btn) {
         btn.addEventListener('click', async function (e) {
             let view = await fetchView(AppGlobal.baseUrl + 'TravelRecord/Index');
@@ -463,6 +465,21 @@
 
         let parser = new DOMParser().parseFromString(view, 'text/html').querySelector('.container');
 
+        data = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/GetTravelRequestRecordReferenceData');
+
+        console.log(data);
+
+        filterData = [];
+
+        //add rowcount column in recordlist
+        data.RecordList.forEach((item, index) => {
+            item.RowCount = index + 1;
+
+            filterData.push(item);
+        });
+
+        //display record
+        displayRecord(filterData, parser);
 
         travelGlobalFunc.centerPanel.appendChild(parser);
 
@@ -470,6 +487,75 @@
     }
 
     function assignEventListenersRecord(doc) {
+
+    }
+
+    function displayRecord(data, doc) {
+
+        let tblBody = doc.querySelector('.jsTRRecordTbody');
+
+        if (data.length > 0) {
+
+            data.forEach((item) => {
+                let div = `
+                    <div class="tr-recordTbodyItems" data-id="${item.DocumentRefID}">
+                        <div>${item.RowCount}</div>
+                        <div>${ToJavascriptDate(item.FormDate)}</div>
+                        <div>${item.ReferenceNo}</div>
+                        <div>${item.ProjectOrigin}</div>
+                        <div>${item.ProjectDestination}</div>
+                        <div>${ToJavascriptDate(item.TravelDate)}</div>
+                        <div>${item.ApproverStatus}</div>
+                        <div>${item.LocationStatus}</div>
+                        <div>${item.IsRead == true ? 'Read' : 'Unread' }</div>
+                    </div>
+                    `;
+
+                let parser = new DOMParser().parseFromString(div, 'text/html').querySelector('.tr-recordTbodyItems');
+
+                parser.addEventListener('click', async function (e) {
+
+                    let view = await fetchView(AppGlobal.baseUrl + 'Travel/IndexTravelNew');
+
+                    let documentRefID = item.DocumentRefID;
+
+                    responseSuccessIndividualRecord(view, documentRefID);
+
+                });
+
+                tblBody.appendChild(parser);
+
+            });
+
+        }
+        else {
+            let div = `<div class="jsNoRecordFound no-record-found">No record found.</div>`;
+
+            let parser = new DOMParser().parseFromString(div, 'text/html').querySelector('.jsNoRecordFound');
+
+            tblBody.appendChild(parser);
+        }
+
+    }
+
+    async function responseSuccessIndividualRecord(view, documentRefID) {
+
+        travelGlobalFunc.centerPanel.innerHTML = '';
+        travelGlobalFunc.rightPanel.innerHTML = '';
+
+        let parser = new DOMParser().parseFromString(view, 'text/html').querySelector('.container');
+
+        //get the individual data
+
+        let individualData = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/TravelRequestIndividualRecord/?documentRefID=' + documentRefID);
+
+        console.log(individualData);
+
+        travelGlobalFunc.centerPanel.appendChild(parser);
+
+
+
+        //create more functions here
 
     }
 

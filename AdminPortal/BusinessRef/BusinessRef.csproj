@@ -51,6 +51,8 @@
     <Compile Include="Interfaces\Customs\ITravelRequestDetailItineraryUpdateData.cs" />
     <Compile Include="Interfaces\Customs\ITravelRequestHeaderNewData.cs" />
     <Compile Include="Interfaces\Customs\ITravelRequestHeaderUpdateData.cs" />
+    <Compile Include="Interfaces\Customs\IGetTravelRequestRecordRefData.cs" />
+    <Compile Include="Interfaces\Customs\ITravelRequestIndividualRecordData.cs" />
     <Compile Include="Interfaces\Customs\IUserLoginData.cs" />
     <Compile Include="Interfaces\Generics\IGetDatabaseData.cs" />
     <Compile Include="Interfaces\Generics\IPostDatabaseData.cs" />
@@ -68,6 +70,15 @@
     <Compile Include="Model\EmployeeTravel\TravelRequestHeaderParamNewDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestHeaderReturnNewDataModel.cs" />
     <Compile Include="Model\References\StatusCodeNumberReturnRefDataModel.cs" />
+    <Compile Include="Model\EmployeeTravel\EmployeeTravelReturnNewRefDataModel.cs" />
+    <Compile Include="Model\EmployeeTravel\TravelRequestIndividualRecordAccomodationDetailDataModel.cs" />
+    <Compile Include="Model\EmployeeTravel\TravelRequestIndividualRecordEmployeeDetailDataModel.cs" />
+    <Compile Include="Model\EmployeeTravel\TravelRequestIndividualRecordHeaderDataModel.cs" />
+    <Compile Include="Model\EmployeeTravel\TravelRequestIndividualRecordItineraryDetailDataModel.cs" />
+    <Compile Include="Model\EmployeeTravel\TravelRequestIndividualRecordParamDataModel.cs" />
+    <Compile Include="Model\EmployeeTravel\TravelRequestIndividualRecordReturnDataModel.cs" />
+    <Compile Include="Model\EmployeeTravel\TravelRequestRecordDataModel.cs" />
+    <Compile Include="Model\EmployeeTravel\TravelRequestRecordReturnRefDataModel.cs" />
     <Compile Include="Model\References\TravelAccomodationTypeRefDataModel.cs" />
     <Compile Include="Model\References\TravelEmployeeNameRefDataModel.cs" />
     <Compile Include="Model\References\TravelRequestProjectNameRefDataModel.cs" />

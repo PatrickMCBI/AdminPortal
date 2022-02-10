@@ -46,7 +46,10 @@ input[name=TRDateTo] {
 .tr-recordTheader,
 .tr-recordTbodyItems {
     display: grid;
-    grid-template-columns: 70px 1fr 1fr 2fr 2fr 1fr 1fr;
+    grid-template-columns: 70px 1fr 1fr 2fr 2fr 1fr 1fr 1fr 1fr;
+}
+.tr-recordTbodyItems {
+    border-bottom: 1px solid #999;
 }
 
 .tr-recordTheader {
@@ -61,4 +64,19 @@ input[name=TRDateTo] {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.tr-recordTbodyItems div {
+    text-align: center;
+    font-size: 15px;
+    padding: 10px 5px;
+}
+.no-record-found {
+    text-align: center;
+    padding: 10px 5px;
+    border-bottom: 1px solid #999;
+    font-size: 15px
+}
+.tr-recordTbodyItems:hover {
+    background: #e5e5e5;
+    cursor: pointer;
 }
