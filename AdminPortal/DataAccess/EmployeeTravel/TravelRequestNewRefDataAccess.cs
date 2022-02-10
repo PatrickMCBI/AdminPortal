@@ -6,11 +6,11 @@ using System.Data.SqlClient;
 
 using BusinessRef.Interfaces.Generics;
 using BusinessRef.Model.References;
-using model = BusinessRef.Model.EmployeeTravel.EmployeeTravelReturnNewRefDataModel;
+using model = BusinessRef.Model.EmployeeTravel.TravelRequestReturnNewRefDataModel;
 
 namespace DataAccess.EmployeeTravel
 {
-    public class EmployeeTravelNewRefDataAccess : IGetDatabaseData<model>
+    public class TravelRequestNewRefDataAccess : IGetDatabaseData<model>
     {
         public model GetDatabaseData()
         {
@@ -110,8 +110,8 @@ namespace DataAccess.EmployeeTravel
                                     refDataModel.EmployeeName.Add(new TravelEmployeeNameRefDataModel
                                     {
                                         ID = Convert.ToInt32(reader["ID"]),
+                                        EmployeeName = reader["EmployeeName"].ToString(),
                                         EmployeeID = reader["EmployeeID"].ToString(),
-                                        EmployeeName = reader["EmployeeName"].ToString()
                                     });
                                 }
 

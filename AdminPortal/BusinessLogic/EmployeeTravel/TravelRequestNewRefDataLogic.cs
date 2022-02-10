@@ -4,15 +4,15 @@ using BusinessRef.Interfaces.Customs;
 using BusinessRef.Interfaces.Generics;
 using DataAccess.EmployeeTravel;
 
-using model = BusinessRef.Model.EmployeeTravel.EmployeeTravelReturnNewRefDataModel;
+using model = BusinessRef.Model.EmployeeTravel.TravelRequestReturnNewRefDataModel;
 
 namespace BusinessLogic.EmployeeTravel
 {
-    public class EmployeeTravelNewRefDataLogic : IGetTravelRequestNewReferenceData
+    public class TravelRequestNewRefDataLogic : IGetTravelRequestNewReferenceData
     {
         public model GetTravelRequestNewReferenceData()
         {
-            IGetDatabaseData<model> getDatabase = new EmployeeTravelNewRefDataAccess();
+            IGetDatabaseData<model> getDatabase = new TravelRequestNewRefDataAccess();
 
             return getDatabase.GetDatabaseData();
         }

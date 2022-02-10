@@ -4,7 +4,7 @@ using BusinessRef.Model.References;
 
 namespace BusinessRef.Model.EmployeeTravel
 {
-    public class EmployeeTravelReturnNewRefDataModel : ErrorStatus
+    public class TravelRequestReturnNewRefDataModel : ErrorStatus
     {
         public ICollection<TravelRequestProjectNumberRefDataModel> ProjectNumber { get; set; }
         public ICollection<TravelRequestProjectNameRefDataModel> ProjectName { get; set; }

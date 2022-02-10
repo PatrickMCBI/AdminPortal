@@ -42,7 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmployeeTravel\EmployeeTravelNewRefDataAccess.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestDetailNewAccomodationDataAccess.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestDetailNewEmployeeNameDataAccess.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestDetailNewItineraryDataAccess.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestDetailUpdateAccomodationDataAccess.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestDetailUpdateEmployeeNameDataAccess.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestDetailUpdateItineraryDataAccess.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestHeaderUpdateDataAccess.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestNewRefDataAccess.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestHeaderNewDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserLogin\UserLoginDataAccess.cs" />
   </ItemGroup>

@@ -4,6 +4,6 @@ namespace BusinessRef.Interfaces.Customs
 {
     public interface IGetTravelRequestNewReferenceData
     {
-        EmployeeTravelReturnNewRefDataModel GetTravelRequestNewReferenceData();
+        TravelRequestReturnNewRefDataModel GetTravelRequestNewReferenceData();
     }
 }

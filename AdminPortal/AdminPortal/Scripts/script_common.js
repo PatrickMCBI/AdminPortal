@@ -878,17 +878,17 @@ function DropdownList(input, rawData, callback) {
 
     input.addEventListener('focusout', function (e) {
         let dataID, dataValue;
-        let rows;
-        if (this.clientHeight < this.scrollHeight) {
-            //rows = this.getAttribute('rows');
-            //rows++;
-            //this.setAttribute("rows", rows);
-            /* this.style.height = 'auto';*/
+        //let rows;
+        //if (this.clientHeight < this.scrollHeight) {
+        //    //rows = this.getAttribute('rows');
+        //    //rows++;
+        //    //this.setAttribute("rows", rows);
+        //    /* this.style.height = 'auto';*/
 
-            this.style.height = this.scrollHeight + 'px';
-        } else {
-            this.style.height = 35 + 'px';
-        }
+        //    this.style.height = this.scrollHeight + 'px';
+        //} else {
+        //    this.style.height = 35 + 'px';
+        //}
         if (this.nextElementSibling.nextElementSibling) {
             if (e.target.nextElementSibling.nextElementSibling.querySelector('li.item-selected')) {
 
@@ -1155,6 +1155,7 @@ function RemoveCommas(str) {
     }
     return str;
 }
+
 async function fetchDataGet(url) {
 
     let retData;
@@ -1238,4 +1239,47 @@ async function fetchView(url) {
     })
 
     return retView;
+}
+
+function ValidateForm(parentEl) {
+    let errors = 0;
+
+    parentEl.querySelectorAll('input[required], textarea[required]').forEach((item) => {
+
+        item.removeAttribute('style');
+
+        if (item.classList.contains('customDropdownInput')) {
+
+            if (parseInt(item.getAttribute('data-id')) > 0) {
+                item.closest('div.input-icon-wrap').removeAttribute('style');
+            }
+            else {
+                item.closest('div.input-icon-wrap').setAttribute('style', 'border:1px solid red');
+                errors += 1;
+            }
+        }
+        else {
+            if (item.value) {
+                //item.closest('div.input-icon-wrap').removeAttribute('style');
+                item.removeAttribute('style');
+            }
+            else {
+                item.setAttribute('style', 'border:1px solid red');
+                errors += 1;
+            }
+
+
+
+            //if (item.classList.contains('customDropdownInput')) {
+            //    item.closest('div.input-icon-wrap').setAttribute('style', 'border:1px solid red');
+            //}
+            //else {
+            //    item.setAttribute('style', 'border:1px solid red');
+
+            //}
+        }
+
+    });
+
+    return errors == 0 ? true : false;
 }
