@@ -347,7 +347,28 @@
         });
 
         travelContainer.querySelector('.jstravelHeaderBtn').addEventListener('click', TravelRequestSaveOrUpdateClick);
-        travelContainer.querySelector('.jsSendToAccounting').addEventListener('click', function () { });
+        travelContainer.querySelector('.jsSendToAccounting').addEventListener('click', function () {
+
+            IsConfirmedAlertYesOrNo(alertType.warningAlert, "Are you sure you want to send?").then(async function (obj) {
+
+                let formData = new FormData();
+                let docRefID = travelContainer.querySelector('.jstravelHeader').getAttribute('documentref-id');
+                formData.append('DocumentRefID', docRefID);
+
+                let data = await fetchDataPost(AppGlobal.baseUrl + 'Travel/SendToEngTravelRequest', formData);
+
+                if (data.StatusCodeNumber == 1) {
+                    IsConfirmedAlertOk(alertType.successAlert, "Successfully sent");
+                   
+                }
+
+            }).catch(function (obj) {
+            });
+        });
+
+        travelContainer.querySelector('.jsAddTravelers').addEventListener('click', travelGlobalFunc.AddTravelersView);
+        travelContainer.querySelector('.jsAddItenerary').addEventListener('click', travelGlobalFunc.AddIteneraryView);
+        travelContainer.querySelector('.jsAddAccomodation').addEventListener('click', travelGlobalFunc.AddAccomodationView);
 
     }
     async function TravelRequestSaveOrUpdateClick(e) {
@@ -390,9 +411,17 @@
                         travelContainer.querySelector('.jsRequestNo').value = data.ReferenceNo
                         travelContainer.querySelector('.jstravelHeader').setAttribute('documentref-id', data.DocumentRefID);
 
-                        travelContainer.querySelector('.jsAddTravelers').addEventListener('click', travelGlobalFunc.AddTravelersView);
-                        travelContainer.querySelector('.jsAddItenerary').addEventListener('click', travelGlobalFunc.AddIteneraryView);
-                        travelContainer.querySelector('.jsAddAccomodation').addEventListener('click', travelGlobalFunc.AddAccomodationView);
+                        travelContainer.querySelector('.jsAddTravelers').classList.add('add-items-btn');
+                        travelContainer.querySelector('.jsAddItenerary').classList.add('add-items-btn');
+                        travelContainer.querySelector('.jsAddAccomodation').classList.add('add-items-btn');
+
+                        travelContainer.querySelector('.jsAddTravelers').classList.remove('disabled');
+                        travelContainer.querySelector('.jsAddItenerary').classList.remove('disabled');
+                        travelContainer.querySelector('.jsAddAccomodation').classList.remove('disabled');
+
+                        travelContainer.querySelector('.jsAddTravelers').removeAttribute('disabled');
+                        travelContainer.querySelector('.jsAddItenerary').removeAttribute('disabled');
+                        travelContainer.querySelector('.jsAddAccomodation').removeAttribute('disabled');
 
                         travelContainer.querySelector('.jsAddTravelers').click();
                         travelContainer.querySelector('.jsAddItenerary').click();

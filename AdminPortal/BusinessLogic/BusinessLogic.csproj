@@ -52,6 +52,7 @@
     <Compile Include="EmployeeTravel\TravelRequestHeaderNewDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestIndividualRecordDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestRecordRefDataLogic.cs" />
+    <Compile Include="EmployeeTravel\TravelRequestSendToEngDataLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserLogin\UserLoginDataLogic.cs" />
   </ItemGroup>

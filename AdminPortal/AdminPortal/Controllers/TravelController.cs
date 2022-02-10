@@ -87,5 +87,13 @@ namespace AdminPortal.Controllers
 
             return Json(detailNewData.GetDmlTravelRequestDetailAccomodationUpdateData(), JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult SendToEngTravelRequest(TravelRequestParamSendToEngDataModel paramNDataModel)
+        {
+            paramNDataModel.UserNameID = int.Parse(Session["UserNameID"].ToString());
+            ITravelRequestSendToEngData detailNewData = new TravelRequestSendToEngDataLogic(paramNDataModel);
+
+            return Json(detailNewData.GetDmlTravelRequestSendToEngData(), JsonRequestBehavior.AllowGet);
+        }
     }
 }
