@@ -414,9 +414,8 @@
     },
 
     saveTOEmployeeDetail: async function (el) {
-        let doc = el.closest('.material-wrapper');
 
-        let itemContainer = doc.querySelector('.travel-purpose-details');
+        let itemContainer = el.closest('.travel-purpose-details');
 
         if (travelGlobalFunc.validateItem(itemContainer)) {
 
@@ -492,9 +491,8 @@
 
     },
     removeTOEmployeeDetail: function (el) {
-        let doc = el.closest('.material-wrapper');
-
-        let itemContainer = doc.closest('.travel-purpose-details');
+      
+        let itemContainer = el.closest('.travel-purpose-details');
 
         let employeeDetailID = itemContainer.getAttribute('data-id');
 
@@ -611,7 +609,7 @@
     removeTOItineraryDetail: function (el) {
         let doc = el.closest('.material-wrapper');
 
-        let itemContainer = doc.closest('.travel-itirerary-details');
+        let itemContainer = el.closest('.travel-itirerary-details');
 
         let itineraryDetailID = itemContainer.getAttribute('data-id');
 
@@ -726,7 +724,9 @@
     removeTOAccomodationDetail: function (el) {
         let doc = el.closest('.material-wrapper');
 
-        let itemContainer = doc.closest('.travel-hotel-details');
+        let itemContainer = el.closest('.travel-hotel-details');
+
+        console.log()
 
         let accomodationDetailID = itemContainer.getAttribute('data-id');
 
