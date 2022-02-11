@@ -141,6 +141,8 @@ namespace DataAccess.EmployeeTravel
                                 refDataModel.HeaderList.PreparedByName = reader["PreparedByName"].ToString();
                                 refDataModel.HeaderList.ApprovedByName = reader["ApprovedByName"].ToString();
                                 refDataModel.HeaderList.TravelPurpose = reader["TravelPurpose"].ToString();
+                                refDataModel.HeaderList.PreparedByPositionName = reader["PreparedByPositionName"].ToString();
+                                refDataModel.HeaderList.ApprovedByPositionName = reader["ApprovedByPositionName"].ToString();
 
                                 reader.NextResult();
                                 refDataModel.EmployeeDetailList = new List<TravelRequestIndividualRecordEmployeeDetailDataModel>();
@@ -152,7 +154,9 @@ namespace DataAccess.EmployeeTravel
                                         EmployeeDetailID = reader["EmployeeDetailID"] as int? ?? default,
                                         EmployeeID = reader["EmployeeID"] as int? ?? default,
                                         EmployeeName = reader["EmployeeName"].ToString(),
-                                        BaggageWeight = float.Parse(reader["BaggageWeight"].ToString())
+                                        BaggageWeight = float.Parse(reader["BaggageWeight"].ToString()),
+                                        BirthDate = reader["BirthDate"] as DateTime? ?? default,
+                                        Position = reader["Position"].ToString()
                                     });
                                 }
 

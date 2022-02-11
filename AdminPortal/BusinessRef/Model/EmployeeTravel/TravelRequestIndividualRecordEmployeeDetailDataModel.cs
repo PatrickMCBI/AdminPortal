@@ -12,5 +12,7 @@ namespace BusinessRef.Model.EmployeeTravel
         public int EmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public float BaggageWeight { get; set; }
+        public string Position { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 }

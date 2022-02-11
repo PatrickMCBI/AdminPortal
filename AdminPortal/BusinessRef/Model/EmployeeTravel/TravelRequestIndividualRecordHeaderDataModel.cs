@@ -25,5 +25,7 @@ namespace BusinessRef.Model.EmployeeTravel
         public string PreparedByName { get; set; }
         public string ApprovedByName { get; set; }
         public string TravelPurpose { get; set; }
+        public string ApprovedByPositionName { get; set; }
+        public string PreparedByPositionName { get; set; }
     }
 }

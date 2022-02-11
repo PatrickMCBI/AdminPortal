@@ -138,10 +138,14 @@
     <Content Include="Content\layout.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\travel.css" />
+    <Content Include="Content\travel_print.css" />
     <Content Include="Content\travel_record.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Logo\mcbi-logo.png" />
+    <Content Include="Images\Logo\nqa.jpg" />
+    <Content Include="Images\Logo\nqa.png" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\script_common.js" />
     <Content Include="Scripts\script_dashboard.js" />
@@ -174,6 +178,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Travel\_TravelNew.cshtml" />
     <Content Include="Views\TravelRecord\_Index.cshtml" />
+    <Content Include="Views\TravelRecord\_Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">

@@ -1,0 +1,143 @@
+﻿body {
+    -webkit-print-color-adjust: exact;
+}
+
+.wrapper {
+    grid-template-rows: 1fr;
+    height: 100vh;
+    z-index: 99;
+}
+
+main {
+    grid-row-start: 1;
+}
+
+#printBtn {
+    position: fixed;
+    top: 150px;
+    right: 53px;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 17px;
+    font-family: monospace;
+}
+main {
+    grid-row-start: 1;
+}
+.TO-print {
+    padding: 50px;
+    padding-top: 15px;
+}
+
+.TO-print .logo-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+}
+.logo-left {
+    display: flex;
+    justify-content: start;
+}
+.logo-right {
+    display: flex;
+    justify-content: end;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+.header-h3 {
+    margin: 7px 0;
+}
+.subject-h3-span {
+    padding-left: 5px;
+}
+.travel-request-container {
+    border: 1px solid #333;
+    width: 100%;
+    height: auto;
+}
+.travel-request-content {
+    font-size:14px;
+    padding: 5px 15px;
+    border-bottom: 1px solid #333;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-column-gap: 10px;
+}
+.travel-request-content label {
+    font-weight: 600;
+}
+
+.travel-request-content span {
+    padding-left: 15px;
+    font-size: 11px;
+}
+.travel-request-details h4 {
+    margin: 0;
+    border-bottom: 1px solid #333;
+    text-align: center;
+    padding: 5px 15px;
+    background: #d7d7d7;
+    font-size: 15px;
+}
+.list-table-header,
+.list-table-bodyItems {
+    display: grid;
+    grid-template-columns: 60px 2fr 2fr 2fr 2fr;
+    border-bottom: 1px solid #333;
+}
+
+.list-table-header h5,
+.list-table-bodyItems div {
+    text-align: center;
+    margin: 0;
+    padding: 5px 15px;
+    font-size: 13px;
+    border-right: 1px solid #333;
+}
+.list-table-header h5:last-child,
+.list-table-bodyItems div:last-child {
+    border-right: none;
+}
+.accomodation-details .list-table-bodyItems:last-child {
+    border-bottom: none;
+}
+.TO-footer {
+    display: grid; 
+    grid-template-columns: 1fr 1fr;
+    position: fixed;
+    width: 100%;
+    bottom: 50px;
+}
+
+.footer-wrap label {
+    display: block;
+    margin-bottom: 50px;
+}
+.footer-wrap span {
+    display: block;
+}
+.TO-print-body p {
+    font-size: 14px;
+}
+.list-table-bodyItems div {
+    font-size: 11px;
+    padding: 3px;
+}
+
+.travel-details-overall-total {
+    border-bottom: none;
+    margin: 10px 0;
+}
+.travel-details-overall-total div {
+    border: none;
+    font-size: 14px;
+}
+
+@media print {
+    #printBtn {
+    display: none;
+}
+}

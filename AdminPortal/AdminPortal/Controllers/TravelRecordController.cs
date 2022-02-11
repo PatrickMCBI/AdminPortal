@@ -36,5 +36,17 @@ namespace AdminPortal.Controllers
 
             return Json(data.TravelRequestIndividualRecordData(), JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Print(int documentRefID)
+        {
+            TravelRequestIndividualRecordParamDataModel model = new TravelRequestIndividualRecordParamDataModel
+            {
+                DocumentRefID = documentRefID
+            };
+
+            ITravelRequestIndividualRecordData data = new TravelRequestIndividualRecordDataLogic(model);
+
+            return View("~/Views/TravelRecord/_Print.cshtml", data.TravelRequestIndividualRecordData());
+        }
     }
 }

@@ -67,6 +67,7 @@
     },
 
     enableFormHeader: function (travelContainer) {
+
         travelContainer.querySelectorAll('input').forEach((item) => {
             if (item.id != 'jsRequestNo') {
                 item.removeAttribute('disabled', 'disabled');
@@ -80,6 +81,7 @@
 
         travelContainer.querySelector('.jstravelHeaderBtn').setAttribute('id', 'new');
         travelContainer.querySelector('.jstravelHeaderBtn').textContent = 'Save';
+
     },
 
     disableFormHeader: function (travelContainer) {
@@ -104,13 +106,14 @@
     addTravelerItemDivClone: function() {
 
         let div = `
+            <form action="#" autocomplete="off">
                 <div class="travel-purpose-details">
                     <div class="flex-center">
                         <label class="count"></label>
                     </div>
                     <div>
                         <div class="form-groups input-icon-wrap">
-                            <input type="text" name="travelerName" class="customDropdownInput jsTravelerName" autocomplete="off" data-propertyname="EmployeeName" data-propertyid="ID" data-sourcetype="bst" required>
+                            <input type="text" name="travelerName" class="customDropdownInput jsTravelerName" data-propertyname="EmployeeName" data-propertyid="ID" data-sourcetype="bst" required>
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
@@ -118,17 +121,18 @@
 
                     </div>
                     <div><input type="text" name="positionName"  class="jsPositionName" disabled/></div>
-                    <div><input type="date" name="birthDate" class="jsBirthDate" disabled/></div>
+                    <div><input type="text" name="birthDate" class="jsBirthDate" disabled/></div>
                     <div><input type="text" name="kgs" class="jsKgs" placeholder="(Kgs)" required/></div>
                     <div class="option-btn jsUnsaved">
-                        <button class="save-material-details success-btn jsSaveEmployeeName" id="save">
+                        <button type="button" class="save-material-details success-btn jsSaveEmployeeName" id="save">
                             <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="check" class="svg-inline--fa fa-check fa-w-14 jsCheckIcon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="16px"><path fill="#FFF" d="M413.505 91.951L133.49 371.966l-98.995-98.995c-4.686-4.686-12.284-4.686-16.971 0L6.211 284.284c-4.686 4.686-4.686 12.284 0 16.971l118.794 118.794c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-11.314-11.314c-4.686-4.686-12.284-4.686-16.97 0z"></path></svg>
                         </button>
-                        <button class="remove-material-details remove-btn jsRemoveDetail">
+                        <button type="button" class="remove-material-details remove-btn jsRemoveDetail">
                             <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13px"><path fill="#FFF" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
                         </button>
                     </div>
-                </div>`;
+                </div>
+            </form>`;
 
         let parseDoc = new DOMParser().parseFromString(div, 'text/html').querySelector('.travel-purpose-details');
 
@@ -166,6 +170,7 @@
     addItineraryItemDivClone: function () {
 
         let div = `
+            <form action="#" autocomplete="off">
                 <div class="travel-itirerary-details">
                     <div class="flex-center">
                         <label class="count"></label>
@@ -178,7 +183,7 @@
                     </div>
                     <div>
                         <div class=" input-icon-wrap">
-                            <input type="text" name="modeOfTransport" class="customDropdownInput jsModeOfTransport" autocomplete="off" data-propertyName="TransportMode" data-propertyID="ID" data-sourceType="ll" required />
+                            <input type="text" name="modeOfTransport" class="customDropdownInput jsModeOfTransport" data-propertyName="TransportMode" data-propertyID="ID" data-sourceType="ll" required />
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
@@ -188,14 +193,15 @@
                         <input type="text" name="fare" class="jsFare" required/>
                     </div>
                     <div class="option-btn jsUnsaved">
-                        <button class="save-material-details success-btn jsSaveItinerary" id="save">
+                        <button type="button" class="save-material-details success-btn jsSaveItinerary" id="save">
                             <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="check" class="svg-inline--fa fa-check fa-w-14 jsCheckIcon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="16px"><path fill="#FFF" d="M413.505 91.951L133.49 371.966l-98.995-98.995c-4.686-4.686-12.284-4.686-16.971 0L6.211 284.284c-4.686 4.686-4.686 12.284 0 16.971l118.794 118.794c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-11.314-11.314c-4.686-4.686-12.284-4.686-16.97 0z"></path></svg>
                         </button>
-                        <button class="remove-material-details remove-btn jsRemoveDetail">
+                        <button type="button" class="remove-material-details remove-btn jsRemoveDetail">
                             <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13px"><path fill="#FFF" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
                         </button>
                     </div>
-                </div>`;
+                </div>
+            </form>`;
 
         let parseDoc = new DOMParser().parseFromString(div, 'text/html').querySelector('.travel-itirerary-details');
 
@@ -235,28 +241,30 @@
 
     addAccomodationItemDivClone: function () {
         let div = `
-            <div class="travel-hotel-details">
-                <div class="flex-center">
-                    <label class="count"></label>
+            <form action="#" autocomplete="off"> 
+                <div class="travel-hotel-details">
+                    <div class="flex-center">
+                        <label class="count"></label>
+                    </div>
+                    <div class=" input-icon-wrap">
+                        <input type="text" name="accomodationType" class="customDropdownInput jsAccomodationName" autocomplete="off" data-propertyName="AccomodationType" data-propertyID="ID" data-sourceType="ll" required />
+                        <i class="customDropdownIcon">
+                            <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
+                        </i>
+                    </div>
+                    <input type="text" name="noOfDays" class="jsNoOfDays" required/>
+                    <input type="text" name="cost" class="jsCost" required/>
+                    <input type="text" name="accomodationTotal" class="jsAccomodationTotal" disabled/>
+                    <div class="option-btn jsUnsaved">
+                        <button type="button" class="save-material-details success-btn jsSaveAccomodation" id="save">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="check" class="svg-inline--fa fa-check fa-w-14 jsCheckIcon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="16px"><path fill="#FFF" d="M413.505 91.951L133.49 371.966l-98.995-98.995c-4.686-4.686-12.284-4.686-16.971 0L6.211 284.284c-4.686 4.686-4.686 12.284 0 16.971l118.794 118.794c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-11.314-11.314c-4.686-4.686-12.284-4.686-16.97 0z"></path></svg>
+                        </button>
+                        <button type="button" class="remove-material-details remove-btn jsRemoveDetail">
+                            <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13px"><path fill="#FFF" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
+                        </button>
+                    </div>
                 </div>
-                <div class=" input-icon-wrap">
-                    <input type="text" name="accomodationType" class="customDropdownInput jsAccomodationName" autocomplete="off" data-propertyName="AccomodationType" data-propertyID="ID" data-sourceType="ll" required />
-                    <i class="customDropdownIcon">
-                        <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
-                    </i>
-                </div>
-                <input type="text" name="noOfDays" class="jsNoOfDays" required/>
-                <input type="text" name="cost" class="jsCost" required/>
-                <input type="text" name="accomodationTotal" class="jsAccomodationTotal" disabled/>
-                <div class="option-btn jsUnsaved">
-                    <button class="save-material-details success-btn jsSaveAccomodation" id="save">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="check" class="svg-inline--fa fa-check fa-w-14 jsCheckIcon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="16px"><path fill="#FFF" d="M413.505 91.951L133.49 371.966l-98.995-98.995c-4.686-4.686-12.284-4.686-16.971 0L6.211 284.284c-4.686 4.686-4.686 12.284 0 16.971l118.794 118.794c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-11.314-11.314c-4.686-4.686-12.284-4.686-16.97 0z"></path></svg>
-                    </button>
-                    <button class="remove-material-details remove-btn jsRemoveDetail">
-                        <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13px"><path fill="#FFF" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
-                    </button>
-                </div>
-            </div>`;
+            </form>`;
 
         let parseDoc = new DOMParser().parseFromString(div, 'text/html').querySelector('.travel-hotel-details');
 
@@ -325,6 +333,94 @@
         let div = `<svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="check" class="svg-inline--fa fa-check fa-w-14 jsCheckIcon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="16px"><path fill="#FFF" d="M413.505 91.951L133.49 371.966l-98.995-98.995c-4.686-4.686-12.284-4.686-16.971 0L6.211 284.284c-4.686 4.686-4.686 12.284 0 16.971l118.794 118.794c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-11.314-11.314c-4.686-4.686-12.284-4.686-16.97 0z"></path></svg>`;
 
         return new DOMParser().parseFromString(div, 'text/html').querySelector('.jsCheckIcon');
+    },
+
+    saveTRHeader: async function (e) {
+
+        const travelContainer = e.currentTarget.closest('.material-wrapper');
+
+        let headerWrapper = e.currentTarget.closest('.material-header-wrapper');
+
+        let attrib_id = travelContainer.querySelector('.jstravelHeaderBtn').id;
+
+
+        if (attrib_id == 'new') {
+            if (ValidateForm(travelContainer)) {
+                let projectIDOrigin = travelContainer.querySelector('.jsProjectNumberOrigin').getAttribute('data-id');
+                let projectIDDestination = travelContainer.querySelector('.jsProjectNumberDestination').getAttribute('data-id');
+                let requestDate = travelContainer.querySelector('.jsPojectDate').value;
+                let travelDate = travelContainer.querySelector('.jsDateOfTravel').value;
+                let purpose = travelContainer.querySelector('.jsPuposeOfTravel').value;
+                let documentRefID = travelContainer.querySelector('.jstravelHeader').getAttribute('documentref-id');
+                let formdata = new FormData();
+
+                formdata.append('ProjectIDOrigin', projectIDOrigin);
+                formdata.append('ProjectIDDestination', projectIDDestination);
+                formdata.append('FormDate', requestDate);
+                formdata.append('TravelDate', travelDate);
+                formdata.append('TravelPurpose', purpose);
+                formdata.append('DocumentRefID', documentRefID);
+
+                if (documentRefID) {
+
+                    let data = await fetchDataPost(AppGlobal.baseUrl + 'Travel/UpdateNewEmployeeTravelMaster', formdata);
+                    if (data.StatusCodeNumber == 1) {
+                        //success here
+                        IsConfirmedAlertOk(alertType.successAlert, alertMessages.updateSuccessfull);
+
+                        //disable form header
+                        travelGlobalFunc.disableFormHeader(travelContainer);
+
+                    }
+
+                } else {
+                    let data = await fetchDataPost(AppGlobal.baseUrl + 'Travel/SaveNewEmployeeTravelMaster', formdata);
+
+                    if (data.StatusCodeNumber == 1) {
+
+                        //success here
+                        IsConfirmedAlertOk(alertType.successAlert, alertMessages.saveSuccessfull);
+
+                        //disable form header
+                        travelGlobalFunc.disableFormHeader(travelContainer);
+
+                        travelContainer.querySelector('.jsRequestNo').value = data.ReferenceNo
+                        travelContainer.querySelector('.jstravelHeader').setAttribute('documentref-id', data.DocumentRefID);
+
+                        //enable add travelers/employee travelers button
+                        let addTravelersBtn = travelContainer.querySelector('.jsAddTravelers');
+                        addTravelersBtn.classList.add('add-items-btn');
+                        addTravelersBtn.classList.remove('disabled');
+                        addTravelersBtn.removeAttribute('disabled');
+
+                        //enable add itinerary button
+                        let addItineraryBtn = travelContainer.querySelector('.jsAddItenerary');
+                        addItineraryBtn.classList.add('add-items-btn');
+                        addItineraryBtn.classList.remove('disabled');
+                        addItineraryBtn.removeAttribute('disabled');
+
+                        //enable add accomodation button
+                        let addAccomodationBtn = travelContainer.querySelector('.jsAddItenerary');
+                        addAccomodationBtn.classList.add('add-items-btn');
+                        addAccomodationBtn.classList.remove('disabled');
+                        addAccomodationBtn.removeAttribute('disabled');
+
+                        //trigger click in every enabled button
+                        addTravelersBtn.click();
+                        addItineraryBtn.click();
+                        addAccomodationBtn.click();
+
+                        //add footer buttons
+                        document.querySelector('.jsFooterBtnContainer').appendChild(travelGlobalFunc.footerBtnClone());
+                    }
+                }
+
+
+            } else { IsConfirmedAlertOk(alertType.warningAlert, 'Fill up all forms'); }
+
+        } else if (attrib_id == 'edit') {
+            travelGlobalFunc.enableFormHeader(headerWrapper);
+        }
     },
 
     validateItem: function (parentEl) {
@@ -607,7 +703,6 @@
 
     },
     removeTOItineraryDetail: function (el) {
-        let doc = el.closest('.material-wrapper');
 
         let itemContainer = el.closest('.travel-itirerary-details');
 
@@ -722,11 +817,8 @@
         }
     },
     removeTOAccomodationDetail: function (el) {
-        let doc = el.closest('.material-wrapper');
 
         let itemContainer = el.closest('.travel-hotel-details');
-
-        console.log()
 
         let accomodationDetailID = itemContainer.getAttribute('data-id');
 
@@ -758,6 +850,66 @@
             //remove directly the item
             itemContainer.remove();
         }
+    },
+
+    footerBtnClone: function() {
+        let div = `
+            <div class="content">
+                <button class="jsPrint">
+                    Print
+                </button>
+                <button class="jsSendToEngg">
+                    Send To Engg
+                </button>
+            </div>`;
+
+        let parser = new DOMParser().parseFromString(div, 'text/html').querySelector('.content');
+
+        parser.querySelector('.jsPrint').addEventListener('click', function (e) {
+            let el = e.currentTarget;
+
+            printTR(el);
+        });
+
+        parser.querySelector('.jsSendToEngg').addEventListener('click', function (e) {
+            let el = e.currentTarget;
+
+            sendToEngineering(el);
+        });
+
+
+        function sendToEngineering(el) {
+
+            let travelContainer = el.closest('.material-wrapper')
+
+            IsConfirmedAlertYesOrNo(alertType.warningAlert, "Are you sure you want to send?").then(async function (obj) {
+
+                let formData = new FormData();
+                let docRefID = travelContainer.querySelector('.jstravelHeader').getAttribute('documentref-id');
+                formData.append('DocumentRefID', docRefID);
+
+                let data = await fetchDataPost(AppGlobal.baseUrl + 'Travel/SendToEngTravelRequest', formData);
+
+                if (data.StatusCodeNumber == 1) {
+                    IsConfirmedAlertOk(alertType.successAlert, "Successfully sent");
+                }
+
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        function printTR(el) {
+            
+            let travelContainer = el.closest('.material-wrapper');
+            let docRefID = travelContainer.querySelector('.jstravelHeader').getAttribute('documentref-id');
+
+            let printURL = AppGlobal.baseUrl + 'TravelRecord/Print/?documentRefID=' + docRefID;
+
+            window.open(printURL, '_blank');
+        }
+
+        return parser;
     }
 };
 
@@ -807,8 +959,6 @@
     }
     function AssignEventListener(travelContainer) {
 
-        
-
         DropdownList(travelContainer.querySelector('.jsProjectNumberOrigin'), travelGlobalFunc.ProjectNumberBST, function (obj) {
 
             let projectNameObj = travelGlobalFunc.ProjectNameBST.BFSbyPropertyAndValue('ProjectID', obj.ProjectID);
@@ -844,127 +994,12 @@
             travelContainer.querySelector('.jsProjectNumberDestination').value = projectNumberObj[0].ProjectNumber;
         });
 
-        travelContainer.querySelector('.jstravelHeaderBtn').addEventListener('click', TravelRequestSaveOrUpdateClick);
-        travelContainer.querySelector('.jsSendToAccounting').addEventListener('click', function () {
-
-            IsConfirmedAlertYesOrNo(alertType.warningAlert, "Are you sure you want to send?").then(async function (obj) {
-
-                let formData = new FormData();
-                let docRefID = travelContainer.querySelector('.jstravelHeader').getAttribute('documentref-id');
-                formData.append('DocumentRefID', docRefID);
-
-                let data = await fetchDataPost(AppGlobal.baseUrl + 'Travel/SendToEngTravelRequest', formData);
-
-                if (data.StatusCodeNumber == 1) {
-                    IsConfirmedAlertOk(alertType.successAlert, "Successfully sent");
-                   
-                }
-
-            }).catch(function (obj) {
-            });
-        });
-
+        travelContainer.querySelector('.jstravelHeaderBtn').addEventListener('click', travelGlobalFunc.saveTRHeader);
+        
         travelContainer.querySelector('.jsAddTravelers').addEventListener('click', travelGlobalFunc.AddTravelersView);
         travelContainer.querySelector('.jsAddItenerary').addEventListener('click', travelGlobalFunc.AddIteneraryView);
         travelContainer.querySelector('.jsAddAccomodation').addEventListener('click', travelGlobalFunc.AddAccomodationView);
 
-    }
-    async function TravelRequestSaveOrUpdateClick(e) {
-        const travelContainer = e.currentTarget.closest('.material-wrapper');
-        let attrib_id = travelContainer.querySelector('.jstravelHeaderBtn').id;
-
-       
-        if (attrib_id == 'new') {
-            if (ValidateForm(travelContainer)) {
-                let projectIDOrigin = travelContainer.querySelector('.jsProjectNumberOrigin').getAttribute('data-id');
-                let projectIDDestination = travelContainer.querySelector('.jsProjectNumberDestination').getAttribute('data-id');
-                let requestDate = travelContainer.querySelector('.jsPojectDate').value;
-                let travelDate = travelContainer.querySelector('.jsDateOfTravel').value;
-                let purpose = travelContainer.querySelector('.jsPuposeOfTravel').value;
-                let documentRefID = travelContainer.querySelector('.jstravelHeader').getAttribute('documentref-id');
-                let formdata = new FormData();
-
-                formdata.append('ProjectIDOrigin', projectIDOrigin);
-                formdata.append('ProjectIDDestination', projectIDDestination);
-                formdata.append('FormDate', requestDate);
-                formdata.append('TravelDate', travelDate);
-                formdata.append('TravelPurpose', purpose);
-                formdata.append('DocumentRefID', documentRefID);
-
-                if (documentRefID) {
-
-                    let data = await fetchDataPost(AppGlobal.baseUrl + 'Travel/UpdateNewEmployeeTravelMaster', formdata);
-                    if (data.StatusCodeNumber == 1) {
-
-                        IsConfirmedAlertOk(alertType.successAlert, alertMessages.updateSuccessfull);
-                        DisabledFormHeader(travelContainer);
-                    }
-
-                } else {
-                    let data = await fetchDataPost(AppGlobal.baseUrl + 'Travel/SaveNewEmployeeTravelMaster', formdata);
-
-                    if (data.StatusCodeNumber == 1) {
-                        IsConfirmedAlertOk(alertType.successAlert, alertMessages.saveSuccessfull);
-                        DisabledFormHeader(travelContainer);
-                        travelContainer.querySelector('.jsRequestNo').value = data.ReferenceNo
-                        travelContainer.querySelector('.jstravelHeader').setAttribute('documentref-id', data.DocumentRefID);
-
-                        travelContainer.querySelector('.jsAddTravelers').classList.add('add-items-btn');
-                        travelContainer.querySelector('.jsAddItenerary').classList.add('add-items-btn');
-                        travelContainer.querySelector('.jsAddAccomodation').classList.add('add-items-btn');
-
-                        travelContainer.querySelector('.jsAddTravelers').classList.remove('disabled');
-                        travelContainer.querySelector('.jsAddItenerary').classList.remove('disabled');
-                        travelContainer.querySelector('.jsAddAccomodation').classList.remove('disabled');
-
-                        travelContainer.querySelector('.jsAddTravelers').removeAttribute('disabled');
-                        travelContainer.querySelector('.jsAddItenerary').removeAttribute('disabled');
-                        travelContainer.querySelector('.jsAddAccomodation').removeAttribute('disabled');
-
-                        travelContainer.querySelector('.jsAddTravelers').click();
-                        travelContainer.querySelector('.jsAddItenerary').click();
-                        travelContainer.querySelector('.jsAddAccomodation').click();
-
-                     
-                        
-                       
-
-                    }
-                }
-
-                
-            } else { IsConfirmedAlertOk(alertType.warningAlert, 'Fill up all forms'); }
-            
-        } else if (attrib_id == 'edit') {
-            EnabledFormHeader(travelContainer);
-        }
-    }
-    function EnabledFormHeader(travelContainer) {
-        travelContainer.querySelectorAll('input').forEach((item) => {
-            if (item.id != 'jsRequestNo') {
-                item.removeAttribute('disabled', 'disabled');
-            }
-            
-        });
-
-        travelContainer.querySelectorAll('.customDropdownIcon').forEach((item) => {
-            item.classList.remove('display-none');
-        });
-
-        travelContainer.querySelector('.jstravelHeaderBtn').setAttribute('id', 'new');
-        travelContainer.querySelector('.jstravelHeaderBtn').textContent = 'Save';
-    }
-    function DisabledFormHeader(travelContainer) {
-        travelContainer.querySelectorAll('input').forEach((item) => {
-            item.setAttribute('disabled', 'disabled');
-        });
-
-        travelContainer.querySelectorAll('.customDropdownIcon').forEach((item) => {
-            item.classList.add('display-none');
-        });
-
-        travelContainer.querySelector('.jstravelHeaderBtn').setAttribute('id', 'edit');
-        travelContainer.querySelector('.jstravelHeaderBtn').textContent = 'Edit';
     }
 })();
 
@@ -1119,18 +1154,47 @@
                 let headerData = data.HeaderList;
 
                 wrapper.querySelector('input.jsProjectNumberOrigin').value = headerData.ProjectNumberOrigin;
+                wrapper.querySelector('input.jsProjectNumberOrigin').setAttribute('data-id', headerData.ProjectOriginID);
+                wrapper.querySelector('input.jsProjectNumberOrigin').setAttribute('data-textcontent', headerData.ProjectNumberOrigin);
+
                 wrapper.querySelector('input.jsProjectNameOrign').value = headerData.ProjectNameOrigin;
+                wrapper.querySelector('input.jsProjectNameOrign').setAttribute('data-id', headerData.ProjectOriginID);
+                wrapper.querySelector('input.jsProjectNameOrign').setAttribute('data-textcontent', headerData.ProjectNameOrigin);
+
                 wrapper.querySelector('input.jsRequestNo').value = headerData.ReferenceNo;
+
                 wrapper.querySelector('input.jsPojectDate').value = ToJavascriptDate(headerData.FormDate);
+
                 wrapper.querySelector('input.jsProjectNumberDestination').value = headerData.ProjectNumberDestination;
+                wrapper.querySelector('input.jsProjectNumberDestination').setAttribute('data-id', headerData.ProjectDestinationID);
+                wrapper.querySelector('input.jsProjectNumberDestination').setAttribute('data-textcontent', headerData.ProjectNumberDestination);
+
                 wrapper.querySelector('input.jsDateOfTravel').value = ToJavascriptDate(headerData.TravelDate);
+
                 wrapper.querySelector('input.jsProjectNameDestination').value = headerData.ProjectNameDestination;
+                wrapper.querySelector('input.jsProjectNameDestination').setAttribute('data-id', headerData.ProjectDestinationID);
+                wrapper.querySelector('input.jsProjectNameDestination').setAttribute('data-textcontent', headerData.ProjectNameDestination);
+
                 wrapper.querySelector('input.jsPuposeOfTravel').value = headerData.TravelPurpose;
+
                 wrapper.querySelector('.jstravelHeader').setAttribute('documentref-id', headerData.DocumentRefID);
 
 
                 //disable travel request header inputs
                 travelGlobalFunc.disableFormHeader(wrapper);
+
+                //add event listener
+                wrapper.querySelector('.jstravelHeaderBtn').addEventListener('click', travelGlobalFunc.saveTRHeader);
+
+                //add footer button
+                let footerBtnContainer = document.querySelector('.jsFooterBtnContainer');
+                footerBtnContainer.appendChild(travelGlobalFunc.footerBtnClone());
+
+                //check if pending for approval
+                if (headerData.ApproverStatusID == 2) {
+                    footerBtnContainer.querySelector('.jsSendToEngg').remove();
+                }
+
             })();
 
 
@@ -1156,6 +1220,10 @@
 
                     itemClone.querySelector('.jsKgs').value = item.BaggageWeight;
 
+                    itemClone.querySelector('.jsPositionName').value = item.Position;
+
+                    itemClone.querySelector('.jsBirthDate').value = ToJavascriptDate(item.BirthDate);
+
                     //append here
                     container.appendChild(itemClone);
 
@@ -1163,7 +1231,7 @@
                     travelGlobalFunc.disableItem(container);
 
                     //change the button of save
-                    let saveBtn = container.querySelector('.jsSaveEmployeeName');
+                    let saveBtn = itemClone.querySelector('.jsSaveEmployeeName');
                     saveBtn.innerHTML = '';
                     saveBtn.id = 'edit';
                     saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
@@ -1208,7 +1276,7 @@
                     travelGlobalFunc.disableItem(container);
 
                     //change the id and textcontent of save button
-                    let saveBtn = container.querySelector('.jsSaveItinerary');
+                    let saveBtn = itemClone.querySelector('.jsSaveItinerary');
                     saveBtn.innerHTML = '';
                     saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
                     saveBtn.id = 'edit';
@@ -1255,7 +1323,7 @@
                     travelGlobalFunc.disableItem(container);
 
                     //change the text of save button
-                    let saveBtn = container.querySelector('.jsSaveAccomodation');
+                    let saveBtn = itemClone.querySelector('.jsSaveAccomodation');
                     saveBtn.innerHTML = '';
                     saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
                     saveBtn.id = 'edit';
