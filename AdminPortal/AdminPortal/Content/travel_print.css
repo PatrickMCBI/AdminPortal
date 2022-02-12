@@ -49,6 +49,7 @@ main {
 }
 .header-h3 {
     margin: 7px 0;
+    font-size: 15px;
 }
 .subject-h3-span {
     padding-left: 5px;
@@ -57,6 +58,7 @@ main {
     border: 1px solid #333;
     width: 100%;
     height: auto;
+    margin-top: 20px;
 }
 .travel-request-content {
     font-size:14px;
@@ -105,12 +107,15 @@ main {
     border-bottom: none;
 }
 .TO-footer {
+    margin-top:150px;
     display: grid; 
-    grid-template-columns: 1fr 1fr;
-    position: fixed;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-row-gap: 80px;
     width: 100%;
-    bottom: 50px;
+    font-size: 15px;
 }
+
 
 .footer-wrap label {
     display: block;
@@ -120,10 +125,11 @@ main {
     display: block;
 }
 .TO-print-body p {
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 20px;
 }
 .list-table-bodyItems div {
-    font-size: 11px;
+    font-size: 15px;
     padding: 3px;
 }
 
@@ -136,8 +142,119 @@ main {
     font-size: 14px;
 }
 
-@media print {
-    #printBtn {
-    display: none;
+.list-of-employee-container {
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: 30px 1fr 30px 1fr;
+    font-size:15px;
+    width: 80%;
+    margin: 0 auto;
+    font-weight: 600;
+    line-height: 20px;
 }
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+
+
+#printBtnTR {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 17px;
+    font-family: monospace;
+}
+.TR-print {
+    padding: 15px;
+    border: 
+}
+.travel-request-header2 {
+/*    border-bottom: 1px groove #999;*/
+}
+.travel-request-header2 h2.main-title {
+    margin: 0;
+    padding: 5px;
+    font-size: 20px;
+    color: #222;
+    display: flex;
+    align-self: center;
+}
+.logo-and-company {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    grid-column-gap: 10px;
+}
+.logo-and-company img {
+    width: 50px;
+    margin-bottom: 10px;
+}
+.TR-print-title {
+    margin: 0;
+    padding: 10px 5px;
+    text-align: center;
+    margin-bottom: 5px;
+    background: #d7d7d7;
+}
+.tr-header-form-container {
+    display: grid;
+    grid-template-columns: 65% 35%;
+    font-size: 15px;
+}
+.tr-header-form-group {
+    display: grid;
+    grid-template-columns: 80px auto;
+}
+.tr-header-form-group2 {
+    display: grid;
+    grid-template-columns: 110px auto;
+}
+.travel-request-header h3.project-header {
+    margin: 0;
+    padding:0;
+    font-size: 15px;
+}
+#project-destination-h3 {
+    margin-top: 10px;
+}
+.tr-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 50px;
+    margin-top: 50px;
+    position: absolute;
+    width: 96%;
+    bottom: 15px;
+}
+.tr-footer-formGroup label {
+    display: block;
+    font-family: monospace;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+.tr-footer-formGroup span {
+    font-size: 16px;
+    border-bottom: 1px solid #555;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+.tr-main-header {
+    display: grid;
+    grid-template-columns: minmax(400px,1fr) 120px 140px;
+}
+
+@media print {
+    #printBtn, #printBtnTR {
+        display: none;
+    }
+
+    .jsQRCode {
+        position: fixed;
+        top: 0;
+        right: 15px;
+    }
 }

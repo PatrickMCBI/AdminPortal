@@ -37,7 +37,7 @@ namespace AdminPortal.Controllers
             return Json(data.TravelRequestIndividualRecordData(), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Print(int documentRefID)
+        public ActionResult PrintTO(int documentRefID)
         {
             TravelRequestIndividualRecordParamDataModel model = new TravelRequestIndividualRecordParamDataModel
             {
@@ -46,7 +46,19 @@ namespace AdminPortal.Controllers
 
             ITravelRequestIndividualRecordData data = new TravelRequestIndividualRecordDataLogic(model);
 
-            return View("~/Views/TravelRecord/_Print.cshtml", data.TravelRequestIndividualRecordData());
+            return View("~/Views/TravelRecord/_PrintTO.cshtml", data.TravelRequestIndividualRecordData());
+        }
+
+        public ActionResult PrintTR(int documentRefID)
+        {
+            TravelRequestIndividualRecordParamDataModel model = new TravelRequestIndividualRecordParamDataModel
+            {
+                DocumentRefID = documentRefID
+            };
+
+            ITravelRequestIndividualRecordData data = new TravelRequestIndividualRecordDataLogic(model);
+
+            return View("~/Views/TravelRecord/_PrintTR.cshtml", data.TravelRequestIndividualRecordData());
         }
     }
 }

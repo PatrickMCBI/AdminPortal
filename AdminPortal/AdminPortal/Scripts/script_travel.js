@@ -6,6 +6,8 @@
     ProjectNumberBST: null,
     ProjectNameBST: null,
     EmployeeNameBST: null,
+    recordBST: null,
+    recordLL: null,
     AddTravelersView: function (e) {
         const travelContainer = e.currentTarget.closest('.material-wrapper');
         const tbody = travelContainer.querySelector('.travel-purpose-details-con');
@@ -68,7 +70,7 @@
 
     enableFormHeader: function (travelContainer) {
 
-        travelContainer.querySelectorAll('input').forEach((item) => {
+        travelContainer.querySelectorAll('input, textarea').forEach((item) => {
             if (item.id != 'jsRequestNo') {
                 item.removeAttribute('disabled', 'disabled');
             }
@@ -85,7 +87,7 @@
     },
 
     disableFormHeader: function (travelContainer) {
-        travelContainer.querySelectorAll('input').forEach((item) => {
+        travelContainer.querySelectorAll('input, textarea').forEach((item) => {
             item.setAttribute('disabled', 'disabled');
         });
 
@@ -348,10 +350,11 @@
             if (ValidateForm(travelContainer)) {
                 let projectIDOrigin = travelContainer.querySelector('.jsProjectNumberOrigin').getAttribute('data-id');
                 let projectIDDestination = travelContainer.querySelector('.jsProjectNumberDestination').getAttribute('data-id');
-                let requestDate = travelContainer.querySelector('.jsPojectDate').value;
+                let requestDate = travelContainer.querySelector('.jsRequestDate').value;
                 let travelDate = travelContainer.querySelector('.jsDateOfTravel').value;
-                let purpose = travelContainer.querySelector('.jsPuposeOfTravel').value;
+                let purpose = travelContainer.querySelector('.jsPurposeOfTravel').value;
                 let documentRefID = travelContainer.querySelector('.jstravelHeader').getAttribute('documentref-id');
+                let returnDate = travelContainer.querySelector('.jsDateOfReturn').value;
                 let formdata = new FormData();
 
                 formdata.append('ProjectIDOrigin', projectIDOrigin);
@@ -360,6 +363,7 @@
                 formdata.append('TravelDate', travelDate);
                 formdata.append('TravelPurpose', purpose);
                 formdata.append('DocumentRefID', documentRefID);
+                formdata.append('ReturnDate', returnDate);
 
                 if (documentRefID) {
 
@@ -400,7 +404,7 @@
                         addItineraryBtn.removeAttribute('disabled');
 
                         //enable add accomodation button
-                        let addAccomodationBtn = travelContainer.querySelector('.jsAddItenerary');
+                        let addAccomodationBtn = travelContainer.querySelector('.jsAddAccomodation');
                         addAccomodationBtn.classList.add('add-items-btn');
                         addAccomodationBtn.classList.remove('disabled');
                         addAccomodationBtn.removeAttribute('disabled');
@@ -855,8 +859,11 @@
     footerBtnClone: function() {
         let div = `
             <div class="content">
-                <button class="jsPrint">
-                    Print
+                <button class="jsPrintTR">
+                    Print TR
+                </button>
+                <button class="jsPrintTO">
+                    Print TO
                 </button>
                 <button class="jsSendToEngg">
                     Send To Engg
@@ -865,7 +872,14 @@
 
         let parser = new DOMParser().parseFromString(div, 'text/html').querySelector('.content');
 
-        parser.querySelector('.jsPrint').addEventListener('click', function (e) {
+        parser.querySelector('.jsPrintTO').addEventListener('click', function (e) {
+            let el = e.currentTarget;
+
+            printTO(el);
+        });
+
+        parser.querySelector('.jsPrintTR').addEventListener('click', function (e) {
+
             let el = e.currentTarget;
 
             printTR(el);
@@ -899,17 +913,48 @@
             });
         }
 
-        function printTR(el) {
+        function printTO(el) {
             
             let travelContainer = el.closest('.material-wrapper');
             let docRefID = travelContainer.querySelector('.jstravelHeader').getAttribute('documentref-id');
 
-            let printURL = AppGlobal.baseUrl + 'TravelRecord/Print/?documentRefID=' + docRefID;
+            let printURL = AppGlobal.baseUrl + 'TravelRecord/PrintTO/?documentRefID=' + docRefID;
+
+            window.open(printURL, '_blank');
+        }
+
+        function printTR(el) {
+
+            let travelContainer = el.closest('.material-wrapper');
+            let docRefID = travelContainer.querySelector('.jstravelHeader').getAttribute('documentref-id');
+
+            let printURL = AppGlobal.baseUrl + 'TravelRecord/PrintTR/?documentRefID=' + docRefID;
 
             window.open(printURL, '_blank');
         }
 
         return parser;
+    },
+
+    projectDropdownList: function (doc) {
+
+        DropdownList(doc.querySelector('.jsProjectNumberOrigin'), travelGlobalFunc.ProjectNumberBST, function (obj) {
+
+            let projectNameObj = travelGlobalFunc.ProjectNameBST.BFSbyPropertyAndValue('ProjectID', obj.ProjectID);
+
+            doc.querySelector('.jsProjectNumberOrigin').value = obj.ProjectNumber;
+            doc.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', obj.ProjectID);
+            doc.querySelector('.jsProjectNameOrigin').value = projectNameObj[0].ProjectName;
+        });
+        DropdownList(doc.querySelector('.jsProjectNameOrigin'), travelGlobalFunc.ProjectNameBST, function (obj) {
+
+            let projectNumberObj = travelGlobalFunc.ProjectNumberBST.BFSbyPropertyAndValue('ProjectID', obj.ProjectID);
+
+            doc.querySelector('.jsProjectNameOrigin').value = obj.ProjectName;
+            doc.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', obj.ProjectID);
+            doc.querySelector('.jsProjectNumberOrigin').value = projectNumberObj[0].ProjectNumber;
+
+        });
     }
 };
 
@@ -938,67 +983,45 @@
  
         if (data.StatusCodeNumber == 1) {
 
+            //Load to BST
             travelGlobalFunc.ProjectNumberBST = LoadDataToBST(data.ProjectNumber, 'ProjectID');
             travelGlobalFunc.ProjectNameBST = LoadDataToBST(data.ProjectName, 'ProjectID');
             travelGlobalFunc.EmployeeNameBST = LoadDataToBST(data.EmployeeName, 'ID');
-          
-            travelGlobalFunc.AccomodationTypeLL = new LinkedList();
-            travelGlobalFunc.ModeOfTransportLL = new LinkedList();
-            data.AccomodationType.forEach((item) => {
-                travelGlobalFunc.ModeOfTransportLL.push(item);
-            });
-            travelGlobalFunc.ModeOfTransportLL.getAll();
 
-            data.TransportMode.forEach((item) => {
-                travelGlobalFunc.ModeOfTransportLL.push(item);
-            });
-            travelGlobalFunc.ModeOfTransportLL.getAll();
+            //Load to LL
+            travelGlobalFunc.AccomodationTypeLL = LoadDataToLinkedList(data.AccomodationType);
+            travelGlobalFunc.ModeOfTransportLL = LoadDataToLinkedList(data.TransportMode);
 
             AssignEventListener(travelContainer);
         }
     }
-    function AssignEventListener(travelContainer) {
+    function AssignEventListener(doc) {
 
-        DropdownList(travelContainer.querySelector('.jsProjectNumberOrigin'), travelGlobalFunc.ProjectNumberBST, function (obj) {
+        //project DropdownList
+        travelGlobalFunc.projectDropdownList(doc);
 
-            let projectNameObj = travelGlobalFunc.ProjectNameBST.BFSbyPropertyAndValue('ProjectID', obj.ProjectID);
-
-            travelContainer.querySelector('.jsProjectNumberOrigin').value = obj.ProjectNumber;
-            travelContainer.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', obj.ProjectID);
-            travelContainer.querySelector('.jsProjectNameOrign').value = projectNameObj[0].ProjectName;
-        });
-        DropdownList(travelContainer.querySelector('.jsProjectNameOrign'), travelGlobalFunc.ProjectNameBST, function (obj) {
-
-            let projectNumberObj = travelGlobalFunc.ProjectNumberBST.BFSbyPropertyAndValue('ProjectID', obj.ProjectID);
-
-            travelContainer.querySelector('.jsProjectNameOrign').value = obj.ProjectName;
-            travelContainer.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', obj.ProjectID);
-            travelContainer.querySelector('.jsProjectNumberOrigin').value = projectNumberObj[0].ProjectNumber;
-
-        });
-
-        DropdownList(travelContainer.querySelector('.jsProjectNumberDestination'), travelGlobalFunc.ProjectNumberBST, function (obj) {
+        DropdownList(doc.querySelector('.jsProjectNumberDestination'), travelGlobalFunc.ProjectNumberBST, function (obj) {
 
             let projectNameObj = travelGlobalFunc.ProjectNameBST.BFSbyPropertyAndValue('ProjectID', obj.ProjectID);
 
-            travelContainer.querySelector('.jsProjectNumberDestination').value = obj.ProjectNumber;
-            travelContainer.querySelector('.jsProjectNumberDestination').setAttribute('data-id', obj.ProjectID);
-            travelContainer.querySelector('.jsProjectNameDestination').value = projectNameObj[0].ProjectName;
+            doc.querySelector('.jsProjectNumberDestination').value = obj.ProjectNumber;
+            doc.querySelector('.jsProjectNumberDestination').setAttribute('data-id', obj.ProjectID);
+            doc.querySelector('.jsProjectNameDestination').value = projectNameObj[0].ProjectName;
         });
-        DropdownList(travelContainer.querySelector('.jsProjectNameDestination'), travelGlobalFunc.ProjectNameBST, function (obj) {
+        DropdownList(doc.querySelector('.jsProjectNameDestination'), travelGlobalFunc.ProjectNameBST, function (obj) {
 
             let projectNumberObj = travelGlobalFunc.ProjectNumberBST.BFSbyPropertyAndValue('ProjectID', obj.ProjectID);
 
-            travelContainer.querySelector('.jsProjectNameDestination').value = obj.ProjectName;
-            travelContainer.querySelector('.jsProjectNumberDestination').setAttribute('data-id', obj.ProjectID);
-            travelContainer.querySelector('.jsProjectNumberDestination').value = projectNumberObj[0].ProjectNumber;
+            doc.querySelector('.jsProjectNameDestination').value = obj.ProjectName;
+            doc.querySelector('.jsProjectNumberDestination').setAttribute('data-id', obj.ProjectID);
+            doc.querySelector('.jsProjectNumberDestination').value = projectNumberObj[0].ProjectNumber;
         });
 
-        travelContainer.querySelector('.jstravelHeaderBtn').addEventListener('click', travelGlobalFunc.saveTRHeader);
+        doc.querySelector('.jstravelHeaderBtn').addEventListener('click', travelGlobalFunc.saveTRHeader);
         
-        travelContainer.querySelector('.jsAddTravelers').addEventListener('click', travelGlobalFunc.AddTravelersView);
-        travelContainer.querySelector('.jsAddItenerary').addEventListener('click', travelGlobalFunc.AddIteneraryView);
-        travelContainer.querySelector('.jsAddAccomodation').addEventListener('click', travelGlobalFunc.AddAccomodationView);
+        doc.querySelector('.jsAddTravelers').addEventListener('click', travelGlobalFunc.AddTravelersView);
+        doc.querySelector('.jsAddItenerary').addEventListener('click', travelGlobalFunc.AddIteneraryView);
+        doc.querySelector('.jsAddAccomodation').addEventListener('click', travelGlobalFunc.AddAccomodationView);
 
     }
 })();
@@ -1031,6 +1054,16 @@
 
         console.log(data);
 
+        let allProjectObj = {
+            ProjectID: 0,
+            ProjectName: 'All'
+        };
+
+        data.ProjectList.unshift(allProjectObj);
+
+        //load to bst
+        travelGlobalFunc.ProjectNameBST = LoadDataToBST(data.ProjectList, 'ProjectID');
+
         filterData = [];
 
         //add rowcount column in recordlist
@@ -1043,18 +1076,54 @@
         //display record
         displayRecord(filterData, parser);
 
+
+        if (data.RecordList.length > 10) {
+            travelGlobalFunc.recordBST = LoadDataToBST(data.RecordList, 'DocumentRefID');
+        }
+        else {
+            travelGlobalFunc.recordLL = LoadDataToLinkedList(data.RecordList);
+        }
+
         travelGlobalFunc.centerPanel.appendChild(parser);
 
         assignEventListenersRecord(parser);
     }
 
     function assignEventListenersRecord(doc) {
+        DropdownList(doc.querySelector('.jsProjectOrigin'), travelGlobalFunc.ProjectNameBST, function (obj) {
 
+            sortDefaults(doc);
+
+            let config = {
+                projectOriginID: obj.ProjectID,
+                projectDestinationID: doc.querySelector('.jsProjectDestination').getAttribute('data-id') || 0,
+                dateFrom: doc.querySelector('.jsDateFrom').value || null,
+                dateTo: doc.querySelector('.jsDateTo').value || null
+            };
+
+            filterRecord(config, doc);
+        });
+
+        DropdownList(doc.querySelector('.jsProjectDestination'), travelGlobalFunc.ProjectNameBST, function (obj) {
+
+            sortDefaults(doc);
+
+            let config = {
+                projectOriginID: doc.querySelector('.jsProjectOrigin').getAttribute('data-id') || 0,
+                projectDestinationID: obj.ProjectID,
+                dateFrom: doc.querySelector('.jsDateFrom').value || null,
+                dateTo: doc.querySelector('.jsDateTo').value || null
+            };
+
+            filterRecord(config, doc);
+        });
     }
 
     function displayRecord(data, doc) {
 
         let tblBody = doc.querySelector('.jsTRRecordTbody');
+
+        tblBody.innerHTML = '';
 
         if (data.length > 0) {
 
@@ -1100,6 +1169,221 @@
 
     }
 
+    function filterRecord(config, doc) {
+
+        let dataArray;
+        filterData = [];
+
+        if (data.RecordList.length > 10) {
+            dataArray = travelGlobalFunc.recordBST.BFS();
+
+            pushToFilterdata();
+
+            displayRecord(filterData, doc);
+
+        }
+        else {
+            dataArray = travelGlobalFunc.recordLL.getAll();
+
+            pushToFilterdata();
+
+            displayRecord(filterData, doc);
+        }
+
+        function pushToFilterdata() {
+
+            if (dataArray && dataArray.length) {
+                dataArray.sort((a, b) => a['DocumentRefID'] - b['DocumentRefID']);
+
+                for (var i = 0; i < dataArray.length; i++) {
+
+                    let projecOriginConfig = {
+
+                        value: config.projectOriginID,
+                        objKey: 'ProjectOriginID',
+                        index: i,
+                        dataArray: dataArray
+                    }
+
+                    let projDestinationConfig = {
+
+                        value: config.projectDestinationID,
+                        objKey: 'ProjectDestinationID',
+                        index: i,
+                        dataArray: dataArray
+                    }
+
+                    let dateRangeConfig = {
+                        from: config.dateFrom,
+                        to: config.dateTo,
+                        objKey: 'TravelDate',
+                        index: i,
+                        dataArray: dataArray
+                    };
+
+                    if (filterDataID(projecOriginConfig) && filterDataID(projDestinationConfig) && filterDateRange(dateRangeConfig)) {
+                        filterData.push(dataArray[i]);
+                    }
+
+                }
+
+            }
+
+            function filterDateRange(config) {
+                if (!config.from && !config.to) {
+                    return true;
+                }
+
+                else {
+                    if (config.from && !config.to) {
+                        return checkFromDate();
+                    }
+                    else if (!config.from && config.to) {
+                        return checkToDate();
+                    }
+                }
+
+                return checkFromDate() && checkToDate();
+
+
+                function checkFromDate() {
+
+                    return Date.parse(new Date(ToJavascriptDate(config.dataArray[config.index][config.objKey])).toDateString()) >= Date.parse(new Date(config.from).toDateString());
+
+                }
+
+                function checkToDate() {
+                    return Date.parse(new Date(ToJavascriptDate(config.dataArray[config.index][config.objKey])).toDateString()) <= Date.parse(new Date(config.to).toDateString());
+                }
+            }
+
+            function filterDataID(config) {
+
+                if (config.value == 0) {
+
+                    return true;
+                }
+
+                return config.dataArray[config.index][config.objKey] === parseInt(config.value);
+            }
+
+        }
+    }
+
+    function sortDefaults(doc) {
+
+        //display the default sort icon for po record
+        doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
+            item.removeAttribute('data-sourceType');
+        });
+        doc.querySelectorAll('.sortIcon').forEach((item) => {
+            item.setAttribute('style', 'display: none');
+        });
+
+        doc.querySelectorAll('.jsSortByColumn')[0].setAttribute('data-sourceType', 'sortUp');
+        doc.querySelectorAll('.sortUpIcon')[0].removeAttribute('style');
+    }
+
+    function sortData(el) {
+
+        let doc = el.closest('.po-record-container');
+
+        //get the columnname
+        let columnName = el.getAttribute('data-columnName');
+
+        //check if it has [data-sortType] attribute
+        let sortType = el.getAttribute('data-sortType') || null;
+
+        if (sortType) {
+            switch (sortType) {
+
+                case 'sortUp':
+
+                    SortDown();
+
+                    break;
+
+                case 'sortDown':
+
+                    SortUp();
+
+                    break;
+            }
+        }
+        else {
+            //set default for sort type
+
+            SortUp();
+        }
+
+
+        function SortUp() {
+
+            filterData.sort(compareSortUp);
+
+            //remove all the [data-sortType] attribute
+            doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
+                item.removeAttribute('data-sortType');
+            });
+
+            //hide all the icon
+            doc.querySelectorAll('.sortIcon').forEach((item) => {
+                item.setAttribute('style', 'display: none');
+            })
+
+            //modify the data-sourceType
+            //[data-sourceType] => sortUp || sortDown
+            el.setAttribute('data-sortType', 'sortUp');
+            el.querySelector('.sortUpIcon').removeAttribute('style');
+
+            DisplayRecord(filterData, doc);
+        }
+
+        function SortDown() {
+
+            filterData.sort(compareSortDown);
+
+            //remove all the [data-sortType] attribute
+            doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
+                item.removeAttribute('data-sortType');
+            });
+
+            //hide all the icon
+            doc.querySelectorAll('.sortIcon').forEach((item) => {
+                item.setAttribute('style', 'display: none');
+            })
+
+            //modify the data-sourceType
+            //[data-sourceType] => sortUp || sortDown
+            el.setAttribute('data-sortType', 'sortDown');
+            el.querySelector('.sortDownIcon').removeAttribute('style');
+
+            DisplayRecord(filterData, doc);
+        }
+
+        function compareSortUp(a, b) {
+
+            if (a[columnName] < b[columnName]) {
+                return -1;
+            }
+            if (a[columnName] > b[columnName]) {
+                return 1;
+            }
+            return 0;
+        }
+
+        function compareSortDown(a, b) {
+
+            if (a[columnName] > b[columnName]) {
+                return -1;
+            }
+            if (a[columnName] < b[columnName]) {
+                return 1;
+            }
+            return 0;
+        }
+    }
+
     async function responseSuccessIndividualRecord(view, documentRefID) {
 
         travelGlobalFunc.centerPanel.innerHTML = '';
@@ -1137,6 +1421,9 @@
 
             doc.querySelector('.jsAddAccomodation').addEventListener('click', travelGlobalFunc.AddAccomodationView);
 
+            //Dropdownlist
+            travelGlobalFunc.projectDropdownList(doc);
+
         })();
 
 
@@ -1153,32 +1440,33 @@
                 let wrapper = doc.querySelector('.material-header-wrapper');
                 let headerData = data.HeaderList;
 
-                wrapper.querySelector('input.jsProjectNumberOrigin').value = headerData.ProjectNumberOrigin;
-                wrapper.querySelector('input.jsProjectNumberOrigin').setAttribute('data-id', headerData.ProjectOriginID);
-                wrapper.querySelector('input.jsProjectNumberOrigin').setAttribute('data-textcontent', headerData.ProjectNumberOrigin);
+                wrapper.querySelector('.jsProjectNumberOrigin').value = headerData.ProjectNumberOrigin;
+                wrapper.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', headerData.ProjectOriginID);
+                wrapper.querySelector('.jsProjectNumberOrigin').setAttribute('data-textcontent', headerData.ProjectNumberOrigin);
 
-                wrapper.querySelector('input.jsProjectNameOrign').value = headerData.ProjectNameOrigin;
-                wrapper.querySelector('input.jsProjectNameOrign').setAttribute('data-id', headerData.ProjectOriginID);
-                wrapper.querySelector('input.jsProjectNameOrign').setAttribute('data-textcontent', headerData.ProjectNameOrigin);
+                wrapper.querySelector('.jsProjectNameOrigin').value = headerData.ProjectNameOrigin;
+                wrapper.querySelector('.jsProjectNameOrigin').setAttribute('data-id', headerData.ProjectOriginID);
+                wrapper.querySelector('.jsProjectNameOrigin').setAttribute('data-textcontent', headerData.ProjectNameOrigin);
 
-                wrapper.querySelector('input.jsRequestNo').value = headerData.ReferenceNo;
+                wrapper.querySelector('.jsRequestNo').value = headerData.ReferenceNo;
 
-                wrapper.querySelector('input.jsPojectDate').value = ToJavascriptDate(headerData.FormDate);
+                wrapper.querySelector('.jsRequestDate').value = ToJavascriptDate(headerData.FormDate);
 
-                wrapper.querySelector('input.jsProjectNumberDestination').value = headerData.ProjectNumberDestination;
-                wrapper.querySelector('input.jsProjectNumberDestination').setAttribute('data-id', headerData.ProjectDestinationID);
-                wrapper.querySelector('input.jsProjectNumberDestination').setAttribute('data-textcontent', headerData.ProjectNumberDestination);
+                wrapper.querySelector('.jsProjectNumberDestination').value = headerData.ProjectNumberDestination;
+                wrapper.querySelector('.jsProjectNumberDestination').setAttribute('data-id', headerData.ProjectDestinationID);
+                wrapper.querySelector('.jsProjectNumberDestination').setAttribute('data-textcontent', headerData.ProjectNumberDestination);
 
-                wrapper.querySelector('input.jsDateOfTravel').value = ToJavascriptDate(headerData.TravelDate);
+                wrapper.querySelector('.jsDateOfTravel').value = ToJavascriptDate(headerData.TravelDate);
 
-                wrapper.querySelector('input.jsProjectNameDestination').value = headerData.ProjectNameDestination;
-                wrapper.querySelector('input.jsProjectNameDestination').setAttribute('data-id', headerData.ProjectDestinationID);
-                wrapper.querySelector('input.jsProjectNameDestination').setAttribute('data-textcontent', headerData.ProjectNameDestination);
+                wrapper.querySelector('.jsProjectNameDestination').value = headerData.ProjectNameDestination;
+                wrapper.querySelector('.jsProjectNameDestination').setAttribute('data-id', headerData.ProjectDestinationID);
+                wrapper.querySelector('.jsProjectNameDestination').setAttribute('data-textcontent', headerData.ProjectNameDestination);
 
-                wrapper.querySelector('input.jsPuposeOfTravel').value = headerData.TravelPurpose;
+                wrapper.querySelector('.jsPurposeOfTravel').value = headerData.TravelPurpose;
 
                 wrapper.querySelector('.jstravelHeader').setAttribute('documentref-id', headerData.DocumentRefID);
 
+                wrapper.querySelector('.jsDateOfReturn').value = ToJavascriptDate(headerData.ReturnDate);
 
                 //disable travel request header inputs
                 travelGlobalFunc.disableFormHeader(wrapper);

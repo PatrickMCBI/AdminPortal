@@ -1,0 +1,84 @@
+﻿@model BusinessRef.Model.EmployeeTravel.TravelRequestIndividualRecordReturnDataModel
+
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Order</title>
+    <link href="~/Content/layout.css" rel="stylesheet"/>
+    <link href="~/Content/travel.css" rel="stylesheet"/>
+    <link href="~/Content/common.css" rel="stylesheet"/>
+    <link href="~/Content/travel_print.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="wrapper">
+        <main>
+            <div class="TO-print">
+                <button id="printBtn" onclick="window.print()">Print</button>
+                <div class="logo-header">
+                    <div class="logo-left">
+                        <img src="~/Images/Logo/mcbi-logo.png" />
+                    </div>
+                    <div class="logo-right">
+                        <img src="~/Images/Logo/nqa.jpg" />
+                    </div>
+                </div>
+                <h5 class="header-h3">@DateTime.Now.ToString("MMMM dd, yyyy")</h5>
+                <h5 class="header-h3">TRAVEL ORDER</h5>
+                <h5 class="text-underline header-h3">No. @Model.HeaderList.ReferenceNo</h5>
+                <h5 class="header-h3">SUBJECT: <span class="text-underline subject-h3-span">AUTHORITY TO TRAVEL</span></h5>
+                 
+                <div class="TO-print-body">
+                    <p>
+                        Below mentioned personnel from Mariñas & Co. Builders Inc. were hereby authorized to travel from
+                        <span class="font-weight-600">@Model.HeaderList.ProjectNumberOrigin - @Model.HeaderList.ProjectNameOrigin</span> to
+                        <span class="font-weight-600">@Model.HeaderList.ProjectNumberDestination - @Model.HeaderList.ProjectNameDestination</span> on
+                        <span class="font-weight-600">@Model.HeaderList.TravelDate.ToString("MMMM dd, yyyy")</span> 
+                        <span class="font-weight-600">@Model.HeaderList.TravelPurpose.Substring(0, 1).ToLower()@Model.HeaderList.TravelPurpose.Substring(1) </span>
+                        .
+                    </p>
+                    @{ var count = 1;}
+                    @foreach (var item in Model.EmployeeDetailList)
+                    {
+                        <div class="list-of-employee-container">
+
+                            <div class="count-container">@count.</div>
+                            <div>@item.EmployeeName</div>
+                            <div class="separator">-</div>
+                            <div>@item.Position</div>
+
+                        </div>
+                        count++;
+                    }
+
+                        <div>
+                            <p style="text-align:center; margin-top: 50px">******************************************<span class="font-weight-600">Nothing Follows</span>******************************************</p>
+                            <p>
+                                Travel expenses shall be charged to Mariñas & Co. Builders Inc. subject to its availability
+                                and the usual accounting and auditing rules and regulations. Moreover, Certificate of Appearance shall be
+                                submitted immediately after the travel to the Accounting Unit.
+                            </p>
+                        </div>
+
+                    </div>
+
+                <div class="TO-footer">
+                    <div class="footer-wrap">
+                        <label class="font-weight-600">Prepared By:</label>
+                        <span class="font-weight-600">@Model.HeaderList.PreparedByName</span>
+                        <span>@Model.HeaderList.PreparedByPositionName</span>
+                    </div>
+                    <div class="footer-wrap">
+                        <label class="font-weight-600">Approved By:</label>
+                        <span class="font-weight-600">@Model.HeaderList.ApprovedByName</span>
+                        <span>@Model.HeaderList.ApprovedByPositionName</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

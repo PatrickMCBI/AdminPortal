@@ -10,7 +10,7 @@
                     <div class="trRecord-projectOrigin-filter">
                         <label>Project Origin:</label>
                         <div class="input-icon-wrap">
-                            <input type="text" name="ProjectOrigin" />
+                            <input type="text" name="ProjectOrigin" class="jsProjectOrigin" data-propertyid="ProjectID" data-propertyname="ProjectName" data-sourcetype="bst"/>
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
@@ -19,7 +19,7 @@
                     <div class="trRecord-projectDestination-filter">
                         <label>Project Destination:</label>
                         <div class="input-icon-wrap">
-                            <input type="text" name="ProjectDestination" />
+                            <input type="text" name="ProjectDestination" class="jsProjectDestination" data-propertyid="ProjectID" data-propertyname="ProjectName" data-sourcetype="bst"/>
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
@@ -28,11 +28,11 @@
                     <div class="trRecord-dateRange-filter">
                         <div class="trRecord-dateFrom-filter">
                             <label>From:</label>
-                            <input type="date" name="TRDateFrom" value="" />
+                            <input type="date" name="TRDateFrom" class="jsDateFrom"/>
                         </div>
                         <div class="trRecord-dateTo-filter">
                             <label>To:</label>
-                            <input type="date" name="TRDateTo" value="" />
+                            <input type="date" name="TRDateTo" class="jsDateTo" />
                         </div>
                     </div>
                     <div class="trRecord-searchRef-filter">

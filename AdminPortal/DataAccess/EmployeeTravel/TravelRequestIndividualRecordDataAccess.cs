@@ -111,7 +111,7 @@ namespace DataAccess.EmployeeTravel
                                     {
                                         ID = reader["ID"] as int? ?? default,
                                         EmployeeID = reader["EmployeeID"].ToString(),
-                                        EmployeeName = reader["FirstName"].ToString() + " " + reader["LastName"].ToString()
+                                        EmployeeName = reader["EmployeeName"].ToString()
                                     });
                                 }
 
@@ -143,6 +143,7 @@ namespace DataAccess.EmployeeTravel
                                 refDataModel.HeaderList.TravelPurpose = reader["TravelPurpose"].ToString();
                                 refDataModel.HeaderList.PreparedByPositionName = reader["PreparedByPositionName"].ToString();
                                 refDataModel.HeaderList.ApprovedByPositionName = reader["ApprovedByPositionName"].ToString();
+                                refDataModel.HeaderList.ReturnDate = reader["ReturnDate"] as DateTime? ?? default;
 
                                 reader.NextResult();
                                 refDataModel.EmployeeDetailList = new List<TravelRequestIndividualRecordEmployeeDetailDataModel>();

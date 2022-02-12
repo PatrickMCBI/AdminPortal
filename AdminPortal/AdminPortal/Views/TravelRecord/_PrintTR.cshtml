@@ -1,0 +1,198 @@
+﻿@model BusinessRef.Model.EmployeeTravel.TravelRequestIndividualRecordReturnDataModel
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Request</title>
+    <link href="~/Content/layout.css" rel="stylesheet" />
+    <link href="~/Content/travel.css" rel="stylesheet" />
+    <link href="~/Content/common.css" rel="stylesheet" />
+    <link href="~/Content/travel_print.css" rel="stylesheet" />
+    <script src="/Scripts/QRCode/qrcode.min.js"></script>
+</head>
+<body>
+    @{
+        var totalAmount = 0f;
+    }
+    <div class="wrapper" style="border: 1px solid #000">
+        <main>
+            <div class="TR-print">
+                <button id="printBtnTR" onclick="window.print()">Print</button>
+                <div class="travel-request-header2">
+                    <div class="tr-main-header">
+                        <div class="logo-and-company">
+                            <img src="/Images/Logo/mcbi-logo.png" class="logo" alt="MCBI Logo">
+                            <h2 class="main-title">Mariñas &amp; Co. Builders Inc.</h2>
+                        </div>
+                        <label class="jsQRCode"></label>
+                    </div>
+                    <h2 class="TR-print-title">TRAVEL REQUEST</h2>
+                </div>
+                <div class="travel-request-header">
+                    <h3 class="project-header">Project Origin</h3>
+                    <div class="tr-header-form-container">
+                        <div class="tr-header-form-group">
+                            <label>Project:</label>
+                            <span>@Model.HeaderList.ProjectNameOrigin</span>
+                        </div>
+                        <div class="tr-header-form-group2">
+                            <label>Request No:</label>
+                            <span>@Model.HeaderList.ReferenceNo</span>
+                        </div>
+                        <div class="tr-header-form-group">
+                            <label>Project No:</label>
+                            <span>@Model.HeaderList.ProjectNumberOrigin</span>
+                        </div>
+                        <div class="tr-header-form-group2">
+                            <label>Request Date:</label>
+                            <span>@Model.HeaderList.FormDate.ToString("MM/dd/yyyy")</span>
+                        </div>
+                    </div>
+                    <h3 class="project-header" id="project-destination-h3">Project Destination</h3>
+                    <div class="tr-header-form-container">
+                        <div class="tr-header-form-group">
+                            <label>Project:</label>
+                            <span>@Model.HeaderList.ProjectNameDestination</span>
+                        </div>
+                        <div class="tr-header-form-group2">
+                            <label>Travel Date:</label>
+                            <span>@Model.HeaderList.TravelDate.ToString("MM/dd/yyyy")</span>
+                        </div>
+                        <div class="tr-header-form-group">
+                            <label>Project No:</label>
+                            <span>@Model.HeaderList.ProjectNumberDestination</span>
+                        </div>
+                        <div class="tr-header-form-group2">
+                            <label>Return Date:</label>
+                            <span>@Model.HeaderList.ReturnDate.ToString("MM/dd/yyyy")</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="travel-request-container">
+                    <div class="travel-request-details">
+                        <div class="list-of-traveller">
+                            <h4>EMPLOYEE DETAILS</h4>
+                            <div class="list-table-header">
+                                <h5>No</h5>
+                                <h5>Employee</h5>
+                                <h5>Position</h5>
+                                <h5>Birthdate</h5>
+                                <h5>Baggage Wt</h5>
+                            </div>
+                            <div class="list-table-body">
+                                @{ var count1 = 1;}
+                                @foreach (var item in Model.EmployeeDetailList)
+                                {
+                                    <div class="list-table-bodyItems">
+                                        <div>@count1</div>
+                                        <div>@item.EmployeeName</div>
+                                        <div>@item.Position</div>
+                                        <div>@item.BirthDate.ToString("MMMM dd, yyyy")</div>
+                                        <div>@item.BaggageWeight</div>
+                                    </div>
+                                    count1++;
+                                }
+
+                            </div>
+                        </div>
+                        <div class="itinerary-details">
+                            <h4>ITINERARY DETAILS</h4>
+                            <div class="list-table-header">
+                                <h5>No</h5>
+                                <h5>From</h5>
+                                <h5>To</h5>
+                                <h5>Transport Mode</h5>
+                                <h5>Fare</h5>
+                            </div>
+                            <div class="list-table-body">
+                                @{ var count2 = 1;}
+                                @foreach (var item in Model.ItineraryDetailList)
+                                {
+                                    totalAmount += item.Fare;
+
+                                    <div class="list-table-bodyItems">
+                                        <div>@count2</div>
+                                        <div>@item.From</div>
+                                        <div>@item.To</div>
+                                        <div>@item.TransportMode</div>
+                                        <div>@item.Fare.ToString("N")</div>
+                                    </div>
+                                    count2++;
+                                }
+
+                            </div>
+                        </div>
+                        <div class="accomodation-details">
+                            <h4>ACCOMMODATION DETAILS</h4>
+                            <div class="list-table-header">
+                                <h5>No</h5>
+                                <h5>Accomm. Type</h5>
+                                <h5>No of Days</h5>
+                                <h5>Cost</h5>
+                                <h5>Total</h5>
+                            </div>
+                            <div class="list-table-body">
+                                @{ var count3 = 1;}
+
+                                @foreach (var item in Model.AccomodationDetailList)
+                                {
+                                    var totalAccomodation = item.Cost * item.NoOfDays;
+                                    totalAmount += totalAccomodation;
+
+                                    <div class="list-table-bodyItems">
+                                        <div>@count3</div>
+                                        <div>@item.AccomodationType</div>
+                                        <div>@item.NoOfDays</div>
+                                        <div>@item.Cost.ToString("N")</div>
+                                        <div>@totalAccomodation.ToString("N")</div>
+                                    </div>
+                                    count3++;
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-table-bodyItems travel-details-overall-total">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div style="text-align: right">Total >></div>
+                    <div>@totalAmount.ToString("N")</div>
+                </div>
+
+                <div class="tr-footer">
+                    <div class="tr-footer-formGroup">
+                        <label>PREPARED BY:</label>
+                        <span>@Model.HeaderList.PreparedByName</span>
+                    </div>
+                    <div class="tr-footer-formGroup">
+                        <label>APPROVED BY:</label>
+                        <span>@Model.HeaderList.ApprovedByName</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <script>
+         var AppGlobal = {
+            baseUrl: "@Url.Content("~/")",
+        }
+
+        var qrcode = new QRCode(document.querySelector('.jsQRCode'), {
+            text: window.location.href,
+            width: 75,
+            height: 75,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+    </script>
+</body>
+</html>

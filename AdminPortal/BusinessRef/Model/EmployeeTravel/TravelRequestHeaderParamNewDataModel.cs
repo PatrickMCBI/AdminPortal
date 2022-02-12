@@ -10,5 +10,6 @@ namespace BusinessRef.Model.EmployeeTravel
         public DateTime TravelDate { get; set; }
         public string TravelPurpose { get; set; }
         public int UserNameID { get; set; }
+        public DateTime ReturnDate { get; set; }
     }
 }

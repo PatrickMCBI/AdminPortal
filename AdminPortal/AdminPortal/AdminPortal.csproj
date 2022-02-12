@@ -147,6 +147,7 @@
     <Content Include="Images\Logo\nqa.jpg" />
     <Content Include="Images\Logo\nqa.png" />
     <Content Include="Scripts\login.js" />
+    <Content Include="Scripts\QRCode\qrcode.min.js" />
     <Content Include="Scripts\script_common.js" />
     <Content Include="Scripts\script_dashboard.js" />
     <Content Include="Scripts\script_travel.js" />
@@ -178,7 +179,8 @@
     <None Include="packages.config" />
     <Content Include="Views\Travel\_TravelNew.cshtml" />
     <Content Include="Views\TravelRecord\_Index.cshtml" />
-    <Content Include="Views\TravelRecord\_Print.cshtml" />
+    <Content Include="Views\TravelRecord\_PrintTO.cshtml" />
+    <Content Include="Views\TravelRecord\_PrintTR.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">

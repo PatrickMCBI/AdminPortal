@@ -4,7 +4,7 @@
 }
 <div class="container">
     <div class="material-wrapper">
-        <div class="material-header-wrapper">
+        <div class="material-header-wrapper travel-request-header-wrapper">
             <div class="material-header">
                 <div class="icon-wrapper-edit">
                     <div class="icon-pointer-edit js-backBtn">
@@ -44,7 +44,7 @@
                     <div class="project-container">
                         <label class="start-label">Project Number:</label>
                         <div class="form-groups input-icon-wrap">
-                            <input type="text" name="pojectNumber" class="customDropdownInput jsProjectNumberOrigin" autocomplete="off" data-propertyname="ProjectNumber" data-propertyid="ProjectID" data-sourcetype="bst" required="">
+                            <input type="text" name="projectNumber" class="customDropdownInput jsProjectNumberOrigin" autocomplete="off" data-propertyname="ProjectNumber" data-propertyid="ProjectID" data-sourcetype="bst" required="">
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
@@ -57,14 +57,14 @@
                         <label class="start-label">Project Name:</label>
                         <div class="form-groups input-icon-wrap">
 
-                            <input type="text" name="projectName" autocomplete="off" class=" jsProjectNameOrign" data-propertyname="ProjectName" data-propertyid="ProjectID" data-sourcetype="bst" >
+                            <input type="text" name="projectName" autocomplete="off" class=" jsProjectNameOrigin" data-propertyname="ProjectName" data-propertyid="ProjectID" data-sourcetype="bst" >
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
                             <ul class="customDropdownUL" style="display: none"></ul>
                         </div>
                         <label class="end-label">Request Date:</label>
-                        <input type="date" name="name" class="jsPojectDate" required/>
+                        <input type="date" name="RequestDate" class="jsRequestDate" required/>
                     </div>
                 </div>
                 <div class="material-header-sub">
@@ -75,27 +75,32 @@
                     <div class="project-container">
                         <label class="start-label">Project Number:</label>
                         <div class="form-groups input-icon-wrap">
-                            <input type="text" name="pojectNumber" class="customDropdownInput jsProjectNumberDestination" autocomplete="off" data-propertyname="ProjectNumber" data-propertyid="ProjectID" data-sourcetype="bst" required="">
+                            <input type="text" name="projectNumber" class="customDropdownInput jsProjectNumberDestination" autocomplete="off" data-propertyname="ProjectNumber" data-propertyid="ProjectID" data-sourcetype="bst" required="">
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
                             <ul class="customDropdownUL" style="display: none"></ul>
                         </div>
                         <label class="end-label">Travel Date:</label>
-                        <input type="date" name="dateOftravel" class="jsDateOfTravel"required/>
+                        <input type="date" name="dateOftravel" class="jsDateOfTravel" required />
                     </div>
-                    <div class="project-container" style="grid-template-columns: 150px 35% 140px auto;">
+                    <div class="project-container">
                         <label class="start-label">Project Name:</label>
                         <div class="form-groups input-icon-wrap">
 
-                            <input type="text" name="projectName" autocomplete="off" class=" jsProjectNameDestination" data-propertyname="ProjectName" data-propertyid="ProjectID" data-sourcetype="bst" >
+                            <input type="text" name="projectName" autocomplete="off" class=" jsProjectNameDestination" data-propertyname="ProjectName" data-propertyid="ProjectID" data-sourcetype="bst">
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
                             <ul class="customDropdownUL" style="display: none"></ul>
                         </div>
-                        <label class="end-label">Purpose of Travel:</label>
-                        <input type="text" name="puposeOfTravel" class="jsPuposeOfTravel" required/>
+                        <label class="end-label">Return Date:</label>
+                        <input type="date" name="returnDate" class="jsDateOfReturn" required/>
+                    </div>
+                    <div class="project-container">
+                        <label class="start-label" style="align-items:baseline">Purpose Of Travel:</label>
+                        @*<input type="text" name="puposeOfTravel" class="jsPuposeOfTravel" required />*@
+                        <textarea name="purposeOfTravel" class="jsPurposeOfTravel" required rows="5"></textarea>
                     </div>
                 </div>
 

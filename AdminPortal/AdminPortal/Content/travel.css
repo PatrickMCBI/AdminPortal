@@ -625,3 +625,16 @@ input:disabled {
         align-items: center;
         justify-content: start;
     }
+
+
+.travel-request-header-wrapper input:focus,
+.travel-request-header-wrapper textarea:focus {
+    outline: none;
+}
+.travel-request-header-wrapper textarea {
+    padding: 7px;
+}
+.travel-request-header-wrapper textarea:disabled {
+    border: none;
+    background: #FFF;
+}
