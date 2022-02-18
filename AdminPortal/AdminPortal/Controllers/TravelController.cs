@@ -99,7 +99,6 @@ namespace AdminPortal.Controllers
         [HttpPost]
         public JsonResult TravelRequestDetailEmployeeDelete(TravelRequestDetailParamEmployeeDeleteDataModel model)
         {
-            model.UserNameID = Session["UserNameID"] as int? ?? default;
 
             ITravelRequestDetailEmployeeDeleteData data = new TravelRequestDetailEmployeeDeleteDataLogic(model);
 
@@ -109,7 +108,7 @@ namespace AdminPortal.Controllers
         [HttpPost]
         public JsonResult TravelRequestDetailItineraryDelete(TravelRequestDetailParamItineraryDeleteDataModel model)
         {
-            model.UserNameID = Session["UserNameID"] as int? ?? default;
+
 
             ITravelRequestDetailItineraryDeleteData data = new TravelRequestDetailItineraryDeleteDataLogic(model);
 
@@ -119,7 +118,6 @@ namespace AdminPortal.Controllers
         [HttpPost]
         public JsonResult TravelRequestDetailAccomodationDelete(TravelRequestDetailParamAccomodationDeleteDataModel model)
         {
-            model.UserNameID = Session["UserNameID"] as int? ?? default;
 
             ITravelRequestDetailAccomodationDeleteData data = new TravelRequestDetailAccomodationDeleteDataLogic(model);
 

@@ -630,7 +630,7 @@
 
         let doc = el.closest('.material-wrapper');
 
-        let itemContainer = doc.querySelector('.travel-itirerary-details');
+        let itemContainer = el.closest('.travel-itirerary-details');
 
         if (travelGlobalFunc.validateItem(itemContainer)) {
 
@@ -745,7 +745,7 @@
     saveTOAccomodationDetail: async function (el) {
         let doc = el.closest('.material-wrapper');
 
-        let itemContainer = doc.querySelector('.travel-hotel-details');
+        let itemContainer = el.closest('.travel-hotel-details');
 
         if (travelGlobalFunc.validateItem(itemContainer)) {
 
