@@ -14,6 +14,11 @@ namespace DataAccess.EmployeeTravel
 {
     public class TravelRequestRecordRefDataAccess : IGetDatabaseData<model>
     {
+        private readonly TravelRequestRecordParamRefDataModel _dataModel;
+        public TravelRequestRecordRefDataAccess(TravelRequestRecordParamRefDataModel dataModel)
+        {
+            _dataModel = dataModel;
+        }
         public model GetDatabaseData()
         {
             string connString = ConfigurationManager.ConnectionStrings["ERP_DBCS"].ConnectionString;
@@ -27,10 +32,11 @@ namespace DataAccess.EmployeeTravel
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = con;
-                    cmd.CommandText = "[adms.travel].[spGetTravelRequestRecordReferenceData]";
+                    cmd.CommandText = "[adms.travel].[spGetTravelRequestMasterRecordReference_Sender]";
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@UserNameID", SqlDbType = SqlDbType.Int, Value = _dataModel.UserNameID });
 
-                    using(SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.GetSchemaTable().Rows[0].ItemArray[0].ToString() == "ErrorMessage")
                         {

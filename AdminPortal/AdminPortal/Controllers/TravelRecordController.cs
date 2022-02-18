@@ -20,7 +20,11 @@ namespace AdminPortal.Controllers
 
         public ActionResult GetTravelRequestRecordReferenceData()
         {
-            IGetTravelRequestRecordRefData data = new TravelRequestRecordRefDataLogic();
+            TravelRequestRecordParamRefDataModel dataModel = new TravelRequestRecordParamRefDataModel
+            {
+                UserNameID = Convert.ToInt32(Session["UserNameID"])
+            };
+            IGetTravelRequestRecordRefData data = new TravelRequestRecordRefDataLogic(dataModel);
 
             return Json(data.GetTravelRequestRecordRefData(), JsonRequestBehavior.AllowGet);
         }

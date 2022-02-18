@@ -30,7 +30,7 @@ namespace DataAccess.EmployeeTravel
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = con;
-                    cmd.CommandText = "[adms.travel].[spTravelRequestIteneraryDetailUpdateData]";
+                    cmd.CommandText = "[adms.travel].[spTravelRequestIteneraryDetailUpdateData_Sender]";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@IteneraryDetailID", SqlDbType = SqlDbType.Int, Value = _detailParamUpdateDataModel.IteneraryDetailID });

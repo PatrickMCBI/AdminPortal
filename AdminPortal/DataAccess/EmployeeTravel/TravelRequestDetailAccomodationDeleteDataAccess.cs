@@ -30,11 +30,10 @@ namespace DataAccess.EmployeeTravel
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = con;
-                    cmd.CommandText = "[adms.travel].[spTravelRequestAccomodationDetailDeleteData]";
+                    cmd.CommandText = "[adms.travel].[spTravelRequestAccomodationDetailDeleteData_Sender]";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@AccomodationDetailID", SqlDbType = SqlDbType.Int, Value = _dataModel.AccomodationDetailID });
-                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@UserNameID", SqlDbType = SqlDbType.Int, Value = _dataModel.UserNameID });
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {

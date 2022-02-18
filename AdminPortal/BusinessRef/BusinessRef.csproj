@@ -77,6 +77,7 @@
     <Compile Include="Model\EmployeeTravel\TravelRequestDetailReturnItineraryNewDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestHeaderParamUpdateDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestParamSendToEngDataModel.cs" />
+    <Compile Include="Model\EmployeeTravel\TravelRequestRecordParamRefDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestReturnNewRefDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestHeaderParamNewDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestHeaderReturnNewDataModel.cs" />
