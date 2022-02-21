@@ -821,11 +821,7 @@ function DropdownList(input, rawData, callback) {
 
                     li.addEventListener('click', function (e) {
 
-                        callback({
-                            ProjectID: valArr[0],
-                            ProjectNumber: valArr[1],
-                            ProjectName: valArr[1]
-                        });
+                        callback();
 
                         input.value = valArr[1];
                         input.setAttribute('data-id', valArr[0]);
@@ -914,11 +910,7 @@ function DropdownList(input, rawData, callback) {
                 }
 
 
-                callback({
-                    ProjectID: dataID,
-                    ProjectNumber: dataValue,
-                    ProjectName: dataValue
-                });
+                callback();
             }
         } else if (this.value == '') {
 

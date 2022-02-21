@@ -628,8 +628,6 @@
 
     saveTOItineraryDetail: async function (el) {
 
-        let doc = el.closest('.material-wrapper');
-
         let itemContainer = el.closest('.travel-itirerary-details');
 
         if (travelGlobalFunc.validateItem(itemContainer)) {
@@ -743,7 +741,6 @@
     },
 
     saveTOAccomodationDetail: async function (el) {
-        let doc = el.closest('.material-wrapper');
 
         let itemContainer = el.closest('.travel-hotel-details');
 
@@ -1090,12 +1087,12 @@
     }
 
     function assignEventListenersRecord(doc) {
-        DropdownList(doc.querySelector('.jsProjectOrigin'), travelGlobalFunc.ProjectNameBST, function (obj) {
+        DropdownList(doc.querySelector('.jsProjectOrigin'), travelGlobalFunc.ProjectNameBST, function () {
 
             sortDefaults(doc);
 
             let config = {
-                projectOriginID: obj.ProjectID,
+                projectOriginID: doc.querySelector('.jsProjectOrigin').getAttribute('data-id'),
                 projectDestinationID: doc.querySelector('.jsProjectDestination').getAttribute('data-id') || 0,
                 dateFrom: doc.querySelector('.jsDateFrom').value || null,
                 dateTo: doc.querySelector('.jsDateTo').value || null
@@ -1104,13 +1101,13 @@
             filterRecord(config, doc);
         });
 
-        DropdownList(doc.querySelector('.jsProjectDestination'), travelGlobalFunc.ProjectNameBST, function (obj) {
+        DropdownList(doc.querySelector('.jsProjectDestination'), travelGlobalFunc.ProjectNameBST, function () {
 
             sortDefaults(doc);
 
             let config = {
                 projectOriginID: doc.querySelector('.jsProjectOrigin').getAttribute('data-id') || 0,
-                projectDestinationID: obj.ProjectID,
+                projectDestinationID: doc.querySelector('.jsProjectDestination').getAttribute('data-id'),
                 dateFrom: doc.querySelector('.jsDateFrom').value || null,
                 dateTo: doc.querySelector('.jsDateTo').value || null
             };
