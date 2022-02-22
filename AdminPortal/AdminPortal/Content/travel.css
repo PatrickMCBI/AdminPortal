@@ -638,3 +638,9 @@ input:disabled {
     border: none;
     background: #FFF;
 }
+
+.travel-hotel-details input,
+.travel-itirerary-details input,
+.travel-purpose-details input {
+    text-align: center;
+}
