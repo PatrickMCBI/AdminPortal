@@ -115,7 +115,7 @@
                     </div>
                     <div>
                         <div class="form-groups input-icon-wrap">
-                            <input type="text" name="travelerName" class="customDropdownInput jsTravelerName" data-propertyname="EmployeeName" data-propertyid="ID" data-sourcetype="bst" required>
+                            <input type="text" name="travelerName" class="customDropdownInput jsTravelerName" data-propertyname="EmployeeName" data-propertyid="ID" data-sourcetype="bst" autocomplete="off" required>
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
@@ -124,7 +124,7 @@
                     </div>
                     <div><input type="text" name="positionName"  class="jsPositionName" disabled/></div>
                     <div><input type="text" name="birthDate" class="jsBirthDate" disabled/></div>
-                    <div><input type="text" name="kgs" class="jsKgs" placeholder="(Kgs)" required/></div>
+                    <div><input type="text" name="kgs" class="jsKgs" placeholder="(Kgs)" autocomplete="off" required/></div>
                     <div class="option-btn jsUnsaved">
                         <button type="button" class="save-material-details success-btn jsSaveEmployeeName" id="save">
                             <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="check" class="svg-inline--fa fa-check fa-w-14 jsCheckIcon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="16px"><path fill="#FFF" d="M413.505 91.951L133.49 371.966l-98.995-98.995c-4.686-4.686-12.284-4.686-16.971 0L6.211 284.284c-4.686 4.686-4.686 12.284 0 16.971l118.794 118.794c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-11.314-11.314c-4.686-4.686-12.284-4.686-16.97 0z"></path></svg>
@@ -164,7 +164,15 @@
             travelGlobalFunc.removeTOEmployeeDetail(el);
         });
 
-        DropdownList(parseDoc.querySelector('.jsTravelerName'), travelGlobalFunc.EmployeeNameBST, function (obj) { });
+        DropdownList(parseDoc.querySelector('.jsTravelerName'), travelGlobalFunc.EmployeeNameBST, function () {
+
+            const empData = travelGlobalFunc.EmployeeNameBST.BFSbyPropertyAndValue('ID', parseDoc.querySelector('.jsTravelerName').getAttribute('data-id'));
+
+            parseDoc.querySelector('.jsPositionName').value = empData[0].Position;
+            parseDoc.querySelector('.jsBirthDate').value = ToJavascriptDate(empData[0].BirthDate);
+
+
+        });
 
         return parseDoc;
     },
@@ -178,21 +186,21 @@
                         <label class="count"></label>
                     </div>
                     <div>
-                        <input type="text" name="fromOrigin" class="jsFromOrigin" required/>
+                        <input type="text" name="fromOrigin" class="jsFromOrigin" autocomplete="off" required />
                     </div>
                     <div>
-                        <input type="text" name="toDestination" class="jsToDestination" required/>
+                        <input type="text" name="toDestination" class="jsToDestination" autocomplete="off" required/>
                     </div>
                     <div>
                         <div class=" input-icon-wrap">
-                            <input type="text" name="modeOfTransport" class="customDropdownInput jsModeOfTransport" data-propertyName="TransportMode" data-propertyID="ID" data-sourceType="ll" required />
+                            <input type="text" name="modeOfTransport" class="customDropdownInput jsModeOfTransport" data-propertyName="TransportMode" data-propertyID="ID" data-sourceType="ll" autocomplete="off" required />
                             <i class="customDropdownIcon">
                                 <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                             </i>
                         </div>
                     </div>
                     <div>
-                        <input type="text" name="fare" class="jsFare" required/>
+                        <input type="text" name="fare" class="jsFare" autocomplete="off" required/>
                     </div>
                     <div class="option-btn jsUnsaved">
                         <button type="button" class="save-material-details success-btn jsSaveItinerary" id="save">
@@ -236,7 +244,10 @@
             travelGlobalFunc.removeTOItineraryDetail(el);
         });
 
-        DropdownList(parseDoc.querySelector('.jsModeOfTransport'), travelGlobalFunc.ModeOfTransportLL, function (obj) { });
+        DropdownList(parseDoc.querySelector('.jsModeOfTransport'), travelGlobalFunc.ModeOfTransportLL, function (obj) {
+
+
+        });
 
         return parseDoc;
     },
@@ -249,13 +260,13 @@
                         <label class="count"></label>
                     </div>
                     <div class=" input-icon-wrap">
-                        <input type="text" name="accomodationType" class="customDropdownInput jsAccomodationName" autocomplete="off" data-propertyName="AccomodationType" data-propertyID="ID" data-sourceType="ll" required />
+                        <input type="text" name="accomodationType" class="customDropdownInput jsAccomodationName" autocomplete="off" data-propertyName="AccomodationType" data-propertyID="ID" data-sourceType="ll" autocomplete="off" required />
                         <i class="customDropdownIcon">
                             <svg style="pointer-events: none" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="17px"><path class="caret-down" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                         </i>
                     </div>
-                    <input type="text" name="noOfDays" class="jsNoOfDays" required/>
-                    <input type="text" name="cost" class="jsCost" required/>
+                    <input type="text" name="noOfDays" class="jsNoOfDays" autocomplete="off" required/>
+                    <input type="text" name="cost" class="jsCost" autocomplete="off" required/>
                     <input type="text" name="accomodationTotal" class="jsAccomodationTotal" disabled/>
                     <div class="option-btn jsUnsaved">
                         <button type="button" class="save-material-details success-btn jsSaveAccomodation" id="save">
@@ -935,20 +946,19 @@
 
     projectDropdownList: function (doc) {
 
-        DropdownList(doc.querySelector('.jsProjectNumberOrigin'), travelGlobalFunc.ProjectNumberBST, function (obj) {
+        DropdownList(doc.querySelector('.jsProjectNumberOrigin'), travelGlobalFunc.ProjectNumberBST, function () {
 
-            let projectNameObj = travelGlobalFunc.ProjectNameBST.BFSbyPropertyAndValue('ProjectID', obj.ProjectID);
+            let projectNameObj = travelGlobalFunc.ProjectNameBST.BFSbyPropertyAndValue('ProjectID', doc.querySelector('.jsProjectNumberOrigin').getAttribute('data-id'));
 
-            doc.querySelector('.jsProjectNumberOrigin').value = obj.ProjectNumber;
-            doc.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', obj.ProjectID);
+            
+            doc.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', projectNameObj[0].ProjectID);
             doc.querySelector('.jsProjectNameOrigin').value = projectNameObj[0].ProjectName;
         });
         DropdownList(doc.querySelector('.jsProjectNameOrigin'), travelGlobalFunc.ProjectNameBST, function (obj) {
 
-            let projectNumberObj = travelGlobalFunc.ProjectNumberBST.BFSbyPropertyAndValue('ProjectID', obj.ProjectID);
+            let projectNumberObj = travelGlobalFunc.ProjectNumberBST.BFSbyPropertyAndValue('ProjectID', doc.querySelector('.jsProjectNameOrigin').getAttribute('data-id'));
 
-            doc.querySelector('.jsProjectNameOrigin').value = obj.ProjectName;
-            doc.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', obj.ProjectID);
+            doc.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', projectNumberObj[0].ProjectID);
             doc.querySelector('.jsProjectNumberOrigin').value = projectNumberObj[0].ProjectNumber;
 
         });
@@ -999,18 +1009,18 @@
 
         DropdownList(doc.querySelector('.jsProjectNumberDestination'), travelGlobalFunc.ProjectNumberBST, function (obj) {
 
-            let projectNameObj = travelGlobalFunc.ProjectNameBST.BFSbyPropertyAndValue('ProjectID', obj.ProjectID);
+            let projectNameObj = travelGlobalFunc.ProjectNameBST.BFSbyPropertyAndValue('ProjectID', doc.querySelector('.jsProjectNumberDestination').getAttribute('data-id'));
 
-            doc.querySelector('.jsProjectNumberDestination').value = obj.ProjectNumber;
-            doc.querySelector('.jsProjectNumberDestination').setAttribute('data-id', obj.ProjectID);
+            
+            doc.querySelector('.jsProjectNumberDestination').setAttribute('data-id', projectNameObj[0].ProjectID);
             doc.querySelector('.jsProjectNameDestination').value = projectNameObj[0].ProjectName;
         });
         DropdownList(doc.querySelector('.jsProjectNameDestination'), travelGlobalFunc.ProjectNameBST, function (obj) {
 
-            let projectNumberObj = travelGlobalFunc.ProjectNumberBST.BFSbyPropertyAndValue('ProjectID', obj.ProjectID);
+            let projectNumberObj = travelGlobalFunc.ProjectNumberBST.BFSbyPropertyAndValue('ProjectID', doc.querySelector('.jsProjectNameDestination').getAttribute('data-id'));
 
-            doc.querySelector('.jsProjectNameDestination').value = obj.ProjectName;
-            doc.querySelector('.jsProjectNumberDestination').setAttribute('data-id', obj.ProjectID);
+            
+            doc.querySelector('.jsProjectNumberDestination').setAttribute('data-id', projectNumberObj[0].ProjectID);
             doc.querySelector('.jsProjectNumberDestination').value = projectNumberObj[0].ProjectNumber;
         });
 
