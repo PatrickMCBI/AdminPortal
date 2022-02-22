@@ -1486,8 +1486,10 @@
                 footerBtnContainer.appendChild(travelGlobalFunc.footerBtnClone());
 
                 //check if pending for approval
-                if (headerData.ApproverStatusID == 2) {
+                if (headerData.ApproverStatusID == 2 || headerData.ApproverStatusID == 5) {
                     footerBtnContainer.querySelector('.jsSendToEngg').remove();
+
+                    wrapper.querySelector('.jsTravelHeaderBtnContainer').innerHTML = '';
                 }
 
             })();
@@ -1502,6 +1504,11 @@
                 addBtn.classList.add('add-items-btn');
 
                 let container = doc.querySelector('.travel-purpose-details-con');
+
+                //remove add button if pending for approval or approved
+                if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
+                    doc.querySelector('.jsAddTravelersContainer').innerHTML = '';
+                }
 
                 let list = data.EmployeeDetailList;
 
@@ -1525,12 +1532,19 @@
                     //disable item
                     travelGlobalFunc.disableItem(container);
 
-                    //change the button of save
-                    let saveBtn = itemClone.querySelector('.jsSaveEmployeeName');
-                    saveBtn.innerHTML = '';
-                    saveBtn.id = 'edit';
-                    saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
+                    if (data.HeaderList.ApproverStatusID == 1 || data.HeaderList.ApproverStatusID == 3) {
+                        //change the button of save
+                        let saveBtn = itemClone.querySelector('.jsSaveEmployeeName');
+                        saveBtn.innerHTML = '';
+                        saveBtn.id = 'edit';
+                        saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
+                    }
+                    else {
+                        //remove button if approve or pending for approval
+                        itemClone.querySelector('.option-btn').remove();
 
+                    }
+                    
                 });
 
                 //row count
@@ -1547,6 +1561,11 @@
                 addBtn.classList.add('add-items-btn');
 
                 let container = doc.querySelector('.travel-itirerary-details-con');
+
+                //remove add button if pending for approval or approved
+                if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
+                    doc.querySelector('.jsAddIteneraryContainer').innerHTML = '';
+                }
 
                 let list = data.ItineraryDetailList;
 
@@ -1570,11 +1589,18 @@
                     //disable item
                     travelGlobalFunc.disableItem(container);
 
-                    //change the id and textcontent of save button
-                    let saveBtn = itemClone.querySelector('.jsSaveItinerary');
-                    saveBtn.innerHTML = '';
-                    saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
-                    saveBtn.id = 'edit';
+                    if (data.HeaderList.ApproverStatusID == 1 || data.HeaderList.ApproverStatusID == 3) {
+                        //change the id and textcontent of save button
+                        let saveBtn = itemClone.querySelector('.jsSaveItinerary');
+                        saveBtn.innerHTML = '';
+                        saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
+                        saveBtn.id = 'edit';
+                    }
+                    else {
+                        //remove button if approve or pending for approval
+                        itemClone.querySelector('.option-btn').remove();
+                    }
+
                 });
 
                 //add row
@@ -1591,6 +1617,11 @@
                 btn.classList.add('add-items-btn');
 
                 let container = doc.querySelector('.travel-hotel-details-con');
+
+                //remove add button if pending for approval or approved
+                if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
+                    doc.querySelector('.jsAddAccomodationContainer').innerHTML = '';
+                }
 
                 let list = data.AccomodationDetailList;
 
@@ -1617,11 +1648,19 @@
                     //disable item
                     travelGlobalFunc.disableItem(container);
 
-                    //change the text of save button
-                    let saveBtn = itemClone.querySelector('.jsSaveAccomodation');
-                    saveBtn.innerHTML = '';
-                    saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
-                    saveBtn.id = 'edit';
+                    if (data.HeaderList.ApproverStatusID == 1 || data.HeaderList.ApproverStatusID == 3) {
+                        //change the text of save button
+                        let saveBtn = itemClone.querySelector('.jsSaveAccomodation');
+                        saveBtn.innerHTML = '';
+                        saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
+                        saveBtn.id = 'edit';
+                    }
+                    else {
+                        //remove button if approve or pending for approval
+                        itemClone.querySelector('.option-btn').remove();
+
+                    }
+                   
                 });
 
                 //count row
