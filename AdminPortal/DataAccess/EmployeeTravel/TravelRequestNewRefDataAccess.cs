@@ -112,6 +112,8 @@ namespace DataAccess.EmployeeTravel
                                         ID = Convert.ToInt32(reader["ID"]),
                                         EmployeeName = reader["EmployeeName"].ToString(),
                                         EmployeeID = reader["EmployeeID"].ToString(),
+                                        BirthDate = reader["BirthDate"] as DateTime? ?? default,
+                                        Position = reader["Position"].ToString()
                                     });
                                 }
 
