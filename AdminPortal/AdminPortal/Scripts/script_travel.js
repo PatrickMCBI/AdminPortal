@@ -1062,7 +1062,7 @@
 
         data = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/GetTravelRequestRecordReferenceData');
 
-        console.log(data);
+        //console.log(data);
 
         let allProjectObj = {
             ProjectID: 0,
@@ -1407,7 +1407,7 @@
         //get the individual data
 
         let individualData = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/TravelRequestIndividualRecord/?documentRefID=' + documentRefID);
-
+      
         //add data into bst
         travelGlobalFunc.ProjectNumberBST = LoadDataToBST(individualData.ProjectNumberList, 'ProjectID');
         travelGlobalFunc.ProjectNameBST = LoadDataToBST(individualData.ProjectNameList, 'ProjectID');
@@ -1443,7 +1443,7 @@
             let data = individualData;
             let doc = parser;
 
-            console.log(data);
+          
 
             //display the TravelRequestHeader
             (function displayTravelRequestHeader() {
@@ -1477,7 +1477,8 @@
                 wrapper.querySelector('.jstravelHeader').setAttribute('documentref-id', headerData.DocumentRefID);
 
                 wrapper.querySelector('.jsDateOfReturn').value = ToJavascriptDate(headerData.ReturnDate);
-
+                wrapper.querySelector('.jsStatusApproved').innerHTML = headerData.ApproverStatus;
+                wrapper.querySelector('.jsStatusLocation').innerHTML = headerData.LocationStatus;
                 //disable travel request header inputs
                 travelGlobalFunc.disableFormHeader(wrapper);
 
