@@ -427,6 +427,9 @@
 
                         //add footer buttons
                         document.querySelector('.jsFooterBtnContainer').appendChild(travelGlobalFunc.footerBtnClone());
+
+                        travelContainer.querySelector('.jsStatusApproved').innerHTML = 'Draft';
+                        travelContainer.querySelector('.jsStatusLocation').innerHTML = 'Sender';
                     }
                 }
 
