@@ -194,6 +194,7 @@
     background: none;
     border: none;
     color: #fff;
+    height: 100%;
 }
 
 .items-arrow-i {
@@ -637,4 +638,10 @@ input:disabled {
 .travel-request-header-wrapper textarea:disabled {
     border: none;
     background: #FFF;
+}
+
+.travel-hotel-details input,
+.travel-itirerary-details input,
+.travel-purpose-details input {
+    text-align: center;
 }
