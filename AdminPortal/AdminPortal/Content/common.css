@@ -307,3 +307,41 @@
     top: 30%;
     right: 5px;
 }
+/*#region -- Notes*/
+.notes-right-notif-item {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 30px 1fr;
+    grid-column-gap: 2px;
+    border-bottom: 2px groove #e3e3e3;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.notes-notif-icon {
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+}
+
+.notes-notif-text-title {
+    /*font-weight: 600;*/
+    font-size: 16px;
+}
+
+    .notes-notif-text-title > p {
+        margin: 0;
+        line-height: 20px;
+    }
+
+.notes-flt-right {
+    float: right;
+}
+
+.notes-panel-title {
+    margin: 0;
+    padding-bottom: 5px;
+    border-bottom: 2px groove #e3e3e3;
+    text-align: center;
+}
+/*#endregion*/

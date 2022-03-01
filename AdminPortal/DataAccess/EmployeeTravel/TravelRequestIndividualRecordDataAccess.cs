@@ -193,6 +193,18 @@ namespace DataAccess.EmployeeTravel
                                 }
 
                                 reader.NextResult();
+                                refDataModel.NoteList = new List<NoteDataModel>();
+
+                                while (reader.Read())
+                                {
+                                    refDataModel.NoteList.Add(new NoteDataModel
+                                    {
+                                        Note = reader["Note"].ToString(),
+                                        NoteDate = reader["Date"] as DateTime? ?? default,
+                                        NoteCreatedByName = reader["NoteCreatedByName"].ToString()
+                                    });
+                                }
+                                reader.NextResult();
                                 reader.Read();
 
                                 refDataModel.StatusCodeNumber = reader["StatusCodeNumber"] as int? ?? default;

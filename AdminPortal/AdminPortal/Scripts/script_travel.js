@@ -1407,7 +1407,6 @@
         //get the individual data
 
         let individualData = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/TravelRequestIndividualRecord/?documentRefID=' + documentRefID);
-      
         //add data into bst
         travelGlobalFunc.ProjectNumberBST = LoadDataToBST(individualData.ProjectNumberList, 'ProjectID');
         travelGlobalFunc.ProjectNameBST = LoadDataToBST(individualData.ProjectNameList, 'ProjectID');
@@ -1674,6 +1673,8 @@
 
             travelGlobalFunc.GrandTotalForTravel();
         })();
+
+        NoteInfo(individualData.NoteList);
 
         function backButtonIndividualRecord() {
 

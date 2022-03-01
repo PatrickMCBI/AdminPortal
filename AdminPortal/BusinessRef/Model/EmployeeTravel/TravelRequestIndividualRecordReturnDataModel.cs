@@ -15,6 +15,7 @@ namespace BusinessRef.Model.EmployeeTravel
         public ICollection<TravelRequestIndividualRecordEmployeeDetailDataModel> EmployeeDetailList { get; set; }
         public ICollection<TravelRequestIndividualRecordItineraryDetailDataModel> ItineraryDetailList { get; set; }
         public ICollection<TravelRequestIndividualRecordAccomodationDetailDataModel> AccomodationDetailList { get; set; }
+        public ICollection<NoteDataModel> NoteList { get; set; }
         public int StatusCodeNumber { get; set; }
     }
 }

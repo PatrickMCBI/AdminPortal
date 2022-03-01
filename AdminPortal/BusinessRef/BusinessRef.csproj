@@ -81,6 +81,7 @@
     <Compile Include="Model\EmployeeTravel\TravelRequestReturnNewRefDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestHeaderParamNewDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestHeaderReturnNewDataModel.cs" />
+    <Compile Include="Model\References\NoteDataModel.cs" />
     <Compile Include="Model\References\StatusCodeNumberReturnRefDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestIndividualRecordAccomodationDetailDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestIndividualRecordEmployeeDetailDataModel.cs" />
