@@ -38,7 +38,7 @@ namespace DataAccess.EmployeeTravel
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@TravelDate", SqlDbType = SqlDbType.Date, Value = _mastParamNewDataModel.TravelDate });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@TravelPurpose", SqlDbType = SqlDbType.VarChar, Size=500, Value = _mastParamNewDataModel.TravelPurpose });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@UserNameID", SqlDbType = SqlDbType.Int, Value = _mastParamNewDataModel.UserNameID });
-                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@ReturnDate", SqlDbType = SqlDbType.Date, Value = _mastParamNewDataModel.ReturnDate });
+                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@ReturnDate", SqlDbType = SqlDbType.Date, Value = _mastParamNewDataModel.ReturnDate as DateTime? ?? (object)DBNull.Value});
 
 
                     using (SqlDataReader reader = cmd.ExecuteReader())

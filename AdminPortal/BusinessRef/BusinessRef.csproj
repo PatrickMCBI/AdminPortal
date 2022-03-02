@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ErrorStatus.cs" />
+    <Compile Include="Interfaces\Customs\IFundrequestIndividualRecordData.cs" />
+    <Compile Include="Interfaces\Customs\IFundrequestNewData.cs" />
+    <Compile Include="Interfaces\Customs\IFundrequestRecordRefData.cs" />
     <Compile Include="Interfaces\Customs\IGetTravelRequestNewReferenceData.cs" />
     <Compile Include="Interfaces\Customs\ITravelRequestDetailAccomodationNewData.cs" />
     <Compile Include="Interfaces\Customs\ITravelRequestDetailAccomodationUpdateData.cs" />
@@ -60,6 +63,8 @@
     <Compile Include="Interfaces\Customs\ITravelRequestDetailAccomodationDeleteData.cs" />
     <Compile Include="Interfaces\Generics\IGetDatabaseData.cs" />
     <Compile Include="Interfaces\Generics\IPostDatabaseData.cs" />
+    <Compile Include="Model\DocumentRef\DocumentRefFundRequestDataModel.cs" />
+    <Compile Include="Model\DocumentRef\DocumentRefFundRequestHeaderIndividualDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestDetailParamAccomodationDeleteDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestDetailParamAccomodationNewDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestDetailParamAccomodationUpdateDataModel.cs" />
@@ -81,6 +86,13 @@
     <Compile Include="Model\EmployeeTravel\TravelRequestReturnNewRefDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestHeaderParamNewDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestHeaderReturnNewDataModel.cs" />
+    <Compile Include="Model\FundRequest\FundRequestParamIndividualRecordDataModel.cs" />
+    <Compile Include="Model\FundRequest\FundRequestParamNewDataModel.cs" />
+    <Compile Include="Model\FundRequest\FundRequestParamRecordRefDataModel.cs" />
+    <Compile Include="Model\FundRequest\FundRequestReturnIndividualRecordDataModel.cs" />
+    <Compile Include="Model\FundRequest\FundRequestReturnNewDataModel.cs" />
+    <Compile Include="Model\FundRequest\FundRequestReturnRecordRefDataModel.cs" />
+    <Compile Include="Model\References\EWTaxRefDataModel.cs" />
     <Compile Include="Model\References\NoteDataModel.cs" />
     <Compile Include="Model\References\StatusCodeNumberReturnRefDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestIndividualRecordAccomodationDetailDataModel.cs" />
@@ -96,6 +108,7 @@
     <Compile Include="Model\References\TravelRequestProjectNameRefDataModel.cs" />
     <Compile Include="Model\References\TravelRequestProjectNumberRefDataModel.cs" />
     <Compile Include="Model\References\TravelTransportModeRefDataModel.cs" />
+    <Compile Include="Model\References\VATaxOrOthersRefDataModel.cs" />
     <Compile Include="Model\UserLogin\UserLoginParamDataModel.cs" />
     <Compile Include="Model\UserLogin\UserLoginReturnDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

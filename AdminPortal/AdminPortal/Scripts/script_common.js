@@ -1158,8 +1158,9 @@ function RemoveCommas(str) {
     return str;
 }
 
-async function fetchDataGet(url) {
 
+async function fetchDataGet(url) {
+    loader.start();
     let retData;
 
     let options = {
@@ -1182,12 +1183,12 @@ async function fetchDataGet(url) {
     }).catch(error => {
         IsConfirmedAlertOk(alertType.errorAlert, error);
     })
-
+    loader.stop();
     return retData;
 }
 
 async function fetchDataPost(url, formData) {
-
+    loader.start();
     let retData;
 
     let options = {
@@ -1212,11 +1213,12 @@ async function fetchDataPost(url, formData) {
     }).catch(error => {
         IsConfirmedAlertOk(alertType.errorAlert, error);
     })
-
+    loader.stop();
     return retData;
 }
 
 async function fetchView(url) {
+    loader.start();
     let retView;
 
     let options = {
@@ -1236,10 +1238,12 @@ async function fetchView(url) {
         }
     }).then(view => {
         retView = view;
+
     }).catch(error => {
         IsConfirmedAlertOk(alertType.errorAlert, error);
-    })
 
+    })
+    loader.stop();
     return retView;
 }
 
@@ -1327,4 +1331,34 @@ function NoteInfo(noteData) {
     let info = parseDoc.querySelector('.notes-container');
     infoContainer.append(info);
 
+}
+
+const loader = {
+    start: function () {
+        const spinner = `<div id="preloader__wrapper">
+                            <div class="bg__overlay">
+                                <div class="lds-spinner">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>`;
+        const parseDoc = new DOMParser().parseFromString(spinner, 'text/html').querySelector('#preloader__wrapper');
+
+        document.body.append(parseDoc);
+
+    },
+    stop: function () {
+        document.querySelector('#preloader__wrapper').remove();
+    }
 }
