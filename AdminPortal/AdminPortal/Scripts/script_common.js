@@ -710,6 +710,69 @@ function IsConfirmedAlertYesOrNo(alertObj, alertMessage) {
     })
 }
 
+function IsConfirmedAlertYesOrNoWithTextArea(alertObj, alertMessage, requiredNote = true) {
+
+    let mainDiv =
+        `
+            <div class="alert-main-expandable-cont jsAlertWrapper">
+                <div class="alert-cont-00">
+                    <div class="alert-cont-01 alert-cont-header ${alertObj.colorClassName}">
+                        <div class="alert-icon-cont">
+                            <img class="${alertObj.iconImageClassName}" src="${alertObj.imageSrc}">
+                        </div>
+                        <label class="alert-header-label">${alertObj.headerText}</label>
+                    </div>
+                     <div class="alert-cont-01 alert-cont-content" style="display: block; height: auto; padding-top:0">
+                        <h3 style="margin-bottom: 5px;">${alertMessage}</h3>
+                        <small style="display: block; margin-bottom: 10px">Please leave a note.</small>
+                        <textarea rows="6" name="Note" style="width: 100%"></textarea>
+                    </div>
+                    <div class="alert-cont-01 alert-cont-footer">
+                        <button class="alert-button alert-button-no jsProjectDeleteItemNo">No</button>
+                        <button class="alert-button alert-button-yes jsProjectDeleteItemYes">Yes</button>
+                    </div>
+                </div>
+            </div>
+            `;
+
+    let docParser = new DOMParser().parseFromString(mainDiv, 'text/html').querySelector('.jsAlertWrapper');
+
+    document.body.appendChild(docParser);
+
+    let alertFooterBtnYes = docParser.querySelector('.jsProjectDeleteItemYes');
+    let alertFooterBtnNo = docParser.querySelector('.jsProjectDeleteItemNo');
+
+    let note = docParser.querySelector('textarea[name=Note]');
+
+    return new Promise(function (resolve, reject) {
+        alertFooterBtnYes.addEventListener('click', function () {
+
+            if (requiredNote) {
+
+                note.classList.remove('border-error');
+                if (note.value) {
+                    resolve(docParser);
+                    docParser.remove();
+                }
+                else {
+                    note.classList.add('border-error');
+                }
+            }
+
+            else {
+                resolve(docParser);
+                docParser.remove();
+            }
+
+        })
+
+        alertFooterBtnNo.addEventListener('click', function () {
+            reject('No');
+            docParser.remove();
+        })
+    })
+}
+
 function customDropdown(config, callback) {
 
     //console.log(config);

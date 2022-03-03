@@ -48,5 +48,12 @@ namespace AdminPortal.Controllers
 
             return Json(data.GetIndividualRecordData(), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult SendFundRequestToAccounting(FundRequestParamSendToAccountingDataModel paramData)
+        {
+            paramData.UserNameID = Convert.ToInt32(Session["UserNameID"]);
+            IFundRequestSendToAccountingData data = new FundRequestSendToAccountingDataLogic(paramData);
+            return Json(data.GetDmlFundRequestSendToAccountingData(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -45,6 +45,7 @@
     <Compile Include="Interfaces\Customs\IFundrequestIndividualRecordData.cs" />
     <Compile Include="Interfaces\Customs\IFundrequestNewData.cs" />
     <Compile Include="Interfaces\Customs\IFundrequestRecordRefData.cs" />
+    <Compile Include="Interfaces\Customs\IFundRequestSendToAccountingData.cs" />
     <Compile Include="Interfaces\Customs\IGetTravelRequestNewReferenceData.cs" />
     <Compile Include="Interfaces\Customs\ITravelRequestDetailAccomodationNewData.cs" />
     <Compile Include="Interfaces\Customs\ITravelRequestDetailAccomodationUpdateData.cs" />
@@ -89,9 +90,11 @@
     <Compile Include="Model\FundRequest\FundRequestParamIndividualRecordDataModel.cs" />
     <Compile Include="Model\FundRequest\FundRequestParamNewDataModel.cs" />
     <Compile Include="Model\FundRequest\FundRequestParamRecordRefDataModel.cs" />
+    <Compile Include="Model\FundRequest\FundRequestParamSendToAccountingDataModel.cs" />
     <Compile Include="Model\FundRequest\FundRequestReturnIndividualRecordDataModel.cs" />
     <Compile Include="Model\FundRequest\FundRequestReturnNewDataModel.cs" />
     <Compile Include="Model\FundRequest\FundRequestReturnRecordRefDataModel.cs" />
+    <Compile Include="Model\FundRequest\FundRequestReturnSendToAccountingDataModel.cs" />
     <Compile Include="Model\References\EWTaxRefDataModel.cs" />
     <Compile Include="Model\References\NoteDataModel.cs" />
     <Compile Include="Model\References\StatusCodeNumberReturnRefDataModel.cs" />

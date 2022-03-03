@@ -103,6 +103,7 @@
             fundrequestGlobalObj.centerPanel.appendChild(parseDoc);
 
             let dataHeader = data.FundRequestRecords;
+            parseDoc.querySelector('.material-header-wrapper').setAttribute('documentRef-id', dataHeader.DocumentRefID);
             parseDoc.querySelector('.jsProjectNumber').value = dataHeader.ProjectNumber;
             parseDoc.querySelector('.jsProjectName').value = dataHeader.ProjectName;
             parseDoc.querySelector('.jsRequestNo').value = dataHeader.ReferenceNo;
@@ -118,6 +119,32 @@
                         </div>`;
             let parseDetail = new DOMParser().parseFromString(div, 'text/html').querySelector('.fund-detail');
             parseDoc.querySelector('.fund-detail-con').appendChild(parseDetail);
+
+            if (dataHeader.ApproverStatusID != 1) {
+                parseDoc.querySelector('.jsSendToAccounting').classList.add('display-none');
+            }
+
+            parseDoc.querySelector('.jsSendToAccounting').addEventListener('click', function () {
+                IsConfirmedAlertYesOrNoWithTextArea(alertType.warningAlert, "Are you sure you want to send?", false).then(async function (obj) {
+
+                    let formData = new FormData();
+                    let note = obj.querySelector('textarea[name=Note]').value;
+                    let docRefID = document.querySelector('.material-header-wrapper').getAttribute('documentRef-id');
+                    formData.append('DocumentRefID', docRefID);
+                    formData.append('Note', note);
+
+                    let data = await fetchDataPost(AppGlobal.baseUrl + 'FundRequest/SendFundRequestToAccounting', formData);
+                    console.log(data);
+                    if (data.StatusCodeNumber == 1) {
+                        IsConfirmedAlertOk(alertType.successAlert, "Successfully sent");
+                        parseDoc.querySelector('.jsSendToAccounting').classList.add('display-none');
+                        //setTimeout(function () {
+                        //    window.location.reload();
+                        //}, 2500);
+                    }
+
+                }).catch(function (error) { });
+            });
         }
     }
 
