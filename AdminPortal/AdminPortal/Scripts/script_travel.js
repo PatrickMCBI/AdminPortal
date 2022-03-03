@@ -1173,6 +1173,18 @@
 
             filterRecord(config, doc);
         });
+
+        doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
+
+            item.addEventListener('click', function (e) {
+
+                let el = e.currentTarget;
+
+                sortData(el);
+
+            });
+
+        });
     }
 
     function displayRecord(data, doc) {
@@ -1342,7 +1354,7 @@
 
     function sortData(el) {
 
-        let doc = el.closest('.po-record-container');
+        let doc = el.closest('.travel-record-container');
 
         //get the columnname
         let columnName = el.getAttribute('data-columnName');
@@ -1392,7 +1404,7 @@
             el.setAttribute('data-sortType', 'sortUp');
             el.querySelector('.sortUpIcon').removeAttribute('style');
 
-            DisplayRecord(filterData, doc);
+            displayRecord(filterData, doc);
         }
 
         function SortDown() {
@@ -1414,7 +1426,7 @@
             el.setAttribute('data-sortType', 'sortDown');
             el.querySelector('.sortDownIcon').removeAttribute('style');
 
-            DisplayRecord(filterData, doc);
+            displayRecord(filterData, doc);
         }
 
         function compareSortUp(a, b) {
