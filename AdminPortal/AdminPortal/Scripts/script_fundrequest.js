@@ -120,10 +120,15 @@
             let parseDetail = new DOMParser().parseFromString(div, 'text/html').querySelector('.fund-detail');
             parseDoc.querySelector('.fund-detail-con').appendChild(parseDetail);
 
+            NoteInfo(data.NoteList);
+
             if (dataHeader.ApproverStatusID != 1) {
                 parseDoc.querySelector('.jsSendToAccounting').classList.add('display-none');
             }
 
+            AssignEventLister(parseDoc);
+        }
+        function AssignEventLister(parseDoc) {
             parseDoc.querySelector('.jsSendToAccounting').addEventListener('click', function () {
                 IsConfirmedAlertYesOrNoWithTextArea(alertType.warningAlert, "Are you sure you want to send?", false).then(async function (obj) {
 
@@ -144,6 +149,10 @@
                     }
 
                 }).catch(function (error) { });
+            });
+            parseDoc.querySelector('.js-backBtn').addEventListener('click', async function () {
+                let view = await fetchView(AppGlobal.baseUrl + 'FundRequest/Index');
+                ResponseSuccess(view);
             });
         }
     }

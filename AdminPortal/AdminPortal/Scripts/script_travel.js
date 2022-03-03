@@ -1185,6 +1185,36 @@
             });
 
         });
+        doc.querySelector('.jsReferenceNo').addEventListener('change', function (e) {
+
+            if (e.target.value == '') {
+                if (data.RecordList.length > 10) {
+                    dataRecordsBST = LoadDataToBST(data.RecordList, 'DocumentRefID');
+                    filterData = dataRecordsBST.BFS();
+                } else {
+                    dataRecordsLL = new LinkedList();
+                    data.RecordList.forEach((item) => {
+                        dataRecordsLL.push(item);
+                    });
+                    filterData = dataRecordsLL.getAll()
+                }
+            } else {
+                if (data.RecordList.length > 10) {
+                    dataRecordsBST = LoadDataToBST(data.RecordList, 'DocumentRefID');
+                    filterData = dataRecordsBST.BFSbyIndexOf(e.target.value, 'ReferenceNo');
+                } else {
+                    dataRecordsLL = new LinkedList();
+                    data.RecordList.forEach((item) => {
+                        dataRecordsLL.push(item);
+                    });
+                    filterData = dataRecordsLL.searchByIndex('ReferenceNo', e.target.value);
+                }
+            }
+
+
+            displayRecord(filterData, doc);
+
+        });
     }
 
     function displayRecord(data, doc) {
