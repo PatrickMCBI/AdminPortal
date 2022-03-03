@@ -1,6 +1,7 @@
 ﻿const travelGlobalFunc = {
     centerPanel: document.querySelector('.center-panel'),
     rightPanel: document.querySelector('.right-panel'),
+    singleDataObj: null,
     ModeOfTransportLL: null,
     AccomodationTypeLL: null,
     ProjectNumberBST: null,
@@ -427,6 +428,9 @@
 
                         //add footer buttons
                         document.querySelector('.jsFooterBtnContainer').appendChild(travelGlobalFunc.footerBtnClone());
+
+                        travelContainer.querySelector('.jsStatusApproved').innerHTML = 'Draft';
+                        travelContainer.querySelector('.jsStatusLocation').innerHTML = 'Sender';
                     }
                 }
 
@@ -876,6 +880,9 @@
                 <button class="jsSendToEngg">
                     Send To Engg
                 </button>
+                <button class="jsFundRequest display-none">
+                    Make FundRequest
+                </button>
             </div>`;
 
         let parser = new DOMParser().parseFromString(div, 'text/html').querySelector('.content');
@@ -897,6 +904,12 @@
             let el = e.currentTarget;
 
             sendToEngineering(el);
+        });
+
+        parser.querySelector('.jsFundRequest').addEventListener('click', function (e) {
+            let el = e.currentTarget;
+
+            MakeFundrequest(el);
         });
 
 
@@ -939,6 +952,42 @@
             let printURL = AppGlobal.baseUrl + 'TravelRecord/PrintTR/?documentRefID=' + docRefID;
 
             window.open(printURL, '_blank');
+        }
+
+        async function MakeFundrequest(el) {
+          
+            let travelContainer = el.closest('.material-wrapper');
+
+            let projectID = travelGlobalFunc.singleDataObj.HeaderList.ProjectOriginID;
+            let formDate = ToJavascriptDate(travelGlobalFunc.singleDataObj.HeaderList.FormDate);
+            let documentRefID_doc = travelGlobalFunc.singleDataObj.HeaderList.DocumentRefID;
+
+
+            let amount = 0;
+            let itinerary = 0;
+            let accommodation = 0;
+            travelGlobalFunc.singleDataObj.ItineraryDetailList.forEach((item) => {
+                itinerary += parseFloat(item.Fare);
+            });
+
+            travelGlobalFunc.singleDataObj.AccomodationDetailList.forEach((item) => {
+                accommodation += parseFloat(item.NoOfDays * item.Cost);
+            });
+
+            amount = parseFloat(itinerary + accommodation);
+            let formData = new FormData();
+
+            formData.append('ProjectID', projectID);
+            formData.append('FormDate', formDate);
+            formData.append('DocumentRefID_Doc', documentRefID_doc);
+            formData.append('Amount', amount);
+
+            let data = await fetchDataPost(AppGlobal.baseUrl + 'FundRequest/SaveNewFundRequestTravelMaster', formData);
+            console.log(data)
+            if (data.StatusCodeNumber == 1) {
+                IsConfirmedAlertOk(alertType.successAlert, alertMessages.saveSuccessfull);
+            }
+            
         }
 
         return parser;
@@ -1059,7 +1108,7 @@
 
         data = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/GetTravelRequestRecordReferenceData');
 
-        console.log(data);
+        //console.log(data);
 
         let allProjectObj = {
             ProjectID: 0,
@@ -1416,7 +1465,7 @@
         //get the individual data
 
         let individualData = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/TravelRequestIndividualRecord/?documentRefID=' + documentRefID);
-
+        console.log(individualData)
         //add data into bst
         travelGlobalFunc.ProjectNumberBST = LoadDataToBST(individualData.ProjectNumberList, 'ProjectID');
         travelGlobalFunc.ProjectNameBST = LoadDataToBST(individualData.ProjectNameList, 'ProjectID');
@@ -1451,13 +1500,14 @@
 
             let data = individualData;
             let doc = parser;
-
-            console.log(data);
+            travelGlobalFunc.singleDataObj = data;
+          
 
             //display the TravelRequestHeader
             (function displayTravelRequestHeader() {
                 let wrapper = doc.querySelector('.material-header-wrapper');
                 let headerData = data.HeaderList;
+               
 
                 wrapper.querySelector('.jsProjectNumberOrigin').value = headerData.ProjectNumberOrigin;
                 wrapper.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', headerData.ProjectOriginID);
@@ -1485,8 +1535,9 @@
 
                 wrapper.querySelector('.jstravelHeader').setAttribute('documentref-id', headerData.DocumentRefID);
 
-                wrapper.querySelector('.jsDateOfReturn').value = ToJavascriptDate(headerData.ReturnDate);
-
+                wrapper.querySelector('.jsDateOfReturn').value = ToJavascriptDate(headerData.ReturnDate) == '3939-01-01' ? '' : ToJavascriptDate(headerData.ReturnDate);
+                wrapper.querySelector('.jsStatusApproved').innerHTML = headerData.ApproverStatus;
+                wrapper.querySelector('.jsStatusLocation').innerHTML = headerData.LocationStatus;
                 //disable travel request header inputs
                 travelGlobalFunc.disableFormHeader(wrapper);
 
@@ -1500,10 +1551,14 @@
                 //check if pending for approval
                 if (headerData.ApproverStatusID == 2 || headerData.ApproverStatusID == 5) {
                     footerBtnContainer.querySelector('.jsSendToEngg').remove();
-
+                   
                     wrapper.querySelector('.jsTravelHeaderBtnContainer').innerHTML = '';
                 }
+                if (headerData.ApproverStatusID == 5) {
+                    footerBtnContainer.querySelector('.jsFundRequest').classList.remove('display-none');
+                }
 
+                
             })();
 
 
@@ -1682,6 +1737,8 @@
 
             travelGlobalFunc.GrandTotalForTravel();
         })();
+
+        NoteInfo(individualData.NoteList);
 
         function backButtonIndividualRecord() {
 

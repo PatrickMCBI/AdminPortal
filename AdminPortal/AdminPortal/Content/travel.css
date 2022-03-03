@@ -76,6 +76,7 @@
     background: none;
     border-right: 2px groove #d3d3d3;
     border-left: 2px groove #d3d3d3;
+    width: 100%;
 }
 .transferHeaderBtn:hover {
     cursor: pointer;

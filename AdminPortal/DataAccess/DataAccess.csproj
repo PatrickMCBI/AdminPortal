@@ -57,6 +57,9 @@
     <Compile Include="EmployeeTravel\TravelRequestIndividualRecordDataAccess.cs" />
     <Compile Include="EmployeeTravel\TravelRequestRecordRefDataAccess.cs" />
     <Compile Include="EmployeeTravel\TravelRequestSendToEngDataAccess.cs" />
+    <Compile Include="FundRequest\FundRequestIndividualRecordDataAccess.cs" />
+    <Compile Include="FundRequest\FundRequestNewDataAccess.cs" />
+    <Compile Include="FundRequest\FundRequestRecordRefDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserLogin\UserLoginDataAccess.cs" />
   </ItemGroup>

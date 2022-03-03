@@ -80,3 +80,74 @@ input[name=TRDateTo] {
     background: #e5e5e5;
     cursor: pointer;
 }
+
+/*#region -- fundrequest*/
+.tr-recordTheaderfund {
+    display: grid;
+    grid-template-columns: 60px 150px 170px 1fr 210px 160px 160px 130px;
+    background: #333;
+    color: #FFF;
+}
+.tr-recordTheaderfund div {
+    padding: 10px 5px;
+    border: 1px solid #555;
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tr-record-filterfund {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+}
+.tr-record-filterfund input {
+    padding: 5px;
+}
+.tr-recordTbodyDetail {
+    display: grid;
+    grid-template-columns: 60px 150px 170px 1fr 210px 160px 160px 130px;
+    border-bottom: 1px solid;
+    text-align: center;
+    padding: 10px 5px;
+}
+.tr-recordTbodyDetail:hover {
+    background: #e5e5e5;
+    cursor: pointer;
+}
+.fund-header-title {
+    background: #8b8b8b;
+    color: #FFF;
+    display: grid;
+    grid-template-columns: 1fr 150px 350px;
+}
+.fund-header-title label {
+    padding: 7px;
+    color: #000000;
+    font-weight: 600;
+}
+.fund-header {
+    border: 1px solid;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 60px 200px 1fr 150px;
+    grid-column-gap: 15px;
+    margin-top: 15px;
+}
+.fund-header h4 {
+    margin: 0;
+    text-align: center;
+}
+.fund-detail {
+    border-bottom: 1px solid;
+    text-align: center;
+    padding: 8px;
+    display: grid;
+    grid-template-columns: 60px 200px 1fr 150px;
+    grid-column-gap: 15px;
+}
+.fund-detail-con{
+    height: 500px;
+}
+/*#endregion*/

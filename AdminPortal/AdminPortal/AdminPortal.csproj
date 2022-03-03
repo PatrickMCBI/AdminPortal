@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FundRequestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TravelController.cs" />
     <Compile Include="Controllers\TravelRecordController.cs" />
@@ -150,6 +151,7 @@
     <Content Include="Scripts\QRCode\qrcode.min.js" />
     <Content Include="Scripts\script_common.js" />
     <Content Include="Scripts\script_dashboard.js" />
+    <Content Include="Scripts\script_fundrequest.js" />
     <Content Include="Scripts\script_travel.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -181,6 +183,8 @@
     <Content Include="Views\TravelRecord\_Index.cshtml" />
     <Content Include="Views\TravelRecord\_PrintTO.cshtml" />
     <Content Include="Views\TravelRecord\_PrintTR.cshtml" />
+    <Content Include="Views\FundRequest\_IndexFundRequestRecord.cshtml" />
+    <Content Include="Views\FundRequest\_IndividualRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
