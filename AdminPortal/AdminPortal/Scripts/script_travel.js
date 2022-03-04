@@ -986,6 +986,9 @@
             console.log(data)
             if (data.StatusCodeNumber == 1) {
                 IsConfirmedAlertOk(alertType.successAlert, alertMessages.saveSuccessfull);
+                travelContainer.querySelector('.jsFundRequest').classList.add('display-none');
+            } else if (data.StatusCodeNumber == 2) {
+                IsConfirmedAlertOk(alertType.warningAlert, alertMessages.duplicateError);
             }
             
         }
@@ -1082,8 +1085,6 @@
     }
 })();
 
-
-
 (function TravelRecord() {
 
     let btn = document.querySelector('.jsClickRecordsTravel');
@@ -1108,7 +1109,6 @@
 
         data = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/GetTravelRequestRecordReferenceData');
 
-        //console.log(data);
 
         let allProjectObj = {
             ProjectID: 0,
@@ -1149,31 +1149,21 @@
         DropdownList(doc.querySelector('.jsProjectOrigin'), travelGlobalFunc.ProjectNameBST, function () {
 
             sortDefaults(doc);
-
-            let config = {
-                projectOriginID: doc.querySelector('.jsProjectOrigin').getAttribute('data-id'),
-                projectDestinationID: doc.querySelector('.jsProjectDestination').getAttribute('data-id') || 0,
-                dateFrom: doc.querySelector('.jsDateFrom').value || null,
-                dateTo: doc.querySelector('.jsDateTo').value || null
-            };
-
-            filterRecord(config, doc);
+            filterRecord(doc);
         });
 
         DropdownList(doc.querySelector('.jsProjectDestination'), travelGlobalFunc.ProjectNameBST, function () {
-
             sortDefaults(doc);
-
-            let config = {
-                projectOriginID: doc.querySelector('.jsProjectOrigin').getAttribute('data-id') || 0,
-                projectDestinationID: doc.querySelector('.jsProjectDestination').getAttribute('data-id'),
-                dateFrom: doc.querySelector('.jsDateFrom').value || null,
-                dateTo: doc.querySelector('.jsDateTo').value || null
-            };
-
-            filterRecord(config, doc);
+            filterRecord(doc);
         });
-
+        doc.querySelector('.jsDateFrom').addEventListener('change', function () {
+            sortDefaults(doc);
+            filterRecord(doc);
+        });
+        doc.querySelector('.jsDateTo').addEventListener('change', function () {
+            sortDefaults(doc);
+            filterRecord(doc);
+        });
         doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
 
             item.addEventListener('click', function (e) {
@@ -1267,8 +1257,13 @@
 
     }
 
-    function filterRecord(config, doc) {
-
+    function filterRecord(doc) {
+        let config = {
+            projectOriginID: doc.querySelector('.jsProjectOrigin').getAttribute('data-id') || 0,
+            projectDestinationID: doc.querySelector('.jsProjectDestination').getAttribute('data-id') || 0,
+            dateFrom: doc.querySelector('.jsDateFrom').value || 0,
+            dateTo: doc.querySelector('.jsDateTo').value || 0
+        };
         let dataArray;
         filterData = [];
 

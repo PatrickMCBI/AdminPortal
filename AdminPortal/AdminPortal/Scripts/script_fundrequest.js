@@ -110,12 +110,16 @@
             parseDoc.querySelector('.jsRequestDate').value = ToJavascriptDate(dataHeader.FormDate);
             parseDoc.querySelector('.jsStatusApproved').textContent = dataHeader.ApproverStatus;
             parseDoc.querySelector('.jsStatusLocation').textContent = dataHeader.LocationStatus;
-
+            let amount = dataHeader.Amount;
+            let vatFactor = data.VATOrOthersList != 0 ? data.VATOrOthersList[0].Factor : 0;
+            let ewtFactor = data.EWTList != 0 ? data.EWTList[0].Factor : 0;
+           
             let div = `<div class="fund-detail">
                             <div>1</div>
                             <div>${dataHeader.ReferenceNo_Doc}</div>
                             <div></div>
                             <div>${NumberWithCommas(dataHeader.Amount)}</div>
+                            <div>${dataHeader.ApproverStatusID != 1 ? NumberWithCommas(computeNetAmount(amount, vatFactor, ewtFactor)) : ''}</div>
                         </div>`;
             let parseDetail = new DOMParser().parseFromString(div, 'text/html').querySelector('.fund-detail');
             parseDoc.querySelector('.fund-detail-con').appendChild(parseDetail);
@@ -127,6 +131,7 @@
             }
 
             AssignEventLister(parseDoc);
+
         }
         function AssignEventLister(parseDoc) {
             parseDoc.querySelector('.jsSendToAccounting').addEventListener('click', function () {
@@ -155,32 +160,48 @@
                 ResponseSuccess(view);
             });
         }
+        function computeNetAmount(amount, vatFactor, ewtFactor) {
+
+            let totalAmount;
+            let deductionAmount;
+            let amountAfterVAT;
+
+            if (vatFactor == 0) {
+                amountAfterVAT = amount;
+            }
+            else {
+                amountAfterVAT = parseFloat(amount / vatFactor);
+            }
+
+
+            deductionAmount = amountAfterVAT * ewtFactor
+
+
+            if (ewtFactor == 0) {
+                totalAmount = amountAfterVAT;
+
+            }
+            else {
+                totalAmount = amount - deductionAmount;
+
+            }
+
+            return parseFloat(totalAmount).toFixed(2);
+        }
     }
 
     function AssignEventListenerFilter(fundsContainer) {
         DropdownList(fundsContainer.querySelector('.jsProject'), fundrequestGlobalObj.ProjectNameBST, function () {
-            let dataObject = {
-                ProjectID: fundsContainer.querySelector('.jsProject').getAttribute('data-id'),
-                DateFrom: 0,
-                DateTo: 0,
-            }
-            FilterRecord(dataObject, fundsContainer);
+            
+            FilterRecord(fundsContainer);
         });
         fundsContainer.querySelector('.jsDateFrom').addEventListener('change', function () {
-            let dataObject = {
-                ProjectID: 0,
-                DateFrom: fundsContainer.querySelector('.jsDateFrom').value,
-                DateTo: 0,
-            }
-            FilterRecord(dataObject, fundsContainer);
+            
+            FilterRecord(fundsContainer);
         });
         fundsContainer.querySelector('.jsDateTo').addEventListener('change', function () {
-            let dataObject = {
-                ProjectID: 0,
-                DateFrom: 0,
-                DateTo: fundsContainer.querySelector('.jsDateTo').value,
-            }
-            FilterRecord(dataObject, fundsContainer);
+            
+            FilterRecord(fundsContainer);
         });
 
         fundsContainer.querySelector('.jsReferenceNo').addEventListener('change', function (e) {
@@ -321,11 +342,14 @@
             return 0;
         }
     }
-    function FilterRecord(config, doc) {
-
+    function FilterRecord(doc) {
+        let config = {
+            ProjectID: doc.querySelector('.jsProject').getAttribute('data-id') || 0,
+            DateFrom: doc.querySelector('.jsDateFrom').value || 0,
+            DateTo: doc.querySelector('.jsDateTo').value || 0,
+        }
         let dataArray;
         filterData = [];
-        //console.log(config, doc)
         if (dataRecords.length > 10) {
             //search here using binary search
             dataArray = dataRecordsBST.BFS();

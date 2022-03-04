@@ -59,10 +59,11 @@ namespace DataAccess.FundRequest
                             if (reader.HasRows)
                             {
                                 reader.Read();
-                                paramDataReturn.DocumentRefID = Convert.ToInt32(reader["DocumentRefID"]);
-                                paramDataReturn.FundRequestDetailID = Convert.ToInt32(reader["FundRequestDetailID"]);
-                                paramDataReturn.ReferenceNo = reader["ReferenceNo"].ToString();
                                 paramDataReturn.StatusCodeNumber = Convert.ToInt32(reader["StatusCodeNumber"]);
+                                paramDataReturn.DocumentRefID = reader["DocumentRefID"] as int? ?? default;
+                                paramDataReturn.FundRequestDetailID = reader["FundRequestDetailID"] as int? ?? default;
+                                paramDataReturn.ReferenceNo = reader["ReferenceNo"].ToString();
+                               
                                
                             }
 
