@@ -988,7 +988,7 @@
                 IsConfirmedAlertOk(alertType.successAlert, alertMessages.saveSuccessfull);
                 travelContainer.querySelector('.jsFundRequest').classList.add('display-none');
             } else if (data.StatusCodeNumber == 2) {
-                IsConfirmedAlertOk(alertType.warningAlert, alertMessages.duplicateError);
+                IsConfirmedAlertOk(alertType.warningAlert, 'Data already exist!');
             }
             
         }
