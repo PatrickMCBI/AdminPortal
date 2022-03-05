@@ -79,6 +79,9 @@ namespace DataAccess.FundRequest
                                 paramDataReturn.FundRequestRecords.PreparedByName = reader["PreparedByName"].ToString();
                                 paramDataReturn.FundRequestRecords.ReviewedByName = reader["ReviewedByName"].ToString();
                                 paramDataReturn.FundRequestRecords.ApprovedByName = reader["ApprovedByName"].ToString();
+                                paramDataReturn.FundRequestRecords.PaymentModeID = reader["PaymentModeID"] as int? ?? default;
+                                paramDataReturn.FundRequestRecords.PaymentMode = reader["PaymentMode"].ToString();
+                                paramDataReturn.FundRequestRecords.Payee = reader["Payee"].ToString();
 
                                 reader.NextResult();
                                 paramDataReturn.EWTList = new List<EWTaxRefDataModel>();

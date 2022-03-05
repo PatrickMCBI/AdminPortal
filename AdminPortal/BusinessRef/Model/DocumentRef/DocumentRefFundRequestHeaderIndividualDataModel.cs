@@ -23,5 +23,8 @@ namespace BusinessRef.Model.DocumentRef
         public string PreparedByName { get; set; }
         public string ReviewedByName { get; set; }
         public string ApprovedByName { get; set; }
+        public int PaymentModeID { get; set; }
+        public string PaymentMode { get; set; }
+        public string Payee { get; set; }
     }
 }

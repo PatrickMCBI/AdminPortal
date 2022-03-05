@@ -110,6 +110,8 @@
             parseDoc.querySelector('.jsRequestDate').value = ToJavascriptDate(dataHeader.FormDate);
             parseDoc.querySelector('.jsStatusApproved').textContent = dataHeader.ApproverStatus;
             parseDoc.querySelector('.jsStatusLocation').textContent = dataHeader.LocationStatus;
+            parseDoc.querySelector('.jsPayee').value = dataHeader.Payee;
+
             let amount = dataHeader.Amount;
             let vatFactor = data.VATOrOthersList != 0 ? data.VATOrOthersList[0].Factor : 0;
             let ewtFactor = data.EWTList != 0 ? data.EWTList[0].Factor : 0;
@@ -118,8 +120,9 @@
                             <div>1</div>
                             <div>${dataHeader.ReferenceNo_Doc}</div>
                             <div></div>
+                            <div>${dataHeader.PaymentMode}</div>
                             <div>${NumberWithCommas(dataHeader.Amount)}</div>
-                            <div>${dataHeader.ApproverStatusID != 1 ? NumberWithCommas(computeNetAmount(amount, vatFactor, ewtFactor)) : ''}</div>
+                            <div>${dataHeader.ApproverStatusID == 5 ? NumberWithCommas(computeNetAmount(amount, vatFactor, ewtFactor)) : ''}</div>
                         </div>`;
             let parseDetail = new DOMParser().parseFromString(div, 'text/html').querySelector('.fund-detail');
             parseDoc.querySelector('.fund-detail-con').appendChild(parseDetail);
