@@ -1,4 +1,8 @@
-﻿<div class="container">
+﻿@{
+    ViewBag.Title = "funds";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+<div class="container">
     <div class="material-wrapper">
         <div class="material-header-wrapper travel-request-header-wrapper">
             <div class="material-header">
@@ -29,8 +33,7 @@
 
             </div>
             <!--<div class="transfer-info-header jstravelHeader">-->
-
-                @*<div class="jsTravelHeaderBtnContainer">
+            @*<div class="jsTravelHeaderBtnContainer">
 
                 </div>
                 <div></div>
@@ -44,7 +47,7 @@
                         <label class="start-label">Project Number:</label>
                         <div class="form-groups input-icon-wrap">
                             <input type="text" name="projectNumber" class="jsProjectNumber" autocomplete="off" data-propertyname="ProjectNumber" data-propertyid="ProjectID" data-sourcetype="bst" disabled>
-                            
+
                         </div>
                         <label class="end-label">Request No:</label>
                         <input type="text" name="requestNumber" class="jsRequestNo" id="jsRequestNo" disabled>
@@ -73,7 +76,7 @@
                 <h4>Net Amount</h4>
             </div>
             <div class="fund-detail-con scroll-bar scroll-bar-y">
-                
+
             </div>
         </div>
         <div class="" style="padding-bottom: 5px;">

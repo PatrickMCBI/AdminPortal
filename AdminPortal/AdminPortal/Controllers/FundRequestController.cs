@@ -9,6 +9,7 @@ using BusinessLogic.FundRequest;
 
 namespace AdminPortal.Controllers
 {
+    [Filters.UserLoginFilter]
     public class FundRequestController : Controller
     {
         // GET: FundRequest

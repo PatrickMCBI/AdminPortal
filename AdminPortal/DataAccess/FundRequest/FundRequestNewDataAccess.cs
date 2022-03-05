@@ -36,6 +36,7 @@ namespace DataAccess.FundRequest
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@ProjectID", SqlDbType = SqlDbType.Int, Value = _paramData.ProjectID });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@FormDate", SqlDbType = SqlDbType.Date, Value = _paramData.FormDate });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@DocumentRefID_Doc", SqlDbType = SqlDbType.Int, Value = _paramData.DocumentRefID_Doc });
+                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@Payee", SqlDbType = SqlDbType.VarChar, Size = 200, Value = "Cash" });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@Amount", SqlDbType = SqlDbType.Float, Value = _paramData.Amount });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@UserNameID", SqlDbType = SqlDbType.Int, Value = _paramData.UserNameID });
 

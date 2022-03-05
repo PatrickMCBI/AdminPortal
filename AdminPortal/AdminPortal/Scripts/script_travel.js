@@ -983,7 +983,7 @@
             formData.append('Amount', amount);
 
             let data = await fetchDataPost(AppGlobal.baseUrl + 'FundRequest/SaveNewFundRequestTravelMaster', formData);
-            console.log(data)
+
             if (data.StatusCodeNumber == 1) {
                 IsConfirmedAlertOk(alertType.successAlert, alertMessages.saveSuccessfull);
                 travelContainer.querySelector('.jsFundRequest').classList.add('display-none');
