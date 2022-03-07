@@ -110,7 +110,6 @@
             parseDoc.querySelector('.jsRequestDate').value = ToJavascriptDate(dataHeader.FormDate);
             parseDoc.querySelector('.jsStatusApproved').textContent = dataHeader.ApproverStatus;
             parseDoc.querySelector('.jsStatusLocation').textContent = dataHeader.LocationStatus;
-            parseDoc.querySelector('.jsPayee').value = dataHeader.Payee;
 
             let amount = dataHeader.Amount;
             let vatFactor = data.VATOrOthersList != 0 ? data.VATOrOthersList[0].Factor : 0;
@@ -120,7 +119,6 @@
                             <div>1</div>
                             <div>${dataHeader.ReferenceNo_Doc}</div>
                             <div></div>
-                            <div>${dataHeader.PaymentMode}</div>
                             <div>${NumberWithCommas(dataHeader.Amount)}</div>
                             <div>${dataHeader.ApproverStatusID == 5 ? NumberWithCommas(computeNetAmount(amount, vatFactor, ewtFactor)) : ''}</div>
                         </div>`;
