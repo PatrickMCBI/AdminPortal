@@ -11,6 +11,8 @@ namespace BusinessRef.Model.DocumentRef
         public string ProjectNumber { get; set; }
         public string ProjectName { get; set; }
         public string ReferenceNo_Doc { get; set; }
+        public int DocumentRefID_Doc { get; set; }
+        public int DocumentTypeID_Doc { get; set; }
         public float Amount { get; set; }
         public int ApproverStatusID { get; set; }
         public string ApproverStatus { get; set; }

@@ -624,7 +624,87 @@ function IsConfirmedAlertOk(alertObj, alertMessage) {
     containerDiv.appendChild(div0);
     document.body.appendChild(containerDiv);
 }
+function IsConfirmedAlertOkResolve(alertObj, alertMessage) {
+    // main container, transparent background
+    const containerDiv = document.createElement('div');
+    containerDiv.classList.add('alert-main-expandable-cont', 'jsAlertOkMainCont');
 
+    // alert container
+    const div0 = document.createElement('div');
+    div0.classList.add('alert-cont-00');
+
+    // alert header
+    const alertHeader = document.createElement('div');
+    alertHeader.classList.add('alert-cont-01', 'alert-cont-header', `${alertObj.colorClassName}`);
+
+
+    // icon img
+    const imgDiv = document.createElement('div');
+    imgDiv.classList.add('alert-icon-cont');
+
+    const iconImage = document.createElement('img');
+    iconImage.classList.add(alertObj.iconImageClassName)
+    iconImage.src = alertObj.imageSrc;
+
+    imgDiv.appendChild(iconImage);
+
+    // label
+    const headerLabel = document.createElement('label')
+    headerLabel.classList.add('alert-header-label')
+    headerLabel.textContent = alertObj.headerText
+
+    // append
+    alertHeader.appendChild(imgDiv);
+    alertHeader.appendChild(headerLabel);
+    div0.appendChild(alertHeader);
+
+
+    // alert content
+    const alertContent = document.createElement('div');
+    alertContent.classList.add('alert-cont-01', 'alert-cont-content');
+
+    // alert paragraph
+    const alertContentParag = document.createElement('p');
+    alertContentParag.classList.add('alert-paragraph')
+    alertContentParag.innerText = alertMessage
+
+    alertContent.appendChild(alertContentParag)
+    div0.appendChild(alertContent);
+
+    // alert footer
+    const alertFooter = document.createElement('div');
+    alertFooter.classList.add('alert-cont-01', 'alert-cont-footer');
+
+    // alert button ok
+    const alertFooterBtnOk = document.createElement('button');
+    alertFooterBtnOk.classList.add('alert-button', 'alert-button-ok', 'jsAlertButtonOkProjectPhase');
+    alertFooterBtnOk.innerText = 'Ok';
+
+    // event listener for OK
+    //alertFooterBtnOk.addEventListener('click', function () {
+    //    containerDiv.remove();
+
+    //    if (alertMessage == alertMessages.sessionExpired) {
+    //        window.location.reload()
+    //    }
+    //});
+
+
+    alertFooter.appendChild(alertFooterBtnOk)
+
+    div0.appendChild(alertFooter);
+
+    containerDiv.appendChild(div0);
+    document.body.appendChild(containerDiv);
+
+    return new Promise(function (resolve, reject) {
+        alertFooterBtnOk.addEventListener('click', function () {
+            containerDiv.remove();
+            resolve('Yes');
+            
+        });
+    })
+}
 function IsConfirmedAlertYesOrNo(alertObj, alertMessage) {
 
     // main container, transparent background

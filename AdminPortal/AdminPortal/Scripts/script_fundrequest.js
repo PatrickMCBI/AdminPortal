@@ -117,7 +117,7 @@
            
             let div = `<div class="fund-detail">
                             <div>1</div>
-                            <div>${dataHeader.ReferenceNo_Doc}</div>
+                            <div class="jsIndividualDocRecord" data-id='${dataHeader.DocumentRefID_Doc}'>${dataHeader.ReferenceNo_Doc}</div>
                             <div></div>
                             <div>${NumberWithCommas(dataHeader.Amount)}</div>
                             <div>${dataHeader.ApproverStatusID == 5 ? NumberWithCommas(computeNetAmount(amount, vatFactor, ewtFactor)) : ''}</div>
@@ -160,6 +160,15 @@
                 let view = await fetchView(AppGlobal.baseUrl + 'FundRequest/Index');
                 ResponseSuccess(view);
             });
+            parseDoc.querySelector('.jsIndividualDocRecord').addEventListener('click', async function (e) {
+              
+
+                let view = await fetchView(AppGlobal.baseUrl + 'Travel/IndexTravelNew');
+
+                let documentRefID = e.target.getAttribute('data-id');
+
+                travelGlobalFunc.responseSuccessIndividualRecord(view, documentRefID, 'funds');
+            })
         }
         function computeNetAmount(amount, vatFactor, ewtFactor) {
 

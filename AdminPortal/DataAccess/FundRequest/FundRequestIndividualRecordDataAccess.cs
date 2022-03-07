@@ -67,6 +67,8 @@ namespace DataAccess.FundRequest
                                 paramDataReturn.FundRequestRecords.ProjectNumber = reader["ProjectNumber"].ToString();
                                 paramDataReturn.FundRequestRecords.ProjectName = reader["ProjectName"].ToString();
                                 paramDataReturn.FundRequestRecords.ReferenceNo_Doc = reader["ReferenceNo_Doc"].ToString();
+                                paramDataReturn.FundRequestRecords.DocumentRefID_Doc = reader["DocumentRefID_Doc"] as int? ?? default;
+                                paramDataReturn.FundRequestRecords.DocumentTypeID_Doc = reader["DocumentTypeID_Doc"] as int? ?? default;
                                 paramDataReturn.FundRequestRecords.Amount = float.Parse(reader["Amount"].ToString());
                                 paramDataReturn.FundRequestRecords.ApproverStatusID = reader["ApproverStatusID"] as int? ?? default;
                                 paramDataReturn.FundRequestRecords.ApproverStatus = reader["ApproverStatus"].ToString();

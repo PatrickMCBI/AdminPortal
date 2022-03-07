@@ -985,8 +985,30 @@
             let data = await fetchDataPost(AppGlobal.baseUrl + 'FundRequest/SaveNewFundRequestTravelMaster', formData);
 
             if (data.StatusCodeNumber == 1) {
-                IsConfirmedAlertOk(alertType.successAlert, alertMessages.saveSuccessfull);
-                travelContainer.querySelector('.jsFundRequest').classList.add('display-none');
+                IsConfirmedAlertOkResolve(alertType.successAlert, "Funds request successfully created!").then(function () {
+
+                    travelContainer.querySelector('.jsFundRequest').classList.add('display-none');
+
+                    IsConfirmedAlertYesOrNoWithTextArea(alertType.warningAlert, "Would you like to send to accounting?", false).then(async function (obj) {
+
+                        let formData = new FormData();
+                        let note = obj.querySelector('textarea[name=Note]').value;
+                    
+                        formData.append('DocumentRefID', documentRefID_doc);
+                        formData.append('Note', note);
+
+                        let data = await fetchDataPost(AppGlobal.baseUrl + 'FundRequest/SendFundRequestToAccounting', formData);
+                        console.log(data);
+                        if (data.StatusCodeNumber == 1) {
+                            IsConfirmedAlertOk(alertType.successAlert, "Successfully sent");
+                            parseDoc.querySelector('.jsSendToAccounting').classList.add('display-none');
+                            //setTimeout(function () {
+                            //    window.location.reload();
+                            //}, 2500);
+                        }
+
+                    }).catch(function (error) { });
+                }).catch(function (error) { });
             } else if (data.StatusCodeNumber == 2) {
                 IsConfirmedAlertOk(alertType.warningAlert, 'Data already exist!');
             }
@@ -1014,6 +1036,325 @@
             doc.querySelector('.jsProjectNumberOrigin').value = projectNumberObj[0].ProjectNumber;
 
         });
+    },
+    responseSuccessIndividualRecord: async function (view, documentRefID, id) {
+        travelGlobalFunc.centerPanel.innerHTML = '';
+        travelGlobalFunc.rightPanel.innerHTML = '';
+
+        let parser = new DOMParser().parseFromString(view, 'text/html').querySelector('.container');
+
+        //add back button
+        parser.querySelector('.js-backBtn').appendChild(backButtonIndividualRecord());
+
+        //get the individual data
+
+        let individualData = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/TravelRequestIndividualRecord/?documentRefID=' + documentRefID);
+        console.log(individualData)
+        //add data into bst
+        travelGlobalFunc.ProjectNumberBST = LoadDataToBST(individualData.ProjectNumberList, 'ProjectID');
+        travelGlobalFunc.ProjectNameBST = LoadDataToBST(individualData.ProjectNameList, 'ProjectID');
+        travelGlobalFunc.EmployeeNameBST = LoadDataToBST(individualData.EmployeeList, 'ID');
+
+        //add data into linked list
+        travelGlobalFunc.AccomodationTypeLL = LoadDataToLinkedList(individualData.AccomodationTypeList);
+        travelGlobalFunc.ModeOfTransportLL = LoadDataToLinkedList(individualData.TransportModeList);
+
+        //append view in center panel
+        travelGlobalFunc.centerPanel.appendChild(parser);
+
+
+        //assign event listeners here
+        (function assignEventListenersIndividualRecord() {
+            let doc = parser;
+
+            doc.querySelector('.jsAddTravelers').addEventListener('click', travelGlobalFunc.AddTravelersView);
+
+            doc.querySelector('.jsAddItenerary').addEventListener('click', travelGlobalFunc.AddIteneraryView);
+
+            doc.querySelector('.jsAddAccomodation').addEventListener('click', travelGlobalFunc.AddAccomodationView);
+
+            //Dropdownlist
+            travelGlobalFunc.projectDropdownList(doc);
+
+        })();
+
+
+        //populate individual data
+        (function populateIndividualRecord() {
+
+            let data = individualData;
+            let doc = parser;
+            travelGlobalFunc.singleDataObj = data;
+
+
+            //display the TravelRequestHeader
+            (function displayTravelRequestHeader() {
+                let wrapper = doc.querySelector('.material-header-wrapper');
+                let headerData = data.HeaderList;
+
+
+                wrapper.querySelector('.jsProjectNumberOrigin').value = headerData.ProjectNumberOrigin;
+                wrapper.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', headerData.ProjectOriginID);
+                wrapper.querySelector('.jsProjectNumberOrigin').setAttribute('data-textcontent', headerData.ProjectNumberOrigin);
+
+                wrapper.querySelector('.jsProjectNameOrigin').value = headerData.ProjectNameOrigin;
+                wrapper.querySelector('.jsProjectNameOrigin').setAttribute('data-id', headerData.ProjectOriginID);
+                wrapper.querySelector('.jsProjectNameOrigin').setAttribute('data-textcontent', headerData.ProjectNameOrigin);
+
+                wrapper.querySelector('.jsRequestNo').value = headerData.ReferenceNo;
+
+                wrapper.querySelector('.jsRequestDate').value = ToJavascriptDate(headerData.FormDate);
+
+                wrapper.querySelector('.jsProjectNumberDestination').value = headerData.ProjectNumberDestination;
+                wrapper.querySelector('.jsProjectNumberDestination').setAttribute('data-id', headerData.ProjectDestinationID);
+                wrapper.querySelector('.jsProjectNumberDestination').setAttribute('data-textcontent', headerData.ProjectNumberDestination);
+
+                wrapper.querySelector('.jsDateOfTravel').value = ToJavascriptDate(headerData.TravelDate);
+
+                wrapper.querySelector('.jsProjectNameDestination').value = headerData.ProjectNameDestination;
+                wrapper.querySelector('.jsProjectNameDestination').setAttribute('data-id', headerData.ProjectDestinationID);
+                wrapper.querySelector('.jsProjectNameDestination').setAttribute('data-textcontent', headerData.ProjectNameDestination);
+
+                wrapper.querySelector('.jsPurposeOfTravel').value = headerData.TravelPurpose;
+
+                wrapper.querySelector('.jstravelHeader').setAttribute('documentref-id', headerData.DocumentRefID);
+
+                wrapper.querySelector('.jsDateOfReturn').value = ToJavascriptDate(headerData.ReturnDate) == '3939-01-01' ? '' : ToJavascriptDate(headerData.ReturnDate);
+                wrapper.querySelector('.jsStatusApproved').innerHTML = headerData.ApproverStatus;
+                wrapper.querySelector('.jsStatusLocation').innerHTML = headerData.LocationStatus;
+                //disable travel request header inputs
+                travelGlobalFunc.disableFormHeader(wrapper);
+
+                //add event listener
+                wrapper.querySelector('.jstravelHeaderBtn').addEventListener('click', travelGlobalFunc.saveTRHeader);
+
+                //add footer button
+                let footerBtnContainer = document.querySelector('.jsFooterBtnContainer');
+                footerBtnContainer.appendChild(travelGlobalFunc.footerBtnClone());
+
+                //check if pending for approval
+                if (headerData.ApproverStatusID == 2 || headerData.ApproverStatusID == 5) {
+                    footerBtnContainer.querySelector('.jsSendToEngg').remove();
+
+                    wrapper.querySelector('.jsTravelHeaderBtnContainer').innerHTML = '';
+                }
+                if (headerData.ApproverStatusID == 5) {
+                    footerBtnContainer.querySelector('.jsFundRequest').classList.remove('display-none');
+                }
+                if (headerData.ApproverStatusID == 7 && headerData.LocationStatusID == 4) {
+                    footerBtnContainer.querySelector('.jsSendToEngg').remove();
+
+                    wrapper.querySelector('.jsTravelHeaderBtnContainer').innerHTML = '';
+                }
+
+
+            })();
+
+
+            //display list of traveler
+            (function displayListOfTraveler() {
+
+                let addBtn = doc.querySelector('.jsAddTravelers');
+                addBtn.classList.remove('disabled');
+                addBtn.removeAttribute('disabled');
+                addBtn.classList.add('add-items-btn');
+
+                let container = doc.querySelector('.travel-purpose-details-con');
+
+                //remove add button if pending for approval or approved
+                if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
+                    doc.querySelector('.jsAddTravelersContainer').innerHTML = '';
+                }
+
+                let list = data.EmployeeDetailList;
+
+                list.forEach((item) => {
+                    let itemClone = travelGlobalFunc.addTravelerItemDivClone();
+
+                    itemClone.setAttribute('data-id', item.EmployeeDetailID);
+
+                    itemClone.querySelector('.jsTravelerName').value = item.EmployeeName;
+                    itemClone.querySelector('.jsTravelerName').setAttribute('data-id', item.EmployeeID);
+
+                    itemClone.querySelector('.jsKgs').value = item.BaggageWeight;
+
+                    itemClone.querySelector('.jsPositionName').value = item.Position;
+
+                    itemClone.querySelector('.jsBirthDate').value = ToJavascriptDate(item.BirthDate);
+
+                    //append here
+                    container.appendChild(itemClone);
+
+                    //disable item
+                    travelGlobalFunc.disableItem(container);
+
+                    if (data.HeaderList.ApproverStatusID == 1 || data.HeaderList.ApproverStatusID == 3) {
+                        //change the button of save
+                        let saveBtn = itemClone.querySelector('.jsSaveEmployeeName');
+                        saveBtn.innerHTML = '';
+                        saveBtn.id = 'edit';
+                        saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
+                    }
+                    else {
+                        //remove button if approve or pending for approval
+                        itemClone.querySelector('.option-btn').remove();
+
+                    }
+
+                });
+
+                //row count
+                travelGlobalFunc.countRow(container);
+
+            })();
+
+
+            //display itinerary details
+            (function displayItineraryDetails() {
+                let addBtn = doc.querySelector('.jsAddItenerary');
+                addBtn.classList.remove('disabled');
+                addBtn.removeAttribute('disabled');
+                addBtn.classList.add('add-items-btn');
+
+                let container = doc.querySelector('.travel-itirerary-details-con');
+
+                //remove add button if pending for approval or approved
+                if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
+                    doc.querySelector('.jsAddIteneraryContainer').innerHTML = '';
+                }
+
+                let list = data.ItineraryDetailList;
+
+                list.forEach((item) => {
+                    let itemClone = travelGlobalFunc.addItineraryItemDivClone();
+
+                    itemClone.setAttribute('data-id', item.ItineraryDetailID);
+
+                    itemClone.querySelector('.jsFromOrigin').value = item.From;
+
+                    itemClone.querySelector('.jsToDestination').value = item.To;
+
+                    itemClone.querySelector('.jsModeOfTransport').value = item.TransportMode;
+                    itemClone.querySelector('.jsModeOfTransport').setAttribute('data-id', item.TransportModeID);
+
+                    itemClone.querySelector('.jsFare').value = item.Fare;
+
+                    //append here
+                    container.appendChild(itemClone);
+
+                    //disable item
+                    travelGlobalFunc.disableItem(container);
+
+                    if (data.HeaderList.ApproverStatusID == 1 || data.HeaderList.ApproverStatusID == 3) {
+                        //change the id and textcontent of save button
+                        let saveBtn = itemClone.querySelector('.jsSaveItinerary');
+                        saveBtn.innerHTML = '';
+                        saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
+                        saveBtn.id = 'edit';
+                    }
+                    else {
+                        //remove button if approve or pending for approval
+                        itemClone.querySelector('.option-btn').remove();
+                    }
+
+                });
+
+                //add row
+                travelGlobalFunc.countRow(container);
+
+            })();
+
+
+            //function accomodation details
+            (function displayAccomodationDetails() {
+                let btn = doc.querySelector('.jsAddAccomodation');
+                btn.classList.remove('disabled');
+                btn.removeAttribute('disabled');
+                btn.classList.add('add-items-btn');
+
+                let container = doc.querySelector('.travel-hotel-details-con');
+
+                //remove add button if pending for approval or approved
+                if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
+                    doc.querySelector('.jsAddAccomodationContainer').innerHTML = '';
+                }
+
+                let list = data.AccomodationDetailList;
+
+                list.forEach((item) => {
+                    let itemClone = travelGlobalFunc.addAccomodationItemDivClone();
+
+                    itemClone.setAttribute('data-id', item.AccomodationDetailID);
+
+                    itemClone.querySelector('.jsAccomodationName').value = item.AccomodationType;
+                    itemClone.querySelector('.jsAccomodationName').setAttribute('data-id', item.AccomodationTypeID);
+
+                    itemClone.querySelector('.jsNoOfDays').value = item.NoOfDays;
+
+                    itemClone.querySelector('.jsCost').value = item.Cost;
+
+                    let total = parseFloat(item.NoOfDays * item.Cost).toFixed(2);
+
+                    itemClone.querySelector('.jsAccomodationTotal').value = NumberWithCommas(total);
+                    itemClone.querySelector('.jsAccomodationTotal').setAttribute('data-value', total);
+
+                    //append here
+                    container.appendChild(itemClone);
+
+                    //disable item
+                    travelGlobalFunc.disableItem(container);
+
+                    if (data.HeaderList.ApproverStatusID == 1 || data.HeaderList.ApproverStatusID == 3) {
+                        //change the text of save button
+                        let saveBtn = itemClone.querySelector('.jsSaveAccomodation');
+                        saveBtn.innerHTML = '';
+                        saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
+                        saveBtn.id = 'edit';
+                    }
+                    else {
+                        //remove button if approve or pending for approval
+                        itemClone.querySelector('.option-btn').remove();
+
+                    }
+
+                });
+
+                //count row
+                travelGlobalFunc.countRow(container);
+
+            })();
+
+            travelGlobalFunc.GrandTotalForTravel();
+        })();
+
+        NoteInfo(individualData.NoteList);
+
+        function backButtonIndividualRecord() {
+
+            let div = `
+                    <i class="back-arrow jsBackArrow">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="angle-left" class="svg-inline--fa fa-angle-left fa-w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" height="25px"><path fill="#FFF" d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z"></path></svg>
+                    </i>`;
+
+            let parser = new DOMParser().parseFromString(div, 'text/html').querySelector('.jsBackArrow');
+
+            parser.addEventListener('click', async function (e) {
+
+                let view = await fetchView(AppGlobal.baseUrl + 'TravelRecord/Index');
+
+                responseSuccessIndexRecord(view);
+            });
+
+            return parser;
+        }
+
+        if (id == 'funds') {
+            parser.querySelector('.materials-footer').innerHTML = '';
+            parser.querySelector('.jsTravelHeaderBtnContainer').innerHTML = ''; 
+            parser.querySelector('.jsAddTravelersContainer').innerHTML = ''; 
+            parser.querySelector('.jsAddItenerary').innerHTML = '';
+            parser.querySelector('.jsAddAccomodation').innerHTML = '';
+        }
     }
 };
 
@@ -1238,7 +1579,7 @@
 
                     let documentRefID = item.DocumentRefID;
 
-                    responseSuccessIndividualRecord(view, documentRefID);
+                    travelGlobalFunc.responseSuccessIndividualRecord(view, documentRefID);
 
                 });
 
@@ -1475,315 +1816,6 @@
             }
             return 0;
         }
-    }
-
-    async function responseSuccessIndividualRecord(view, documentRefID) {
-
-        travelGlobalFunc.centerPanel.innerHTML = '';
-        travelGlobalFunc.rightPanel.innerHTML = '';
-
-        let parser = new DOMParser().parseFromString(view, 'text/html').querySelector('.container');
-
-        //add back button
-        parser.querySelector('.js-backBtn').appendChild(backButtonIndividualRecord());
-
-        //get the individual data
-
-        let individualData = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/TravelRequestIndividualRecord/?documentRefID=' + documentRefID);
-
-        //add data into bst
-        travelGlobalFunc.ProjectNumberBST = LoadDataToBST(individualData.ProjectNumberList, 'ProjectID');
-        travelGlobalFunc.ProjectNameBST = LoadDataToBST(individualData.ProjectNameList, 'ProjectID');
-        travelGlobalFunc.EmployeeNameBST = LoadDataToBST(individualData.EmployeeList, 'ID');
-
-        //add data into linked list
-        travelGlobalFunc.AccomodationTypeLL = LoadDataToLinkedList(individualData.AccomodationTypeList);
-        travelGlobalFunc.ModeOfTransportLL = LoadDataToLinkedList(individualData.TransportModeList);
-
-        //append view in center panel
-        travelGlobalFunc.centerPanel.appendChild(parser);
-
-        
-        //assign event listeners here
-        (function assignEventListenersIndividualRecord() {
-            let doc = parser;
-
-            doc.querySelector('.jsAddTravelers').addEventListener('click', travelGlobalFunc.AddTravelersView);
-
-            doc.querySelector('.jsAddItenerary').addEventListener('click', travelGlobalFunc.AddIteneraryView);
-
-            doc.querySelector('.jsAddAccomodation').addEventListener('click', travelGlobalFunc.AddAccomodationView);
-
-            //Dropdownlist
-            travelGlobalFunc.projectDropdownList(doc);
-
-        })();
-
-
-        //populate individual data
-        (function populateIndividualRecord() {
-
-            let data = individualData;
-            let doc = parser;
-            travelGlobalFunc.singleDataObj = data;
-          
-
-            //display the TravelRequestHeader
-            (function displayTravelRequestHeader() {
-                let wrapper = doc.querySelector('.material-header-wrapper');
-                let headerData = data.HeaderList;
-               
-
-                wrapper.querySelector('.jsProjectNumberOrigin').value = headerData.ProjectNumberOrigin;
-                wrapper.querySelector('.jsProjectNumberOrigin').setAttribute('data-id', headerData.ProjectOriginID);
-                wrapper.querySelector('.jsProjectNumberOrigin').setAttribute('data-textcontent', headerData.ProjectNumberOrigin);
-
-                wrapper.querySelector('.jsProjectNameOrigin').value = headerData.ProjectNameOrigin;
-                wrapper.querySelector('.jsProjectNameOrigin').setAttribute('data-id', headerData.ProjectOriginID);
-                wrapper.querySelector('.jsProjectNameOrigin').setAttribute('data-textcontent', headerData.ProjectNameOrigin);
-
-                wrapper.querySelector('.jsRequestNo').value = headerData.ReferenceNo;
-
-                wrapper.querySelector('.jsRequestDate').value = ToJavascriptDate(headerData.FormDate);
-
-                wrapper.querySelector('.jsProjectNumberDestination').value = headerData.ProjectNumberDestination;
-                wrapper.querySelector('.jsProjectNumberDestination').setAttribute('data-id', headerData.ProjectDestinationID);
-                wrapper.querySelector('.jsProjectNumberDestination').setAttribute('data-textcontent', headerData.ProjectNumberDestination);
-
-                wrapper.querySelector('.jsDateOfTravel').value = ToJavascriptDate(headerData.TravelDate);
-
-                wrapper.querySelector('.jsProjectNameDestination').value = headerData.ProjectNameDestination;
-                wrapper.querySelector('.jsProjectNameDestination').setAttribute('data-id', headerData.ProjectDestinationID);
-                wrapper.querySelector('.jsProjectNameDestination').setAttribute('data-textcontent', headerData.ProjectNameDestination);
-
-                wrapper.querySelector('.jsPurposeOfTravel').value = headerData.TravelPurpose;
-
-                wrapper.querySelector('.jstravelHeader').setAttribute('documentref-id', headerData.DocumentRefID);
-
-                wrapper.querySelector('.jsDateOfReturn').value = ToJavascriptDate(headerData.ReturnDate) == '3939-01-01' ? '' : ToJavascriptDate(headerData.ReturnDate);
-                wrapper.querySelector('.jsStatusApproved').innerHTML = headerData.ApproverStatus;
-                wrapper.querySelector('.jsStatusLocation').innerHTML = headerData.LocationStatus;
-                //disable travel request header inputs
-                travelGlobalFunc.disableFormHeader(wrapper);
-
-                //add event listener
-                wrapper.querySelector('.jstravelHeaderBtn').addEventListener('click', travelGlobalFunc.saveTRHeader);
-
-                //add footer button
-                let footerBtnContainer = document.querySelector('.jsFooterBtnContainer');
-                footerBtnContainer.appendChild(travelGlobalFunc.footerBtnClone());
-
-                //check if pending for approval
-                if (headerData.ApproverStatusID == 2 || headerData.ApproverStatusID == 5) {
-                    footerBtnContainer.querySelector('.jsSendToEngg').remove();
-                   
-                    wrapper.querySelector('.jsTravelHeaderBtnContainer').innerHTML = '';
-                }
-                if (headerData.ApproverStatusID == 5) {
-                    footerBtnContainer.querySelector('.jsFundRequest').classList.remove('display-none');
-                }
-
-                
-            })();
-
-
-            //display list of traveler
-            (function displayListOfTraveler() {
-
-                let addBtn = doc.querySelector('.jsAddTravelers');
-                addBtn.classList.remove('disabled');
-                addBtn.removeAttribute('disabled');
-                addBtn.classList.add('add-items-btn');
-
-                let container = doc.querySelector('.travel-purpose-details-con');
-
-                //remove add button if pending for approval or approved
-                if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
-                    doc.querySelector('.jsAddTravelersContainer').innerHTML = '';
-                }
-
-                let list = data.EmployeeDetailList;
-
-                list.forEach((item) => {
-                    let itemClone = travelGlobalFunc.addTravelerItemDivClone();
-
-                    itemClone.setAttribute('data-id', item.EmployeeDetailID);
-
-                    itemClone.querySelector('.jsTravelerName').value = item.EmployeeName;
-                    itemClone.querySelector('.jsTravelerName').setAttribute('data-id', item.EmployeeID);
-
-                    itemClone.querySelector('.jsKgs').value = item.BaggageWeight;
-
-                    itemClone.querySelector('.jsPositionName').value = item.Position;
-
-                    itemClone.querySelector('.jsBirthDate').value = ToJavascriptDate(item.BirthDate);
-
-                    //append here
-                    container.appendChild(itemClone);
-
-                    //disable item
-                    travelGlobalFunc.disableItem(container);
-
-                    if (data.HeaderList.ApproverStatusID == 1 || data.HeaderList.ApproverStatusID == 3) {
-                        //change the button of save
-                        let saveBtn = itemClone.querySelector('.jsSaveEmployeeName');
-                        saveBtn.innerHTML = '';
-                        saveBtn.id = 'edit';
-                        saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
-                    }
-                    else {
-                        //remove button if approve or pending for approval
-                        itemClone.querySelector('.option-btn').remove();
-
-                    }
-                    
-                });
-
-                //row count
-                travelGlobalFunc.countRow(container);
-
-            })();
-
-
-            //display itinerary details
-            (function displayItineraryDetails() {
-                let addBtn = doc.querySelector('.jsAddItenerary');
-                addBtn.classList.remove('disabled');
-                addBtn.removeAttribute('disabled');
-                addBtn.classList.add('add-items-btn');
-
-                let container = doc.querySelector('.travel-itirerary-details-con');
-
-                //remove add button if pending for approval or approved
-                if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
-                    doc.querySelector('.jsAddIteneraryContainer').innerHTML = '';
-                }
-
-                let list = data.ItineraryDetailList;
-
-                list.forEach((item) => {
-                    let itemClone = travelGlobalFunc.addItineraryItemDivClone();
-
-                    itemClone.setAttribute('data-id', item.ItineraryDetailID);
-
-                    itemClone.querySelector('.jsFromOrigin').value = item.From;
-
-                    itemClone.querySelector('.jsToDestination').value = item.To;
-
-                    itemClone.querySelector('.jsModeOfTransport').value = item.TransportMode;
-                    itemClone.querySelector('.jsModeOfTransport').setAttribute('data-id', item.TransportModeID);
-
-                    itemClone.querySelector('.jsFare').value = item.Fare;
-
-                    //append here
-                    container.appendChild(itemClone);
-
-                    //disable item
-                    travelGlobalFunc.disableItem(container);
-
-                    if (data.HeaderList.ApproverStatusID == 1 || data.HeaderList.ApproverStatusID == 3) {
-                        //change the id and textcontent of save button
-                        let saveBtn = itemClone.querySelector('.jsSaveItinerary');
-                        saveBtn.innerHTML = '';
-                        saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
-                        saveBtn.id = 'edit';
-                    }
-                    else {
-                        //remove button if approve or pending for approval
-                        itemClone.querySelector('.option-btn').remove();
-                    }
-
-                });
-
-                //add row
-                travelGlobalFunc.countRow(container);
-
-            })();
-
-
-            //function accomodation details
-            (function displayAccomodationDetails() {
-                let btn = doc.querySelector('.jsAddAccomodation');
-                btn.classList.remove('disabled');
-                btn.removeAttribute('disabled');
-                btn.classList.add('add-items-btn');
-
-                let container = doc.querySelector('.travel-hotel-details-con');
-
-                //remove add button if pending for approval or approved
-                if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
-                    doc.querySelector('.jsAddAccomodationContainer').innerHTML = '';
-                }
-
-                let list = data.AccomodationDetailList;
-
-                list.forEach((item) => {
-                    let itemClone = travelGlobalFunc.addAccomodationItemDivClone();
-
-                    itemClone.setAttribute('data-id', item.AccomodationDetailID);
-
-                    itemClone.querySelector('.jsAccomodationName').value = item.AccomodationType;
-                    itemClone.querySelector('.jsAccomodationName').setAttribute('data-id', item.AccomodationTypeID);
-
-                    itemClone.querySelector('.jsNoOfDays').value = item.NoOfDays;
-
-                    itemClone.querySelector('.jsCost').value = item.Cost;
-
-                    let total = parseFloat(item.NoOfDays * item.Cost).toFixed(2);
-
-                    itemClone.querySelector('.jsAccomodationTotal').value = NumberWithCommas(total);
-                    itemClone.querySelector('.jsAccomodationTotal').setAttribute('data-value', total);
-
-                    //append here
-                    container.appendChild(itemClone);
-
-                    //disable item
-                    travelGlobalFunc.disableItem(container);
-
-                    if (data.HeaderList.ApproverStatusID == 1 || data.HeaderList.ApproverStatusID == 3) {
-                        //change the text of save button
-                        let saveBtn = itemClone.querySelector('.jsSaveAccomodation');
-                        saveBtn.innerHTML = '';
-                        saveBtn.appendChild(travelGlobalFunc.returnSVGEditIcon());
-                        saveBtn.id = 'edit';
-                    }
-                    else {
-                        //remove button if approve or pending for approval
-                        itemClone.querySelector('.option-btn').remove();
-
-                    }
-                   
-                });
-
-                //count row
-                travelGlobalFunc.countRow(container);
-
-            })();
-
-            travelGlobalFunc.GrandTotalForTravel();
-        })();
-
-        NoteInfo(individualData.NoteList);
-
-        function backButtonIndividualRecord() {
-
-            let div = `
-                    <i class="back-arrow jsBackArrow">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="angle-left" class="svg-inline--fa fa-angle-left fa-w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" height="25px"><path fill="#FFF" d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z"></path></svg>
-                    </i>`;
-
-            let parser = new DOMParser().parseFromString(div, 'text/html').querySelector('.jsBackArrow');
-
-            parser.addEventListener('click', async function (e) {
-
-                let view = await fetchView(AppGlobal.baseUrl + 'TravelRecord/Index');
-
-                responseSuccessIndexRecord(view);
-            });
-
-            return parser;
-        }
-
     }
 
 })();

@@ -150,4 +150,8 @@ input[name=TRDateTo] {
 .fund-detail-con{
     height: 500px;
 }
+.fund-detail div:nth-child(1) + :hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
 /*#endregion*/
