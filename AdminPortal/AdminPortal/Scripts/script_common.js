@@ -973,7 +973,7 @@ function DropdownList(input, rawData, callback) {
                 }
 
 
-                callback();
+               
             }
         } else if (this.value == '') {
 
@@ -982,7 +982,7 @@ function DropdownList(input, rawData, callback) {
             this.textContent = '';
             this.setAttribute("rows", 1);
         }
-
+        callback();
     });
 
     let dropdownIcon = input.nextElementSibling;
