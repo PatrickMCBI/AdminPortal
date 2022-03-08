@@ -1147,6 +1147,7 @@
                     footerBtnContainer.querySelector('.jsSendToEngg').remove();
 
                     wrapper.querySelector('.jsTravelHeaderBtnContainer').innerHTML = '';
+                    
                 }
 
 
@@ -1166,7 +1167,7 @@
                 //remove add button if pending for approval or approved
                 if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
                     doc.querySelector('.jsAddTravelersContainer').innerHTML = '';
-                }
+                } if (data.HeaderList.ApproverStatusID == 7 && data.HeaderList.LocationStatusID == 4) { doc.querySelector('.jsAddTravelersContainer').innerHTML = ''; }
 
                 let list = data.EmployeeDetailList;
 
@@ -1224,7 +1225,7 @@
                 if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
                     doc.querySelector('.jsAddIteneraryContainer').innerHTML = '';
                 }
-
+                if (data.HeaderList.ApproverStatusID == 7 && data.HeaderList.LocationStatusID == 4) { doc.querySelector('.jsAddIteneraryContainer').innerHTML = ''; }
                 let list = data.ItineraryDetailList;
 
                 list.forEach((item) => {
@@ -1280,7 +1281,7 @@
                 if (data.HeaderList.ApproverStatusID == 2 || data.HeaderList.ApproverStatusID == 5) {
                     doc.querySelector('.jsAddAccomodationContainer').innerHTML = '';
                 }
-
+                if (data.HeaderList.ApproverStatusID == 7 && data.HeaderList.LocationStatusID == 4) { doc.querySelector('.jsAddAccomodationContainer').innerHTML = ''; }
                 let list = data.AccomodationDetailList;
 
                 list.forEach((item) => {

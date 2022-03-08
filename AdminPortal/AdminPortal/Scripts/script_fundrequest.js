@@ -103,6 +103,7 @@
 
             fundrequestGlobalObj.centerPanel.appendChild(parseDoc);
             fundrequestGlobalObj.DomPreviousView = parseDoc;
+
             let dataHeader = data.FundRequestRecords;
             parseDoc.querySelector('.material-header-wrapper').setAttribute('documentRef-id', dataHeader.DocumentRefID);
             parseDoc.querySelector('.jsProjectNumber').value = dataHeader.ProjectNumber;
