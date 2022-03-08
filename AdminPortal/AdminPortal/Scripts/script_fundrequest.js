@@ -2,6 +2,7 @@
     centerPanel: document.querySelector('.center-panel'),
     rightPanel: document.querySelector('.right-panel'),
     ProjectNameBST: null,
+    DomPreviousView: null,
 };
 (function FundRequestRecords() {
     let menuBtn = document.querySelector('.jsFundRequestRecords');
@@ -92,7 +93,7 @@
         let documentRefID = e.currentTarget.getAttribute('documentRef-id');
 
         const data = await fetchDataGet(AppGlobal.baseUrl + 'FundRequest/GetFundRequestIndividualRecord/?documentRefID=' + documentRefID);
-        console.log(data);
+   
         if (data.StatusCodeNumber == 1) {
             fundrequestGlobalObj.centerPanel.innerHTML = '';
             fundrequestGlobalObj.centerPanel.rightPanel = '';
@@ -101,7 +102,7 @@
             let parseDoc = new DOMParser().parseFromString(view, 'text/html').querySelector('.container');
 
             fundrequestGlobalObj.centerPanel.appendChild(parseDoc);
-
+            fundrequestGlobalObj.DomPreviousView = parseDoc;
             let dataHeader = data.FundRequestRecords;
             parseDoc.querySelector('.material-header-wrapper').setAttribute('documentRef-id', dataHeader.DocumentRefID);
             parseDoc.querySelector('.jsProjectNumber').value = dataHeader.ProjectNumber;

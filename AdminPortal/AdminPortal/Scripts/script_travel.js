@@ -9,6 +9,8 @@
     EmployeeNameBST: null,
     recordBST: null,
     recordLL: null,
+    filterData: null,
+    data: null,
     AddTravelersView: function (e) {
         const travelContainer = e.currentTarget.closest('.material-wrapper');
         const tbody = travelContainer.querySelector('.travel-purpose-details-con');
@@ -1044,12 +1046,12 @@
         let parser = new DOMParser().parseFromString(view, 'text/html').querySelector('.container');
 
         //add back button
-        parser.querySelector('.js-backBtn').appendChild(backButtonIndividualRecord());
+       
 
         //get the individual data
 
         let individualData = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/TravelRequestIndividualRecord/?documentRefID=' + documentRefID);
-        console.log(individualData)
+
         //add data into bst
         travelGlobalFunc.ProjectNumberBST = LoadDataToBST(individualData.ProjectNumberList, 'ProjectID');
         travelGlobalFunc.ProjectNameBST = LoadDataToBST(individualData.ProjectNameList, 'ProjectID');
@@ -1342,7 +1344,7 @@
 
                 let view = await fetchView(AppGlobal.baseUrl + 'TravelRecord/Index');
 
-                responseSuccessIndexRecord(view);
+                travelGlobalFunc.responseSuccessIndexRecord(view);
             });
 
             return parser;
@@ -1350,14 +1352,397 @@
 
         if (id == 'funds') {
             parser.querySelector('.materials-footer').innerHTML = '';
-            parser.querySelector('.jsTravelHeaderBtnContainer').innerHTML = ''; 
-            parser.querySelector('.jsAddTravelersContainer').innerHTML = ''; 
-            parser.querySelector('.jsAddItenerary').innerHTML = '';
-            parser.querySelector('.jsAddAccomodation').innerHTML = '';
+            parser.querySelector('.jsTravelHeaderBtnContainer').innerHTML = '';
+            parser.querySelector('.jsAddTravelersContainer').innerHTML = '';
+            //parser.querySelector('.jsAddItenerary').innerHTML = '';
+            //parser.querySelector('.jsAddAccomodation').innerHTML = '';
+
+            let div = `
+                    <i class="back-arrow jsBackArrow">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="angle-left" class="svg-inline--fa fa-angle-left fa-w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" height="25px"><path fill="#FFF" d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z"></path></svg>
+                    </i>`;
+
+            let parserarrow = new DOMParser().parseFromString(div, 'text/html').querySelector('.jsBackArrow');
+
+            parser.querySelector('.js-backBtn').appendChild(parserarrow);
+
+            parser.querySelector('.js-backBtn').addEventListener('click', function () {
+                fundrequestGlobalObj.centerPanel.innerHTML = '';
+                fundrequestGlobalObj.centerPanel.appendChild(fundrequestGlobalObj.DomPreviousView);
+            });
+
+        } else {
+            parser.querySelector('.js-backBtn').appendChild(backButtonIndividualRecord());
+        }
+    },
+    responseSuccessIndexRecord: async function (view) {
+        travelGlobalFunc.centerPanel.innerHTML = '';
+        travelGlobalFunc.rightPanel.innerHTML = '';
+
+
+        let parser = new DOMParser().parseFromString(view, 'text/html').querySelector('.container');
+
+        travelGlobalFunc.data = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/GetTravelRequestRecordReferenceData');
+
+
+        let allProjectObj = {
+            ProjectID: 0,
+            ProjectName: 'All'
+        };
+
+        travelGlobalFunc.data.ProjectList.unshift(allProjectObj);
+
+        //load to bst
+        travelGlobalFunc.ProjectNameBST = LoadDataToBST(travelGlobalFunc.data.ProjectList, 'ProjectID');
+
+        travelGlobalFunc.filterData = [];
+
+        //add rowcount column in recordlist
+        travelGlobalFunc.data.RecordList.forEach((item, index) => {
+            item.RowCount = index + 1;
+
+            travelGlobalFunc.filterData.push(item);
+        });
+
+        //display record
+        travelGlobalFunc.displayRecord(travelGlobalFunc.filterData, parser);
+
+
+        if (travelGlobalFunc.data.RecordList.length > 10) {
+            travelGlobalFunc.recordBST = LoadDataToBST(travelGlobalFunc.data.RecordList, 'DocumentRefID');
+        }
+        else {
+            travelGlobalFunc.recordLL = LoadDataToLinkedList(travelGlobalFunc.data.RecordList);
+        }
+
+        travelGlobalFunc.centerPanel.appendChild(parser);
+
+        travelGlobalFunc.assignEventListenersRecord(parser);
+    },
+    assignEventListenersRecord: function (doc) {
+        DropdownList(doc.querySelector('.jsProjectOrigin'), travelGlobalFunc.ProjectNameBST, function () {
+
+            travelGlobalFunc.sortDefaults(doc);
+            travelGlobalFunc.filterRecord(doc);
+        });
+
+        DropdownList(doc.querySelector('.jsProjectDestination'), travelGlobalFunc.ProjectNameBST, function () {
+            travelGlobalFunc.sortDefaults(doc);
+            travelGlobalFunc.filterRecord(doc);
+        });
+        doc.querySelector('.jsDateFrom').addEventListener('change', function () {
+            travelGlobalFunc.sortDefaults(doc);
+            travelGlobalFunc.filterRecord(doc);
+        });
+        doc.querySelector('.jsDateTo').addEventListener('change', function () {
+            travelGlobalFunc.sortDefaults(doc);
+            travelGlobalFunc.filterRecord(doc);
+        });
+        doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
+
+            item.addEventListener('click', function (e) {
+
+                let el = e.currentTarget;
+
+                travelGlobalFunc.sortData(el);
+
+            });
+
+        });
+        doc.querySelector('.jsReferenceNo').addEventListener('change', function (e) {
+
+            if (e.target.value == '') {
+                if (travelGlobalFunc.data.RecordList.length > 10) {
+                    travelGlobalFunc.recordBST = LoadDataToBST(travelGlobalFunc.data.RecordList, 'DocumentRefID');
+                    travelGlobalFunc.filterData = travelGlobalFunc.recordBST.BFS();
+                } else {
+                    travelGlobalFunc.recordLL = new LinkedList();
+                    travelGlobalFunc.data.RecordList.forEach((item) => {
+                        travelGlobalFunc.recordLL.push(item);
+                    });
+                    travelGlobalFunc.filterData = travelGlobalFunc.recordLL.getAll()
+                }
+            } else {
+                if (travelGlobalFunc.data.RecordList.length > 10) {
+                    travelGlobalFunc.recordBST = LoadDataToBST(travelGlobalFunc.data.RecordList, 'DocumentRefID');
+                    travelGlobalFunc.filterData = travelGlobalFunc.recordBST.BFSbyIndexOf(e.target.value, 'ReferenceNo');
+                } else {
+                    travelGlobalFunc.recordLL = new LinkedList();
+                    travelGlobalFunc.data.RecordList.forEach((item) => {
+                        travelGlobalFunc.recordLL.push(item);
+                    });
+                    travelGlobalFunc.filterData = travelGlobalFunc.recordLL.searchByIndex('ReferenceNo', e.target.value);
+                }
+            }
+
+
+            travelGlobalFunc.displayRecord(travelGlobalFunc.filterData, doc);
+
+        });
+    },
+    displayRecord: function (data, doc) {
+        let tblBody = doc.querySelector('.jsTRRecordTbody');
+
+        tblBody.innerHTML = '';
+
+        if (data.length > 0) {
+
+            data.forEach((item) => {
+                let div = `
+                    <div class="tr-recordTbodyItems" data-id="${item.DocumentRefID}">
+                        <div>${item.RowCount}</div>
+                        <div>${ToJavascriptDate(item.FormDate)}</div>
+                        <div>${item.ReferenceNo}</div>
+                        <div>${item.ProjectOrigin}</div>
+                        <div>${item.ProjectDestination}</div>
+                        <div>${ToJavascriptDate(item.TravelDate)}</div>
+                        <div>${item.ApproverStatus}</div>
+                        <div>${item.LocationStatus}</div>
+                        <div>${item.IsRead == true ? 'Read' : 'Unread'}</div>
+                    </div>
+                    `;
+
+                let parser = new DOMParser().parseFromString(div, 'text/html').querySelector('.tr-recordTbodyItems');
+
+                parser.addEventListener('click', async function (e) {
+
+                    let view = await fetchView(AppGlobal.baseUrl + 'Travel/IndexTravelNew');
+
+                    let documentRefID = item.DocumentRefID;
+
+                    travelGlobalFunc.responseSuccessIndividualRecord(view, documentRefID);
+
+                });
+
+                tblBody.appendChild(parser);
+
+            });
+
+        }
+        else {
+            let div = `<div class="jsNoRecordFound no-record-found">No record found.</div>`;
+
+            let parser = new DOMParser().parseFromString(div, 'text/html').querySelector('.jsNoRecordFound');
+
+            tblBody.appendChild(parser);
+        }
+    },
+    filterRecord: function (doc) {
+        let config = {
+            projectOriginID: doc.querySelector('.jsProjectOrigin').getAttribute('data-id') || 0,
+            projectDestinationID: doc.querySelector('.jsProjectDestination').getAttribute('data-id') || 0,
+            dateFrom: doc.querySelector('.jsDateFrom').value || 0,
+            dateTo: doc.querySelector('.jsDateTo').value || 0
+        };
+        let dataArray;
+        travelGlobalFunc.filterData = [];
+
+        if (travelGlobalFunc.data.RecordList.length > 10) {
+            dataArray = travelGlobalFunc.recordBST.BFS();
+
+            pushToFilterdata();
+
+            travelGlobalFunc.displayRecord(travelGlobalFunc.filterData, doc);
+
+        }
+        else {
+            dataArray = travelGlobalFunc.recordLL.getAll();
+
+            pushToFilterdata();
+
+            travelGlobalFunc.displayRecord(travelGlobalFunc.filterData, doc);
+        }
+
+        function pushToFilterdata() {
+
+            if (dataArray && dataArray.length) {
+                dataArray.sort((a, b) => a['DocumentRefID'] - b['DocumentRefID']);
+
+                for (var i = 0; i < dataArray.length; i++) {
+
+                    let projecOriginConfig = {
+
+                        value: config.projectOriginID,
+                        objKey: 'ProjectOriginID',
+                        index: i,
+                        dataArray: dataArray
+                    }
+
+                    let projDestinationConfig = {
+
+                        value: config.projectDestinationID,
+                        objKey: 'ProjectDestinationID',
+                        index: i,
+                        dataArray: dataArray
+                    }
+
+                    let dateRangeConfig = {
+                        from: config.dateFrom,
+                        to: config.dateTo,
+                        objKey: 'TravelDate',
+                        index: i,
+                        dataArray: dataArray
+                    };
+
+                    if (filterDataID(projecOriginConfig) && filterDataID(projDestinationConfig) && filterDateRange(dateRangeConfig)) {
+                        travelGlobalFunc.filterData.push(dataArray[i]);
+                    }
+
+                }
+
+            }
+
+            function filterDateRange(config) {
+                if (!config.from && !config.to) {
+                    return true;
+                }
+
+                else {
+                    if (config.from && !config.to) {
+                        return checkFromDate();
+                    }
+                    else if (!config.from && config.to) {
+                        return checkToDate();
+                    }
+                }
+
+                return checkFromDate() && checkToDate();
+
+
+                function checkFromDate() {
+
+                    return Date.parse(new Date(ToJavascriptDate(config.dataArray[config.index][config.objKey])).toDateString()) >= Date.parse(new Date(config.from).toDateString());
+
+                }
+
+                function checkToDate() {
+                    return Date.parse(new Date(ToJavascriptDate(config.dataArray[config.index][config.objKey])).toDateString()) <= Date.parse(new Date(config.to).toDateString());
+                }
+            }
+
+            function filterDataID(config) {
+
+                if (config.value == 0) {
+
+                    return true;
+                }
+
+                return config.dataArray[config.index][config.objKey] === parseInt(config.value);
+            }
+
+        }
+    },
+    sortDefaults: function (doc) {
+        //display the default sort icon for po record
+        doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
+            item.removeAttribute('data-sourceType');
+        });
+        doc.querySelectorAll('.sortIcon').forEach((item) => {
+            item.setAttribute('style', 'display: none');
+        });
+
+        doc.querySelectorAll('.jsSortByColumn')[0].setAttribute('data-sourceType', 'sortUp');
+        doc.querySelectorAll('.sortUpIcon')[0].removeAttribute('style');
+    },
+    sortData: function (el) {
+        let doc = el.closest('.travel-record-container');
+
+        //get the columnname
+        let columnName = el.getAttribute('data-columnName');
+
+        //check if it has [data-sortType] attribute
+        let sortType = el.getAttribute('data-sortType') || null;
+
+        if (sortType) {
+            switch (sortType) {
+
+                case 'sortUp':
+
+                    SortDown();
+
+                    break;
+
+                case 'sortDown':
+
+                    SortUp();
+
+                    break;
+            }
+        }
+        else {
+            //set default for sort type
+
+            SortUp();
+        }
+
+
+        function SortUp() {
+
+            travelGlobalFunc.filterData.sort(compareSortUp);
+
+            //remove all the [data-sortType] attribute
+            doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
+                item.removeAttribute('data-sortType');
+            });
+
+            //hide all the icon
+            doc.querySelectorAll('.sortIcon').forEach((item) => {
+                item.setAttribute('style', 'display: none');
+            })
+
+            //modify the data-sourceType
+            //[data-sourceType] => sortUp || sortDown
+            el.setAttribute('data-sortType', 'sortUp');
+            el.querySelector('.sortUpIcon').removeAttribute('style');
+
+            travelGlobalFunc.displayRecord(travelGlobalFunc.filterData, doc);
+        }
+
+        function SortDown() {
+
+            travelGlobalFunc.filterData.sort(compareSortDown);
+
+            //remove all the [data-sortType] attribute
+            doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
+                item.removeAttribute('data-sortType');
+            });
+
+            //hide all the icon
+            doc.querySelectorAll('.sortIcon').forEach((item) => {
+                item.setAttribute('style', 'display: none');
+            })
+
+            //modify the data-sourceType
+            //[data-sourceType] => sortUp || sortDown
+            el.setAttribute('data-sortType', 'sortDown');
+            el.querySelector('.sortDownIcon').removeAttribute('style');
+
+            travelGlobalFunc.displayRecord(travelGlobalFunc.filterData, doc);
+        }
+
+        function compareSortUp(a, b) {
+
+            if (a[columnName] < b[columnName]) {
+                return -1;
+            }
+            if (a[columnName] > b[columnName]) {
+                return 1;
+            }
+            return 0;
+        }
+
+        function compareSortDown(a, b) {
+
+            if (a[columnName] > b[columnName]) {
+                return -1;
+            }
+            if (a[columnName] < b[columnName]) {
+                return 1;
+            }
+            return 0;
         }
     }
 };
-
 
 (function TravelNew() {
     let menuBtn;
@@ -1430,392 +1815,13 @@
 
     let btn = document.querySelector('.jsClickRecordsTravel');
 
-    let filterData, data;
 
     if (btn) {
         btn.addEventListener('click', async function (e) {
             let view = await fetchView(AppGlobal.baseUrl + 'TravelRecord/Index');
 
-            responseSuccessIndexRecord(view);
+            travelGlobalFunc.responseSuccessIndexRecord(view);
         });
-    }
-
-    async function responseSuccessIndexRecord(view) {
-
-        travelGlobalFunc.centerPanel.innerHTML = '';
-        travelGlobalFunc.rightPanel.innerHTML = '';
-
-
-        let parser = new DOMParser().parseFromString(view, 'text/html').querySelector('.container');
-
-        data = await fetchDataGet(AppGlobal.baseUrl + 'TravelRecord/GetTravelRequestRecordReferenceData');
-
-
-        let allProjectObj = {
-            ProjectID: 0,
-            ProjectName: 'All'
-        };
-
-        data.ProjectList.unshift(allProjectObj);
-
-        //load to bst
-        travelGlobalFunc.ProjectNameBST = LoadDataToBST(data.ProjectList, 'ProjectID');
-
-        filterData = [];
-
-        //add rowcount column in recordlist
-        data.RecordList.forEach((item, index) => {
-            item.RowCount = index + 1;
-
-            filterData.push(item);
-        });
-
-        //display record
-        displayRecord(filterData, parser);
-
-
-        if (data.RecordList.length > 10) {
-            travelGlobalFunc.recordBST = LoadDataToBST(data.RecordList, 'DocumentRefID');
-        }
-        else {
-            travelGlobalFunc.recordLL = LoadDataToLinkedList(data.RecordList);
-        }
-
-        travelGlobalFunc.centerPanel.appendChild(parser);
-
-        assignEventListenersRecord(parser);
-    }
-
-    function assignEventListenersRecord(doc) {
-        DropdownList(doc.querySelector('.jsProjectOrigin'), travelGlobalFunc.ProjectNameBST, function () {
-
-            sortDefaults(doc);
-            filterRecord(doc);
-        });
-
-        DropdownList(doc.querySelector('.jsProjectDestination'), travelGlobalFunc.ProjectNameBST, function () {
-            sortDefaults(doc);
-            filterRecord(doc);
-        });
-        doc.querySelector('.jsDateFrom').addEventListener('change', function () {
-            sortDefaults(doc);
-            filterRecord(doc);
-        });
-        doc.querySelector('.jsDateTo').addEventListener('change', function () {
-            sortDefaults(doc);
-            filterRecord(doc);
-        });
-        doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
-
-            item.addEventListener('click', function (e) {
-
-                let el = e.currentTarget;
-
-                sortData(el);
-
-            });
-
-        });
-        doc.querySelector('.jsReferenceNo').addEventListener('change', function (e) {
-
-            if (e.target.value == '') {
-                if (data.RecordList.length > 10) {
-                    dataRecordsBST = LoadDataToBST(data.RecordList, 'DocumentRefID');
-                    filterData = dataRecordsBST.BFS();
-                } else {
-                    dataRecordsLL = new LinkedList();
-                    data.RecordList.forEach((item) => {
-                        dataRecordsLL.push(item);
-                    });
-                    filterData = dataRecordsLL.getAll()
-                }
-            } else {
-                if (data.RecordList.length > 10) {
-                    dataRecordsBST = LoadDataToBST(data.RecordList, 'DocumentRefID');
-                    filterData = dataRecordsBST.BFSbyIndexOf(e.target.value, 'ReferenceNo');
-                } else {
-                    dataRecordsLL = new LinkedList();
-                    data.RecordList.forEach((item) => {
-                        dataRecordsLL.push(item);
-                    });
-                    filterData = dataRecordsLL.searchByIndex('ReferenceNo', e.target.value);
-                }
-            }
-
-
-            displayRecord(filterData, doc);
-
-        });
-    }
-
-    function displayRecord(data, doc) {
-
-        let tblBody = doc.querySelector('.jsTRRecordTbody');
-
-        tblBody.innerHTML = '';
-
-        if (data.length > 0) {
-
-            data.forEach((item) => {
-                let div = `
-                    <div class="tr-recordTbodyItems" data-id="${item.DocumentRefID}">
-                        <div>${item.RowCount}</div>
-                        <div>${ToJavascriptDate(item.FormDate)}</div>
-                        <div>${item.ReferenceNo}</div>
-                        <div>${item.ProjectOrigin}</div>
-                        <div>${item.ProjectDestination}</div>
-                        <div>${ToJavascriptDate(item.TravelDate)}</div>
-                        <div>${item.ApproverStatus}</div>
-                        <div>${item.LocationStatus}</div>
-                        <div>${item.IsRead == true ? 'Read' : 'Unread' }</div>
-                    </div>
-                    `;
-
-                let parser = new DOMParser().parseFromString(div, 'text/html').querySelector('.tr-recordTbodyItems');
-
-                parser.addEventListener('click', async function (e) {
-
-                    let view = await fetchView(AppGlobal.baseUrl + 'Travel/IndexTravelNew');
-
-                    let documentRefID = item.DocumentRefID;
-
-                    travelGlobalFunc.responseSuccessIndividualRecord(view, documentRefID);
-
-                });
-
-                tblBody.appendChild(parser);
-
-            });
-
-        }
-        else {
-            let div = `<div class="jsNoRecordFound no-record-found">No record found.</div>`;
-
-            let parser = new DOMParser().parseFromString(div, 'text/html').querySelector('.jsNoRecordFound');
-
-            tblBody.appendChild(parser);
-        }
-
-    }
-
-    function filterRecord(doc) {
-        let config = {
-            projectOriginID: doc.querySelector('.jsProjectOrigin').getAttribute('data-id') || 0,
-            projectDestinationID: doc.querySelector('.jsProjectDestination').getAttribute('data-id') || 0,
-            dateFrom: doc.querySelector('.jsDateFrom').value || 0,
-            dateTo: doc.querySelector('.jsDateTo').value || 0
-        };
-        let dataArray;
-        filterData = [];
-
-        if (data.RecordList.length > 10) {
-            dataArray = travelGlobalFunc.recordBST.BFS();
-
-            pushToFilterdata();
-
-            displayRecord(filterData, doc);
-
-        }
-        else {
-            dataArray = travelGlobalFunc.recordLL.getAll();
-
-            pushToFilterdata();
-
-            displayRecord(filterData, doc);
-        }
-
-        function pushToFilterdata() {
-
-            if (dataArray && dataArray.length) {
-                dataArray.sort((a, b) => a['DocumentRefID'] - b['DocumentRefID']);
-
-                for (var i = 0; i < dataArray.length; i++) {
-
-                    let projecOriginConfig = {
-
-                        value: config.projectOriginID,
-                        objKey: 'ProjectOriginID',
-                        index: i,
-                        dataArray: dataArray
-                    }
-
-                    let projDestinationConfig = {
-
-                        value: config.projectDestinationID,
-                        objKey: 'ProjectDestinationID',
-                        index: i,
-                        dataArray: dataArray
-                    }
-
-                    let dateRangeConfig = {
-                        from: config.dateFrom,
-                        to: config.dateTo,
-                        objKey: 'TravelDate',
-                        index: i,
-                        dataArray: dataArray
-                    };
-
-                    if (filterDataID(projecOriginConfig) && filterDataID(projDestinationConfig) && filterDateRange(dateRangeConfig)) {
-                        filterData.push(dataArray[i]);
-                    }
-
-                }
-
-            }
-
-            function filterDateRange(config) {
-                if (!config.from && !config.to) {
-                    return true;
-                }
-
-                else {
-                    if (config.from && !config.to) {
-                        return checkFromDate();
-                    }
-                    else if (!config.from && config.to) {
-                        return checkToDate();
-                    }
-                }
-
-                return checkFromDate() && checkToDate();
-
-
-                function checkFromDate() {
-
-                    return Date.parse(new Date(ToJavascriptDate(config.dataArray[config.index][config.objKey])).toDateString()) >= Date.parse(new Date(config.from).toDateString());
-
-                }
-
-                function checkToDate() {
-                    return Date.parse(new Date(ToJavascriptDate(config.dataArray[config.index][config.objKey])).toDateString()) <= Date.parse(new Date(config.to).toDateString());
-                }
-            }
-
-            function filterDataID(config) {
-
-                if (config.value == 0) {
-
-                    return true;
-                }
-
-                return config.dataArray[config.index][config.objKey] === parseInt(config.value);
-            }
-
-        }
-    }
-
-    function sortDefaults(doc) {
-
-        //display the default sort icon for po record
-        doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
-            item.removeAttribute('data-sourceType');
-        });
-        doc.querySelectorAll('.sortIcon').forEach((item) => {
-            item.setAttribute('style', 'display: none');
-        });
-
-        doc.querySelectorAll('.jsSortByColumn')[0].setAttribute('data-sourceType', 'sortUp');
-        doc.querySelectorAll('.sortUpIcon')[0].removeAttribute('style');
-    }
-
-    function sortData(el) {
-
-        let doc = el.closest('.travel-record-container');
-
-        //get the columnname
-        let columnName = el.getAttribute('data-columnName');
-
-        //check if it has [data-sortType] attribute
-        let sortType = el.getAttribute('data-sortType') || null;
-
-        if (sortType) {
-            switch (sortType) {
-
-                case 'sortUp':
-
-                    SortDown();
-
-                    break;
-
-                case 'sortDown':
-
-                    SortUp();
-
-                    break;
-            }
-        }
-        else {
-            //set default for sort type
-
-            SortUp();
-        }
-
-
-        function SortUp() {
-
-            filterData.sort(compareSortUp);
-
-            //remove all the [data-sortType] attribute
-            doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
-                item.removeAttribute('data-sortType');
-            });
-
-            //hide all the icon
-            doc.querySelectorAll('.sortIcon').forEach((item) => {
-                item.setAttribute('style', 'display: none');
-            })
-
-            //modify the data-sourceType
-            //[data-sourceType] => sortUp || sortDown
-            el.setAttribute('data-sortType', 'sortUp');
-            el.querySelector('.sortUpIcon').removeAttribute('style');
-
-            displayRecord(filterData, doc);
-        }
-
-        function SortDown() {
-
-            filterData.sort(compareSortDown);
-
-            //remove all the [data-sortType] attribute
-            doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
-                item.removeAttribute('data-sortType');
-            });
-
-            //hide all the icon
-            doc.querySelectorAll('.sortIcon').forEach((item) => {
-                item.setAttribute('style', 'display: none');
-            })
-
-            //modify the data-sourceType
-            //[data-sourceType] => sortUp || sortDown
-            el.setAttribute('data-sortType', 'sortDown');
-            el.querySelector('.sortDownIcon').removeAttribute('style');
-
-            displayRecord(filterData, doc);
-        }
-
-        function compareSortUp(a, b) {
-
-            if (a[columnName] < b[columnName]) {
-                return -1;
-            }
-            if (a[columnName] > b[columnName]) {
-                return 1;
-            }
-            return 0;
-        }
-
-        function compareSortDown(a, b) {
-
-            if (a[columnName] > b[columnName]) {
-                return -1;
-            }
-            if (a[columnName] < b[columnName]) {
-                return 1;
-            }
-            return 0;
-        }
     }
 
 })();
