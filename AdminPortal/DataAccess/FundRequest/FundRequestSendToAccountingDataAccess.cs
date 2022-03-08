@@ -34,7 +34,7 @@ namespace DataAccess.FundRequest
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@DocumentRefID", SqlDbType = SqlDbType.Int, Value = _paramData.DocumentRefID });
-                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@Note", SqlDbType = SqlDbType.VarChar, Size = -1, Value = _paramData.Note });
+                    cmd.Parameters.Add(new SqlParameter { ParameterName = "@Note", SqlDbType = SqlDbType.VarChar, Size = -1, Value = _paramData.Note ?? (object)DBNull.Value });
                     cmd.Parameters.Add(new SqlParameter { ParameterName = "@UserNameID", SqlDbType = SqlDbType.Int, Value = _paramData.UserNameID });
 
 
