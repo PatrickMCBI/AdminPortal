@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestApproveDataLogic.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestCancelDataLogic.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestIndividualRecordDataLogic.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestReadDataLogic.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestPendingAdminDataLogic.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestReferenceRecordDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestDetailAccomodationDeleteDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestDetailEmployeeDeleteDataLogic.cs" />
     <Compile Include="EmployeeTravel\TravelRequestDetailItineraryDeleteDataLogic.cs" />

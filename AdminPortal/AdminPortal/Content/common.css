@@ -478,3 +478,20 @@
     overflow-y: scroll;
 }
 /*#endregion*/
+
+.notification-panel-container {
+    display: grid;
+    grid-template-rows: 40px auto;
+}
+.search-bar-container {
+    border-bottom: 1px groove #e5e5e5;
+}
+.search-bar-container input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    font-size: 14px;
+}
+.unread {
+    font-weight: 600;
+}

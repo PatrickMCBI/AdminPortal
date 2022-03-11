@@ -1244,6 +1244,52 @@ function ToJavascriptDate(value) {
     return dt.getFullYear() + "-" + getMonth + "-" + getDate;
 };
 
+function ToJavascriptDateTime(value) {
+
+    if (value === null || value === 'undefined' || value === 'null') {
+        return false;
+    }
+    var results = value.match(/\d+/);
+    var dt = new Date(parseFloat(results[0]));
+    //return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+    var getMonth = ((dt.getMonth() + 1) < 10 ? "0" + (dt.getMonth() + 1) : (dt.getMonth() + 1));
+    var getDate = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+
+    var getTime = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+    return dt.getFullYear() + "-" + getMonth + "-" + getDate + " " + getTime;
+}
+
+function TimeAgo(date) {
+
+    // console.log(date);
+
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = seconds / 31536000;
+
+    if (interval > 1) {
+        return Math.floor(interval) > 1 ? Math.floor(interval) + " years ago" : Math.floor(interval) + " year ago";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+        return Math.floor(interval) > 1 ? Math.floor(interval) + " months ago" : Math.floor(interval) + " month ago";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+        return Math.floor(interval) > 1 ? Math.floor(interval) + " days ago" : Math.floor(interval) + " day ago";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+        return Math.floor(interval) > 1 ? Math.floor(interval) + " hours ago" : Math.floor(interval) + " hour ago";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+        return Math.floor(interval) > 1 ? Math.floor(interval) + " minutes ago" : Math.floor(interval) + " minute ago";
+    }
+
+    return "just now";
+}
+
 function PopUpInfo(message) {
 
     let note = `<div class="alert-main-expandable-cont jsnotePopUp">
@@ -1504,4 +1550,21 @@ const loader = {
     stop: function () {
         document.querySelector('#preloader__wrapper').remove();
     }
+}
+
+function homeNotification() {
+    let div = `
+            <div class="notification-panel-container jsNotificationPanelContainer">
+                <div class="search-bar-container">
+                    <input type="text" name="Search" class="jsSearchRefNo" autocomplete="off" placeholder="Search Ref No."/>
+                </div>
+                <div class="notification-item-container jsNotificationItemContainer">
+
+                </div>
+            </div>
+        `;
+
+    let notifWrapper = new DOMParser().parseFromString(div, 'text/html').querySelector('.jsNotificationPanelContainer');
+
+    return notifWrapper;
 }

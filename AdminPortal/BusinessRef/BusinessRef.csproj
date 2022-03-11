@@ -42,10 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ErrorStatus.cs" />
+    <Compile Include="Interfaces\Customs\IBillsPaymentRequestApproveData.cs" />
+    <Compile Include="Interfaces\Customs\IBillsPaymentRequestCancelData.cs" />
+    <Compile Include="Interfaces\Customs\IBillsPaymentRequestIndividualRecordData.cs" />
+    <Compile Include="Interfaces\Customs\IBillsPaymentRequestReadData.cs" />
+    <Compile Include="Interfaces\Customs\IBillsPaymentRequestReferenceRecordData.cs" />
     <Compile Include="Interfaces\Customs\IFundrequestIndividualRecordData.cs" />
     <Compile Include="Interfaces\Customs\IFundrequestNewData.cs" />
     <Compile Include="Interfaces\Customs\IFundrequestRecordRefData.cs" />
     <Compile Include="Interfaces\Customs\IFundRequestSendToAccountingData.cs" />
+    <Compile Include="Interfaces\Customs\IGetBillsPaymentRequestPendingAdminData.cs" />
     <Compile Include="Interfaces\Customs\IGetTravelRequestNewReferenceData.cs" />
     <Compile Include="Interfaces\Customs\ITravelRequestDetailAccomodationNewData.cs" />
     <Compile Include="Interfaces\Customs\ITravelRequestDetailAccomodationUpdateData.cs" />
@@ -64,6 +70,18 @@
     <Compile Include="Interfaces\Customs\ITravelRequestDetailAccomodationDeleteData.cs" />
     <Compile Include="Interfaces\Generics\IGetDatabaseData.cs" />
     <Compile Include="Interfaces\Generics\IPostDatabaseData.cs" />
+    <Compile Include="Model\BillingPaymentRequest\BillsPaymentRequestParamApproveDataModel.cs" />
+    <Compile Include="Model\BillingPaymentRequest\BillsPaymentRequestParamCancelnDataModel.cs" />
+    <Compile Include="Model\BillingPaymentRequest\BillsPaymentRequestParamIndividualRecord.cs" />
+    <Compile Include="Model\BillingPaymentRequest\BillsPaymentRequestParamReadDataModel.cs" />
+    <Compile Include="Model\BillingPaymentRequest\BillsPaymentRequestParamRecordReference.cs" />
+    <Compile Include="Model\BillingPaymentRequest\BillsPaymentRequestReturnApproveDataModel.cs" />
+    <Compile Include="Model\BillingPaymentRequest\BillsPaymentRequestReturnCancelnDataModel.cs" />
+    <Compile Include="Model\BillingPaymentRequest\BillsPaymentRequestReturnIndividualRecord.cs" />
+    <Compile Include="Model\BillingPaymentRequest\BillsPaymentRequestReturnReadDataModel.cs" />
+    <Compile Include="Model\BillingPaymentRequest\BillsPaymentRequestReturnPendingAdminDataModel.cs" />
+    <Compile Include="Model\BillingPaymentRequest\BillsPaymentRequestReturnRecordReference.cs" />
+    <Compile Include="Model\DocumentRef\DocumentRefBillsPaymentRefDataModel.cs" />
     <Compile Include="Model\DocumentRef\DocumentRefFundRequestDataModel.cs" />
     <Compile Include="Model\DocumentRef\DocumentRefFundRequestHeaderIndividualDataModel.cs" />
     <Compile Include="Model\EmployeeTravel\TravelRequestDetailParamAccomodationDeleteDataModel.cs" />
@@ -95,6 +113,8 @@
     <Compile Include="Model\FundRequest\FundRequestReturnNewDataModel.cs" />
     <Compile Include="Model\FundRequest\FundRequestReturnRecordRefDataModel.cs" />
     <Compile Include="Model\FundRequest\FundRequestReturnSendToAccountingDataModel.cs" />
+    <Compile Include="Model\References\BillsPaymentRequestDetailRefDataModel.cs" />
+    <Compile Include="Model\References\BillsPaymentRequestHeaderRefDataModel.cs" />
     <Compile Include="Model\References\EWTaxRefDataModel.cs" />
     <Compile Include="Model\References\NoteDataModel.cs" />
     <Compile Include="Model\References\StatusCodeNumberReturnRefDataModel.cs" />

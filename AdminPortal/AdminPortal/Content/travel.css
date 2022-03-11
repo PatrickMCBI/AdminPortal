@@ -647,3 +647,59 @@ input:disabled {
 .travel-purpose-details input {
     text-align: center;
 }
+
+
+/*#region Billing*/
+.billing-header {
+    display: grid;
+    grid-template-columns: 45px 1fr 400px 250px 100px;
+    text-align: center;
+    border: 1px solid #555;
+    padding: 10px;
+    margin-top: 10px;
+    grid-column-gap: 5px;
+}
+
+    .billing-header h4 {
+        margin: 0;
+    }
+
+.billing-details-con {
+    height: 425px;
+}
+
+.billing-details {
+    display: grid;
+    grid-template-columns: 45px 1fr 400px 250px 100px;
+    grid-column-gap: 5px;
+    padding: 5px;
+    border-bottom: 1px solid #555;
+}
+
+.billing-details-con input {
+    height: 100%;
+    width: 100%;
+}
+
+.mrRecordsTableHeader-bills {
+    display: grid;
+    grid-template-columns: 60px 235px 1fr 135px 180px 180px 100px;
+    text-align: center;
+    background: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+.recordsTableDetails-bills {
+    display: grid;
+    grid-template-columns: 60px 235px 1fr 135px 180px 180px 100px;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #333;
+}
+
+    .recordsTableDetails-bills:hover {
+        cursor: pointer;
+        background-color: #e5e5e5;
+    }
+/*#endregion*/

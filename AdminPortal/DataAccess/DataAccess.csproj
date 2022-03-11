@@ -42,6 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestApproveDataAccess.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestCancelDataAccess.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestIndividualRecordDataAccess.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestReadDataAccess.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestPendingAdminDataAccess.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestReferenceRecordDataAccess.cs" />
     <Compile Include="EmployeeTravel\TravelRequestDetailAccomodationDeleteDataAccess.cs" />
     <Compile Include="EmployeeTravel\TravelRequestDetailEmployeeDeleteDataAccess.cs" />
     <Compile Include="EmployeeTravel\TravelRequestDetailItineraryDeleteDataAccess.cs" />
