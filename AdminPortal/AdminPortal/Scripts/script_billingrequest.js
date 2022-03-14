@@ -33,7 +33,7 @@
                     </div>
                 </div>`;
         let parseDoc = new DOMParser().parseFromString(div, 'text/html').querySelector('.billing-details');
-        billingRequestObj.AssignEventListernerDetail(parseDoc);
+        //billingRequestObj.AssignEventListernerDetail(parseDoc);
         return parseDoc;
     },
     AssignEventListernerHeader: function (billingContainer) {
@@ -294,40 +294,6 @@
 
     },
 };
-(function BillingNew() {
-    const btn = document.querySelector('.jsClickNewBilling');
-    if (btn) {
-        btn.addEventListener('click', async function () {
-            let view = await fetchView(AppGlobal.baseUrl + 'BillsPaymentRequest/Index');
-            ResponseSuccess(view);
-        });
-    }
-    async function ResponseSuccess(view) {
-        billingRequestObj.centerPanel.innerHTML = '';
-
-        let parser = new DOMParser().parseFromString(view, 'text/html').querySelector('.container');
-        billingRequestObj.centerPanel.appendChild(parser);
-        LoadReferenceData(parser);
-    }
-
-    async function LoadReferenceData(billsContainer) {
-        const data = await fetchDataGet(AppGlobal.baseUrl + 'BillsPaymentRequest/GetBillsPaymentRequestNewReference');
-        console.log(data);
-        if (data.StatusCodeNumber == 1) {
-
-            billingRequestObj.ProjectNumberBST = LoadDataToBST(data.ProjectNumber, 'ProjectID');
-            billingRequestObj.ProjectNameBST = LoadDataToBST(data.ProjectName, 'ProjectID');
-
-            billingRequestObj.BillPaymentTypeLL = new LinkedList();
-            data.BillsPaymentType.forEach((item) => {
-                billingRequestObj.BillPaymentTypeLL.push(item);
-            });
-
-            billingRequestObj.AssignEventListernerHeader(billsContainer);
-        }
-    }
-})();
-
 (function BillingRecord() {
     const btn = document.querySelector('.jsClickBillingRecords');
     let filterData, dataRecords, recordsLL, recordsBST;
