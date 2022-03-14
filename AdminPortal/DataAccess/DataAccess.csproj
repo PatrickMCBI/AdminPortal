@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="BillsPaymentRequest\BillsPaymentRequestApproveDataAccess.cs" />
     <Compile Include="BillsPaymentRequest\BillsPaymentRequestCancelDataAccess.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestDetailDeleteDataAccess.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestDetailUpdateDataAccess.cs" />
     <Compile Include="BillsPaymentRequest\BillsPaymentRequestIndividualRecordDataAccess.cs" />
     <Compile Include="BillsPaymentRequest\BillsPaymentRequestReadDataAccess.cs" />
     <Compile Include="BillsPaymentRequest\BillsPaymentRequestPendingAdminDataAccess.cs" />

@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="BillsPaymentRequest\BillsPaymentRequestApproveDataLogic.cs" />
     <Compile Include="BillsPaymentRequest\BillsPaymentRequestCancelDataLogic.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestDetailDeleteDataLogic.cs" />
+    <Compile Include="BillsPaymentRequest\BillsPaymentRequestDetailUpdateDataLogic.cs" />
     <Compile Include="BillsPaymentRequest\BillsPaymentRequestIndividualRecordDataLogic.cs" />
     <Compile Include="BillsPaymentRequest\BillsPaymentRequestReadDataLogic.cs" />
     <Compile Include="BillsPaymentRequest\BillsPaymentRequestPendingAdminDataLogic.cs" />

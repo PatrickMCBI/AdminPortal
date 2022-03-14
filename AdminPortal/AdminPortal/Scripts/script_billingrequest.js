@@ -100,13 +100,13 @@
 
         billingContainer.querySelector('.jsAddItemBtn').addEventListener('click', function () {
 
-            const tbody = billingContainer.querySelector('.billing-details-con');
+            const tbody = billingContainer.querySelector('.billing-details-wrap');
             let parseDoc = billingRequestObj.AddDetailItem();
             tbody.appendChild(parseDoc);
 
             billingRequestObj.Count();
 
-            if (document.querySelector('.billing-details-con').querySelectorAll('.jsCheckIcon').length > 0) {
+            if (document.querySelector('.billing-details-wrap').querySelectorAll('.jsCheckIcon').length > 0) {
                 document.querySelector('.jsSendApprover').classList.add('display-none');
             }
         });
@@ -178,7 +178,7 @@
                             btn.innerHTML = '';
                             btn.appendChild(billingRequestObj.returnSVGEditIcon());
 
-                            if (document.querySelector('.billing-details-con').querySelectorAll('.jsCheckIcon').length == 0) {
+                            if (document.querySelector('.billing-details-wrap').querySelectorAll('.jsCheckIcon').length == 0) {
                                 document.querySelector('.jsSendApprover').classList.remove('display-none');
                             }
                         }
@@ -196,7 +196,7 @@
                             btn.innerHTML = '';
                             btn.appendChild(billingRequestObj.returnSVGEditIcon());
 
-                            if (document.querySelector('.billing-details-con').querySelectorAll('.jsCheckIcon').length == 0) {
+                            if (document.querySelector('.billing-details-wrap').querySelectorAll('.jsCheckIcon').length == 0) {
                                 document.querySelector('.jsSendApprover').classList.remove('display-none');
                             }
                         }
@@ -220,7 +220,7 @@
             const container = e.target.closest('.billing-details');
             const billsPaymentDetailID = container.getAttribute('data-id');
             if (billsPaymentDetailID) {
-                IsConfirmedAlertYesOrNo(alertType.warningAlert, 'Are you sure?').then(async function (obj) {
+                IsConfirmedAlertYesOrNoWithTextArea(alertType.warningAlert, 'Are you sure?', false).then(async function (obj) {
                     const formData = new FormData();
                     formData.append('BillsPaymentRequestDetailID', billsPaymentDetailID);
 
@@ -238,7 +238,7 @@
                 container.remove();
                 billingRequestObj.Count();
 
-                if (document.querySelector('.billing-details-con').querySelectorAll('.jsCheckIcon').length == 0) {
+                if (document.querySelector('.billing-details-wrap').querySelectorAll('.jsCheckIcon').length == 0) {
                     document.querySelector('.jsSendApprover').classList.remove('display-none');
                 }
             }
@@ -293,6 +293,18 @@
         });
 
     },
+    GrandTotal: function (container) {
+
+        let grandTotal = 0;
+
+        let amount = container.querySelectorAll('.jsAmount');
+        amount.forEach((item) => {
+
+            grandTotal += parseFloat(item.value) || 0;
+
+        });
+        container.querySelector('.jsGrandTotal b').textContent = 'P ' + NumberWithCommas(parseFloat(grandTotal).toFixed(2));
+    },
 };
 (function BillingRecord() {
     const btn = document.querySelector('.jsClickBillingRecords');
@@ -318,6 +330,13 @@
         const data = await fetchDataGet(AppGlobal.baseUrl + 'BillsPaymentRequest/GetBillsPaymentRequestRecordReference');
 
         if (data.StatusCodeNumber == 1) {
+            let allProjectObj = {
+                ProjectID: 0,
+                ProjectName: 'All'
+            };
+
+            data.ProjectName.unshift(allProjectObj);
+
             billingRequestObj.ProjectNameBST = LoadDataToBST(data.ProjectName, 'ProjectID');
             filterData = [];
             dataRecords = data.BillsList;
@@ -326,8 +345,22 @@
                 filterData.push(item);
             });
             DisplayRecord(filterData, billsContainer);
-        }
 
+            if (dataRecords.length > 10) {
+                recordsBST = LoadDataToBST(dataRecords, 'DocumentRefID');
+                filterData = recordsBST.BFS();
+            } else {
+                recordsLL = new LinkedList();
+                dataRecords.forEach((item) => {
+                    recordsLL.push(item);
+                });
+                filterData = recordsLL.getAll()
+            }
+
+
+            AssignEventListenerFilter(billsContainer)
+        }
+      
     }
 
     function DisplayRecord(data, billsContainer) {
@@ -399,9 +432,15 @@
             billingRequestObj.DisabledItem(billsContainer.querySelector('.jsBillingHeader'));
 
             billsContainer.querySelector('.jsPrepBy label').textContent = dataHeader.PreparedByName;
-            billsContainer.querySelector('.jsApproveBy label').textContent = dataHeader.ApprovedByName;
+            if (dataHeader.ApproverStatusID == 4) {
+                billsContainer.querySelector('.jsApproveBy b').textContent = 'Canceled By:';
+                billsContainer.querySelector('.jsApproveBy label').textContent = dataHeader.ApprovedByName;
+            } else {
+                billsContainer.querySelector('.jsApproveBy b').textContent = 'Approved By:';
+                billsContainer.querySelector('.jsApproveBy label').textContent = dataHeader.ApprovedByName;
+            }
 
-            const container = billsContainer.querySelector('.billing-details-con');
+            const container = billsContainer.querySelector('.billing-details-wrap');
             dataDetails.forEach((item) => {
                 let itemClone = billingRequestObj.AddDetailItem();
                 itemClone.setAttribute('data-id', item.BillsPaymentRequestDetailID);
@@ -414,13 +453,265 @@
                 billingRequestObj.DisabledItem(container);
                 billingRequestObj.Count();
             });
-          
+
             billsContainer.querySelectorAll('button').forEach((item) => {
                 item.classList.add('display-none');
             });
-           
-           
-           
+            billingRequestObj.GrandTotal(container.closest('.billing-details-con'));
+            billsContainer.querySelector('.js-backBtn').addEventListener('click', async function () {
+                const view = await fetchView(AppGlobal.baseUrl + 'BillsPaymentRequest/IndexRecords');
+                ResponseSuccess(view);
+            });
+        }
+    }
+
+    function AssignEventListenerFilter(billsContainer) {
+        billsContainer.querySelector('.jsFromDate').addEventListener('change', function () {
+            FilterRecord(billsContainer);
+        });
+        billsContainer.querySelector('.jsToDate').addEventListener('change', function () {
+            FilterRecord(billsContainer);
+        });
+        billsContainer.querySelector('.jsrefNumber').addEventListener('change', function (e) {
+
+            if (e.target.value == '') {
+                if (dataRecords.length > 10) {
+                    recordsBST = LoadDataToBST(dataRecords, 'DocumentRefID');
+                    filterData = recordsBST.BFS();
+                } else {
+                    recordsLL = new LinkedList();
+                    dataRecords.forEach((item) => {
+                        recordsLL.push(item);
+                    });
+                    filterData = recordsLL.getAll()
+                }
+            } else {
+                if (dataRecords.length > 10) {
+                    recordsBST = LoadDataToBST(dataRecords, 'DocumentRefID');
+                    filterData = recordsBST.BFSbyIndexOf(e.target.value, 'ReferenceNo');
+                } else {
+                    recordsLL = new LinkedList();
+                    dataRecords.forEach((item) => {
+                        recordsLL.push(item);
+                    });
+                    filterData = recordsLL.searchByIndex('ReferenceNo', e.target.value);
+                }
+               
+            }
+
+            DisplayRecord(filterData, billsContainer);
+        });
+
+        DropdownList(billsContainer.querySelector('.jsProjectNumber'), billingRequestObj.ProjectNameBST, function () {
+            FilterRecord(billsContainer);
+        });
+
+        billsContainer.querySelectorAll('.jsSortByColumn').forEach((item) => {
+
+            item.addEventListener('click', function (e) {
+
+                let el = e.currentTarget;
+
+                SortData(el);
+
+            });
+
+        });
+    }
+
+    function FilterRecord(doc) {
+        let config = {
+            projectID: doc.querySelector('.jsProjectNumber').getAttribute('data-id') || 0,
+            dateFrom: doc.querySelector('.jsFromDate').value || 0,
+            dateTo: doc.querySelector('.jsToDate').value || 0
+        }
+        let dataArray;
+        filterData = [];
+        if (dataRecords.length > 10) {
+            //search here using binary search
+            dataArray = recordsBST.BFS();
+
+            PushToFilterData();
+
+            DisplayRecord(filterData, doc);
+
+        }
+        else {
+            //search here using linked list
+            dataArray = recordsLL.getAll();
+
+            PushToFilterData();
+
+            DisplayRecord(filterData, doc);
+        }
+
+        function PushToFilterData() {
+
+            if (dataArray && dataArray.length) {
+                dataArray.sort((a, b) => a['DocumentRefID'] - b['DocumentRefID']);
+            }
+
+            for (var i = 0; i < dataArray.length; i++) {
+
+                let projConfig = {
+
+                    value: config.projectID,
+                    objKey: 'ProjectID',
+                    index: i,
+                    dataArray: dataArray
+                }
+
+                let dateRangeConfig = {
+                    from: config.dateFrom,
+                    to: config.dateTo,
+                    objKey: 'FormDate',
+                    index: i,
+                    dataArray: dataArray
+                };
+                if (FilterProject(projConfig) && CheckDateRange(dateRangeConfig)) {
+                    filterData.push(dataArray[i]);
+                }
+            }
+
+
+            function FilterProject(config) {
+
+                if (config.value == 0) {
+
+                    return true;
+                }
+
+                return config.dataArray[config.index][config.objKey] === parseInt(config.value);
+            }
+
+            function CheckDateRange(config) {
+
+                if (!config.from && !config.to) {
+                    return true;
+                }
+
+                else {
+                    if (config.from && !config.to) {
+                        return checkFromDate();
+                    }
+                    else if (!config.from && config.to) {
+                        return checkToDate();
+                    }
+                }
+
+                return checkFromDate() && checkToDate();
+
+
+                function checkFromDate() {
+
+                    return Date.parse(new Date(ToJavascriptDate(config.dataArray[config.index][config.objKey])).toDateString()) >= Date.parse(new Date(config.from).toDateString());
+
+                }
+
+                function checkToDate() {
+                    return Date.parse(new Date(ToJavascriptDate(config.dataArray[config.index][config.objKey])).toDateString()) <= Date.parse(new Date(config.to).toDateString());
+                }
+            }
+        }
+    }
+
+    function SortData(el) {
+        console.log(el.closest('.material-wrapper'))
+        let doc = el.closest('.material-wrapper');
+
+        //get the columnname
+        let columnName = el.getAttribute('data-columnName');
+
+        //check if it has [data-sortType] attribute
+        let sortType = el.getAttribute('data-sortType') || null;
+
+        if (sortType) {
+            switch (sortType) {
+
+                case 'sortUp':
+
+                    SortDown();
+
+                    break;
+
+                case 'sortDown':
+
+                    SortUp();
+
+                    break;
+            }
+        }
+        else {
+            //set default for sort type
+
+            SortUp();
+        }
+
+
+        function SortUp() {
+
+            filterData.sort(compareSortUp);
+
+            //remove all the [data-sortType] attribute
+            doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
+                item.removeAttribute('data-sortType');
+            });
+
+            //hide all the icon
+            doc.querySelectorAll('.sortIcon').forEach((item) => {
+                item.setAttribute('style', 'display: none');
+            })
+
+            //modify the data-sourceType
+            //[data-sourceType] => sortUp || sortDown
+            el.setAttribute('data-sortType', 'sortUp');
+            el.querySelector('.sortUpIcon').removeAttribute('style');
+
+            DisplayRecord(filterData, doc);
+        }
+
+        function SortDown() {
+
+            filterData.sort(compareSortDown);
+
+            //remove all the [data-sortType] attribute
+            doc.querySelectorAll('.jsSortByColumn').forEach((item) => {
+                item.removeAttribute('data-sortType');
+            });
+
+            //hide all the icon
+            doc.querySelectorAll('.sortIcon').forEach((item) => {
+                item.setAttribute('style', 'display: none');
+            })
+
+            //modify the data-sourceType
+            //[data-sourceType] => sortUp || sortDown
+            el.setAttribute('data-sortType', 'sortDown');
+            el.querySelector('.sortDownIcon').removeAttribute('style');
+
+            DisplayRecord(filterData, doc);
+        }
+
+        function compareSortUp(a, b) {
+
+            if (a[columnName] < b[columnName]) {
+                return -1;
+            }
+            if (a[columnName] > b[columnName]) {
+                return 1;
+            }
+            return 0;
+        }
+
+        function compareSortDown(a, b) {
+
+            if (a[columnName] > b[columnName]) {
+                return -1;
+            }
+            if (a[columnName] < b[columnName]) {
+                return 1;
+            }
+            return 0;
         }
     }
 })();

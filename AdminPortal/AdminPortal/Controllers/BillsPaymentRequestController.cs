@@ -34,6 +34,25 @@ namespace AdminPortal.Controllers
         }
 
         [HttpPost]
+        public JsonResult UpdateBillsPaymentRequestDetail(BillsPaymentRequestParamUpdateDetailDataModel paramData)
+        {
+            paramData.UserNameID = Convert.ToInt32(Session["UserNameID"]);
+            IBillsPaymentRequestDetailUpdateData data = new BillsPaymentRequestDetailUpdateDataLogic(paramData);
+
+            return Json(data.GetDmlBillsPaymentRequestDetailUpdateData(), JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpPost]
+        public JsonResult DeleteBillsPaymentRequestDetail(BillsPaymentRequestParamDeleteDetailDataModel paramData)
+        {
+            paramData.UserNameID = Convert.ToInt32(Session["UserNameID"]);
+            IBillsPaymentRequestDetailDeleteData data = new BillsPaymentRequestDetailDeleteDataLogic(paramData);
+
+            return Json(data.GetDmlBillsPaymentRequestDetailDeleteData(), JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
         public JsonResult BillsPaymentRequestApprove(BillsPaymentRequestParamApproveDataModel paramData)
         {
             paramData.UserNameID = Convert.ToInt32(Session["UserNameID"]);

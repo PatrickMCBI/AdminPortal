@@ -995,8 +995,8 @@
 
                         let formData = new FormData();
                         let note = obj.querySelector('textarea[name=Note]').value;
-                    
-                        formData.append('DocumentRefID', documentRefID_doc);
+
+                        formData.append('DocumentRefID', data.DocumentRefID);
                         formData.append('Note', note);
 
                         let data = await fetchDataPost(AppGlobal.baseUrl + 'FundRequest/SendFundRequestToAccounting', formData);

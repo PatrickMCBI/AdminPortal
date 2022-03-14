@@ -680,7 +680,9 @@ input:disabled {
     height: 100%;
     width: 100%;
 }
-
+.billing-details-con input[name="amount"] {
+    text-align: center;
+}
 .mrRecordsTableHeader-bills {
     display: grid;
     grid-template-columns: 60px 235px 1fr 135px 180px 180px 100px;
@@ -701,5 +703,15 @@ input:disabled {
     .recordsTableDetails-bills:hover {
         cursor: pointer;
         background-color: #e5e5e5;
+    }
+.billing-footer {
+    display: grid;
+    grid-template-columns: 45px 1fr 105px 250px 100px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+    .billing-footer label {
+        font-size: 18px;
     }
 /*#endregion*/

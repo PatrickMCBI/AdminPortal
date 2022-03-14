@@ -124,7 +124,7 @@
                     formData.append('Amount', amount);
 
                     if (billingDetailsID) {
-                        const data = await fetchDataPost(AppGlobal.baseUrl + 'BillingRequest/UpdateBillsPaymentRequestDetail', formData);
+                        const data = await fetchDataPost(AppGlobal.baseUrl + 'BillsPaymentRequest/UpdateBillsPaymentRequestDetail', formData);
                         if (data.StatusCodeNumber == 1) {
                             IsConfirmedAlertOk(alertType.successAlert, alertMessages.updateSuccessfull);
                             dashboardGlobalObj.DisabledItem(container);
@@ -132,14 +132,14 @@
                             btn.innerHTML = '';
                             btn.appendChild(dashboardGlobalObj.returnSVGEditIcon());
 
-                            if (document.querySelector('.billing-details-con').querySelectorAll('.jsCheckIcon').length == 0) {
+                            if (document.querySelector('.billing-details-wrap').querySelectorAll('.jsCheckIcon').length == 0) {
                                 document.querySelector('.jsSendApprove').classList.remove('display-none');
                                 document.querySelector('.jsCancel').classList.remove('display-none');
                             }
                         }
                     } else {
 
-                        const data = await fetchDataPost(AppGlobal.baseUrl + 'BillingRequest/SaveBillingPaymentRequestDetail', formData);
+                        const data = await fetchDataPost(AppGlobal.baseUrl + 'BillsPaymentRequest/SaveBillingPaymentRequestDetail', formData);
                         if (data.StatusCodeNumber == 1) {
                             IsConfirmedAlertOk(alertType.successAlert, alertMessages.saveSuccessfull);
 
@@ -151,7 +151,7 @@
                             btn.innerHTML = '';
                             btn.appendChild(dashboardGlobalObj.returnSVGEditIcon());
 
-                            if (document.querySelector('.billing-details-con').querySelectorAll('.jsCheckIcon').length == 0) {
+                            if (document.querySelector('.billing-details-wrap').querySelectorAll('.jsCheckIcon').length == 0) {
                                 document.querySelector('.jsSendApprove').classList.remove('display-none');
                                 document.querySelector('.jsCancel').classList.remove('display-none');
                             }
@@ -180,7 +180,7 @@
                     const formData = new FormData();
                     formData.append('BillsPaymentRequestDetailID', billsPaymentDetailID);
 
-                    const data = await fetchDataPost(AppGlobal.baseUrl + 'BillingRequest/DeleteBillsPaymentRequestDetail', formData);
+                    const data = await fetchDataPost(AppGlobal.baseUrl + 'BillsPaymentRequest/DeleteBillsPaymentRequestDetail', formData);
 
                     if (data.StatusCodeNumber == 1) {
                         IsConfirmedAlertOk(alertType.successAlert, alertMessages.deleteSuccessfull);
@@ -194,13 +194,16 @@
                 container.remove();
                 dashboardGlobalObj.Count();
 
-                if (document.querySelector('.billing-details-con').querySelectorAll('.jsCheckIcon').length == 0) {
+                if (document.querySelector('.billing-details-wrap').querySelectorAll('.jsCheckIcon').length == 0) {
                     document.querySelector('.jsSendApprove').classList.remove('display-none');
                     document.querySelector('.jsCancel').classList.remove('display-none');
                 }
             }
         });
-
+        billingContainer.querySelector('.jsAmount').addEventListener('input', function () {
+            const container = billingContainer.closest('.billing-details-con');
+            billingRequestObj.GrandTotal(container);
+        })
         DropdownList(billingContainer.querySelector('.jsBillsPaymentType'), dashboardGlobalObj.BillPaymentTypeLL, function () { });
     },
     DisabledItem: function (parentEl) {
@@ -392,7 +395,7 @@
 
             dashboardGlobalObj.DisabledItem(parseDoc.querySelector('.jsBillingHeader'));
 
-            const container = parseDoc.querySelector('.billing-details-con');
+            const container = parseDoc.querySelector('.billing-details-wrap');
             dataDetails.forEach((item) => {
                 let itemClone = dashboardGlobalObj.AddDetailItem();
                 itemClone.setAttribute('data-id', item.BillsPaymentRequestDetailID);
@@ -416,6 +419,7 @@
             parseDoc.querySelector('.jsAddItemBtn').classList.add('display-none');
 
             dashboardGlobalObj.AssignEventListernerHeader(parseDoc);
+            billingRequestObj.GrandTotal(parseDoc.querySelector('.billing-details-con'));
         }
     }
 })();
