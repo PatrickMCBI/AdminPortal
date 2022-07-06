@@ -440,6 +440,8 @@
                 billsContainer.querySelector('.jsApproveBy label').textContent = dataHeader.ApprovedByName;
             }
 
+            
+
             const container = billsContainer.querySelector('.billing-details-wrap');
             dataDetails.forEach((item) => {
                 let itemClone = billingRequestObj.AddDetailItem();
@@ -454,14 +456,28 @@
                 billingRequestObj.Count();
             });
 
+
             billsContainer.querySelectorAll('button').forEach((item) => {
                 item.classList.add('display-none');
             });
+
+            billsContainer.querySelector('.jsPrint').classList.remove('display-none');
+            billsContainer.querySelector('.jsPrint').addEventListener('click', function (e) {
+                const container = e.currentTarget.closest('.material-wrapper');
+                const documentRefID = container.querySelector('.jsBillingHeader').getAttribute('documentref-id');
+
+                const printURL = AppGlobal.baseUrl + 'BillsPaymentRequest/PrintBilling/?documentRefID=' + documentRefID;
+                window.open(printURL, '_blank');
+
+            });
+
+
             billingRequestObj.GrandTotal(container.closest('.billing-details-con'));
             billsContainer.querySelector('.js-backBtn').addEventListener('click', async function () {
                 const view = await fetchView(AppGlobal.baseUrl + 'BillsPaymentRequest/IndexRecords');
                 ResponseSuccess(view);
             });
+
         }
     }
 

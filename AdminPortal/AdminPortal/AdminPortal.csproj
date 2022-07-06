@@ -139,6 +139,7 @@
     <Content Include="Content\icon\xmark-solid.svg" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\print_layout.css" />
     <Content Include="Content\travel.css" />
     <Content Include="Content\travel_print.css" />
     <Content Include="Content\travel_record.css" />
@@ -190,6 +191,7 @@
     <Content Include="Views\FundRequest\_IndividualRecord.cshtml" />
     <Content Include="Views\BillsPaymentRequest\_IndividualRecord.cshtml" />
     <Content Include="Views\BillsPaymentRequest\_IndexRecords.cshtml" />
+    <Content Include="Views\BillsPaymentRequest\_PrintBillings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">

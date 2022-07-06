@@ -203,10 +203,14 @@
     }
 
     function AssignEventListenerFilter(fundsContainer) {
+
         DropdownList(fundsContainer.querySelector('.jsProject'), fundrequestGlobalObj.ProjectNameBST, function () {
             
             FilterRecord(fundsContainer);
         });
+
+
+
         fundsContainer.querySelector('.jsDateFrom').addEventListener('change', function () {
             
             FilterRecord(fundsContainer);

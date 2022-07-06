@@ -90,5 +90,15 @@ namespace AdminPortal.Controllers
 
             return Json(data.GetBillsPaymentRequestIndividualRecordData(), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult PrintBilling(int documentRefID)
+        {
+            BillsPaymentRequestParamIndividualRecord paramData = new BillsPaymentRequestParamIndividualRecord
+            {
+                DocumentRefID = documentRefID
+            };
+
+            IBillsPaymentRequestIndividualRecordData data = new BillsPaymentRequestIndividualRecordDataLogic(paramData);
+            return View("~/Views/BillsPaymentRequest/_PrintBillings.cshtml", data.GetBillsPaymentRequestIndividualRecordData());
+        }
     }
 }

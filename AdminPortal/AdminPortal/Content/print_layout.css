@@ -1,0 +1,173 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: sans-serif;
+    -webkit-print-color-adjust: exact;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-rows: 1fr;
+    height: 100vh;
+    z-index: 99;
+    grid-row-gap: 1px;
+    width: 100%;
+}
+
+main {
+    grid-row-start: 1;
+    min-height: calc(100vh - 100px);
+}
+
+.TR-print {
+    padding: 15px;
+}
+
+#printBtnTR {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 17px;
+    font-family: monospace;
+}
+
+.tr-main-header {
+    display: grid;
+    grid-template-columns: minmax(400px,1fr) 120px 140px;
+}
+
+.logo-and-company {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    grid-column-gap: 10px;
+}
+
+    .logo-and-company img {
+        width: 50px;
+        margin-bottom: 10px;
+    }
+
+.travel-request-header2 h2.main-title {
+    margin: 0;
+    padding: 5px;
+    font-size: 20px;
+    color: #222;
+    display: flex;
+    align-self: center;
+}
+
+.TR-print-title {
+    margin: 0;
+    padding: 10px 5px;
+    text-align: center;
+    margin-bottom: 5px;
+    background: #d7d7d7;
+}
+
+.travel-request-header h3.project-header {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+}
+
+.tr-header-form-container {
+    display: grid;
+    grid-template-columns: 65% 35%;
+    font-size: 15px;
+}
+
+.tr-header-form-group {
+    display: grid;
+    grid-template-columns: 80px auto;
+}
+
+.travel-request-container {
+    /*border: 1px solid #333;*/
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-bottom: none;
+}
+
+.travel-request-details h4 {
+    margin: 0;
+    border: 1px solid #333;
+    text-align: center;
+    padding: 5px 15px;
+    background: #d7d7d7;
+    font-size: 15px;
+}
+
+.list-table-header, .list-table-bodyItems {
+    display: grid;
+    grid-template-columns: 60px 2fr 2fr;
+    border-bottom: 1px solid #333;
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+}
+
+    .list-table-header h5, .list-table-bodyItems div {
+        text-align: center;
+        margin: 0;
+        padding: 5px 15px;
+        font-size: 13px;
+        border-right: 1px solid #333;
+    }
+
+.travel-details-overall-total {
+    border: none;
+    margin: 10px 0;
+}
+
+    .travel-details-overall-total div {
+        border: none;
+        font-size: 14px;
+    }
+
+.list-table-header h5:last-child, .list-table-bodyItems div:last-child {
+    border-right: none;
+}
+
+.tr-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 50px;
+    margin-top: 50px;
+    position: absolute;
+    width: 96%;
+    bottom: 15px;
+}
+
+.tr-footer-formGroup label {
+    display: block;
+    font-family: monospace;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.tr-footer-formGroup span {
+    font-size: 16px;
+    border-bottom: 1px solid #555;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+@media print {
+    #printBtn, #printBtnTR {
+        display: none;
+    }
+
+    .jsQRCode {
+        position: fixed;
+        top: 0;
+        right: 15px;
+    }
+}

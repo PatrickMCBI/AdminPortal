@@ -1,0 +1,117 @@
+﻿@model BusinessRef.Model.BillingPaymentRequest.BillsPaymentRequestReturnIndividualRecord
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Billing Request</title>
+    <link href="~/Content/print_layout.css" rel="stylesheet" />
+    <script src="/Scripts/QRCode/qrcode.min.js"></script>
+</head>
+<body>
+    @{
+        var totalAmount = 0f;
+    }
+    <div class="wrapper" style="border: 1px solid #000">
+        <main>
+            <div class="TR-print">
+                <button id="printBtnTR" onclick="window.print()">Print</button>
+                <div class="travel-request-header2">
+                    <div class="tr-main-header">
+                        <div class="logo-and-company">
+                            <img src="/Images/Logo/mcbi-logo.png" class="logo" alt="MCBI Logo">
+                            <h2 class="main-title">Mariñas &amp; Co. Builders Inc.</h2>
+                        </div>
+                        <label class="jsQRCode"></label>
+                    </div>
+                    <h2 class="TR-print-title">BILLING REQUEST</h2>
+                </div>
+                <div class="travel-request-header">
+                    <div class="tr-header-form-container">
+                        <div class="tr-header-form-group">
+                            <label>Project:</label>
+                            <span>@Model.BillHeader.ProjectName</span>
+                        </div>
+                        <div class="tr-header-form-group2">
+                            <label>Request No:</label>
+                            <span>@Model.BillHeader.ReferenceNo</span>
+                        </div>
+                        <div class="tr-header-form-group">
+                            <label>Project No:</label>
+                            <span>@Model.BillHeader.ProjectNumber</span>
+                        </div>
+                        <div class="tr-header-form-group2">
+                            <label>Request Date:</label>
+                            <span>@Model.BillHeader.FormDate.ToString("MM/dd/yyyy")</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="travel-request-container">
+                    <div class="travel-request-details">
+                        <div class="list-of-traveller">
+                            <h4>BILLING DETAILS</h4>
+                            <div class="list-table-header">
+                                <h5>No</h5>
+                                <h5>Billing Type</h5>
+                                <h5>Amount</h5>
+
+                            </div>
+                            <div class="list-table-body">
+                                @{ var count1 = 1;}
+                                @foreach (var item in Model.BillDetail)
+                                {
+                                    totalAmount += item.Amount;
+                                    <div class="list-table-bodyItems">
+                                        <div>@count1</div>
+                                        <div>@item.BillsPaymentType</div>
+                                        <div>@item.Amount.ToString("N")</div>
+
+                                    </div>
+                                    count1++;
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="list-table-bodyItems travel-details-overall-total">
+
+                    <div></div>
+                    <div style="text-align: right">Total >></div>
+                    <div>@totalAmount.ToString("N")</div>
+                </div>
+
+                <div class="tr-footer">
+                    <div class="tr-footer-formGroup">
+                        <label>PREPARED BY:</label>
+                        <span>@Model.BillHeader.PreparedByName</span>
+                    </div>
+                    <div class="tr-footer-formGroup">
+                        <label>APPROVED BY:</label>
+                        <span>@Model.BillHeader.ApprovedByName</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <script>
+         var AppGlobal = {
+            baseUrl: "@Url.Content("~/")",
+        }
+
+        var qrcode = new QRCode(document.querySelector('.jsQRCode'), {
+            text: window.location.href,
+            width: 75,
+            height: 75,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+    </script>
+</body>
+</html>
